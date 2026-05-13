@@ -19,3 +19,7 @@
 
 # Documentos pesados que excedem o limite do GitHub
 *.pdf
+# HashiCorp Vault Secrets
+*Unseal*
+*root_token*
+*.vault-token*
