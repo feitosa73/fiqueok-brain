@@ -1,6 +1,6 @@
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 Projeto: PRJ-002 Identity Governance & Administration (IGA)
 Título: Implementação Parcial OrangeHRM 6.1 + Correção Base midPoint 4.8 LTS
 ID da Mudança: GMUD-021B-PRJ002
@@ -11,9 +11,9 @@ Orquestrador Técnico: Gemini Deep-Dive (CTO/Arch) + Perplexity AI (Support)
 Data de Execução: 05/01/2026
 Status: 🟡 PLANEJADA - PRONTA PARA EXECUÇÃO
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 1. CONTEXTO E JUSTIFICATIVA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 Situação Atual:
 - midPoint 4.8.8: Ambiente corrompido (72 tabelas Generic vs 130+ Native Sqale)
@@ -34,9 +34,9 @@ Lições Aplicadas da GMUD-020:
 ✅ L4: Diagnóstico contextual considerando histórico completo
 ✅ L5: Circuit breaker de 20 minutos por fase sem progresso
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 2. ESCOPO E OBJETIVOS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 2.1 Escopo PARTE A: Restauração midPoint 4.8.8 (Clean Slate)
 
@@ -72,9 +72,9 @@ Interdependência:
   - Equipe técnica já mobilizada
   - Backups consolidados em única operação
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 3. PRÉ-REQUISITOS E VALIDAÇÕES INICIAIS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 3.1 Validações de Ambiente (Obrigatórias)
 
@@ -97,9 +97,9 @@ Interdependência:
 □ Backup volumes Docker OrangeHRM
 □ Novo Checkpoint Hyper-V: IGA-P-01_Checkpoint_GMUD-021B
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 4. PROCEDIMENTO DE EXECUÇÃO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## FASE 1: PREPARAÇÃO E BACKUP (Tempo Estimado: 10 min)
 
@@ -416,9 +416,9 @@ Critério de Aceite FASE 5:
 ✅ Nenhum erro em logs recentes
 ✅ Tempo < 7 minutos
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 5. MATRIZ DE VALIDAÇÃO CONSOLIDADA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 | Teste | Comando de Verificação | Resultado Esperado | Status |
 |-------|------------------------|-------------------|--------|
@@ -433,9 +433,9 @@ Critério de Aceite FASE 5:
 | **OrangeHRM - Data Integrity** | Verificar lista de funcionários | Dados preservados | □ |
 | **Coexistência** | `docker ps --format "{{.Names}}"` | midpoint-server + orangehrm | □ |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 6. ANÁLISE DE RISCO E MITIGAÇÃO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 6.1 Riscos Técnicos
 
@@ -472,9 +472,9 @@ Critério de Aceite FASE 5:
 - Término Previsto: 22:30 BRT (60 minutos)
 - Buffer: +30 minutos para troubleshooting
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 7. ROLLBACK PLAN
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 7.1 Estratégia de Rollback Completo (Recomendada)
 
@@ -555,9 +555,9 @@ NÃO ativar rollback SE:
 - ⚠️ Lentidão temporária de download de imagens
 - ⚠️ Mensagens informativas de migração de dados
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 8. MÉTRICAS E KPIs
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 8.1 Tempo de Execução (RTO)
 
@@ -598,9 +598,9 @@ NÃO ativar rollback SE:
 □ Rollback plan testável disponível (ISO 27001 A.17.1.2)
 □ Evidências geradas e arquivadas (ISO 27001 A.18.1.3)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 9. COMUNICAÇÃO E STAKEHOLDERS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 9.1 Notificação Pré-GMUD (T-24h)
 
@@ -671,9 +671,9 @@ Próxima Ação:
 - Reprogramação da GMUD-021B
 ```
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 10. LIÇÕES APRENDIDAS ESPERADAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 10.1 Aplicação de Lições Anteriores (GMUD-020)
 
@@ -702,9 +702,9 @@ Próxima Ação:
 - Aprendizado esperado: Thresholds de CPU/RAM para ambiente multi-container
 - Aplicação futura: Sizing de VM IGA-P-01 para escalar serviços
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 11. DOCUMENTAÇÃO E EVIDÊNCIAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 11.1 Artefatos Gerados Durante a GMUD
 
@@ -741,9 +741,9 @@ Estrutura esperada:
 6. Recomendações para GMUDs Futuras
 7. Assinaturas e Aprovações
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 12. CRITÉRIOS DE SUCESSO E ACEITE
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 12.1 Critérios Obrigatórios (PASS/FAIL)
 
@@ -790,9 +790,9 @@ A GMUD-021B será considerada **FALHADA** SE:
 ❌ Tempo de execução > 90 minutos
 ❌ Rollback falha (necessidade de escalar para Checkpoint Hyper-V)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 13. PRÓXIMOS PASSOS (PÓS-GMUD-021B)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 13.1 Imediato (Próximas 24h)
 
@@ -822,9 +822,9 @@ A GMUD-021B será considerada **FALHADA** SE:
 □ Políticas de acesso baseadas em papel (RBAC)
 □ Auditoria de acessos (compliance ISO 27001)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 14. APROVAÇÕES E ASSINATURAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 14.1 Elaboração e Revisão
 
@@ -865,9 +865,9 @@ Observações:
 _________________________________________________________________
 _________________________________________________________________
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 15. HISTÓRICO DE REVISÕES
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 | Versão | Data       | Autor                  | Descrição                          |
 |--------|------------|------------------------|-----------------------------------|
@@ -875,9 +875,9 @@ _________________________________________________________________
 |        |            |                        |                                   |
 |        |            |                        |                                   |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 16. REFERÊNCIAS E ANEXOS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 16.1 Documentos Relacionados
 
@@ -907,13 +907,13 @@ Credenciais: [Armazenadas em Bitwarden]
 - Evolveum Community: https://evolveum.com/services/professional-support/
 - OrangeHRM Community: https://forum.orangehrm.com/
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 FIM DA GMUD-021B
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 Status: 🟡 AGUARDANDO APROVAÇÃO
 Próxima Ação: Revisão e assinatura por Paulo Feitosa
 Data Prevista de Execução: 05/01/2026 21:30 BRT
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 

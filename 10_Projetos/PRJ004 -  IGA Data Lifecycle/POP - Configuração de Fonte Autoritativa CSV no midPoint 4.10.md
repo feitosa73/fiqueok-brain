@@ -445,8 +445,8 @@ Audit → List audit logs
 **Solução (via terminal SSH):**
 
 ```bash
-sudo chown 1000:1000 /srv/iga-project/data/midpoint/var/import/employees_prj004.csv
-sudo chmod 644 /srv/iga-project/data/midpoint/var/import/employees_prj004.csv
+sudo chown 1000:1000 /srv/iga-<REDACTED_SECRET>es_prj004.csv
+sudo chmod 644 /srv/iga-<REDACTED_SECRET>es_prj004.csv
 ```
 
 **Validação:**

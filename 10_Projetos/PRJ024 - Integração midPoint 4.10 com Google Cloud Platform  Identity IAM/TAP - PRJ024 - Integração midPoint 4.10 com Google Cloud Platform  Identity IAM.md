@@ -161,7 +161,7 @@ Estabelecer integração entre o **midPoint 4.10** e o **Google Cloud Platform (
 ### 6.1. Authenticator.groovy
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/gcp/Authenticator.groovy
+// /srv/iga-<REDACTED_SECRET>ticator.groovy
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 import java.security.KeyFactory
@@ -271,7 +271,7 @@ class GCPAuthenticator {
 ### 6.2. config.groovy
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/gcp/config.groovy
+// /srv/iga-<REDACTED_SECRET>.groovy
 def GCP_CONFIG = [
     credentialsPath: System.getenv("GCP_CREDENTIALS_PATH") ?: "/opt/midpoint/var/midpoint-gcp-key.json",
     directoryApiUrl: "https://admin.googleapis.com/admin/directory/v1",
@@ -288,7 +288,7 @@ def accessToken = authenticator.getAccessToken()
 ### 6.3. SearchScript.groovy
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/gcp/SearchScript.groovy
+// /srv/iga-<REDACTED_SECRET>Script.groovy
 import groovy.json.JsonSlurper
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -297,7 +297,7 @@ import java.net.URI
 
 // Carregar configurações e autenticação
 def config = new groovy.lang.Binding()
-def gcpAuth = new GroovyShell(config).parse(new File("/opt/midpoint/var/scripts/gcp/Authenticator.groovy"))
+def gcpAuth = new GroovyShell(config).parse(new File("<REDACTED_SECRET>tor.groovy"))
 
 def auth = gcpAuth.getClass().newInstance(System.getenv("GCP_CREDENTIALS_PATH"))
 def token = auth.getAccessToken()
@@ -330,7 +330,7 @@ if (response.statusCode() == 200) {
 ### 6.4. CreateScript.groovy
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/gcp/CreateScript.groovy
+// /srv/iga-<REDACTED_SECRET>Script.groovy
 import groovy.json.JsonOutput
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -404,12 +404,12 @@ if (response.statusCode() == 201) {
         <groovyScripts>
             <searchScript>
                 <source>
-                    <include>/opt/midpoint/var/scripts/gcp/SearchScript.groovy</include>
+                    <include><REDACTED_SECRET>pt.groovy</include>
                 </source>
             </searchScript>
             <createScript>
                 <source>
-                    <include>/opt/midpoint/var/scripts/gcp/CreateScript.groovy</include>
+                    <include><REDACTED_SECRET>pt.groovy</include>
                 </source>
             </createScript>
         </groovyScripts>

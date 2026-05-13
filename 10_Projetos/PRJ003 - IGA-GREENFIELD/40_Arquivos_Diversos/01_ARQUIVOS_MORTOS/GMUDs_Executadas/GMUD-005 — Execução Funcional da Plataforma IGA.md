@@ -1,4 +1,4 @@
-﻿
+
 
 **Projeto:** PRJ003 â€” IGA Greenfield  
 **Tipo:** GMUD â€” MudanÃ§a TÃ©cnica (Plataforma)  

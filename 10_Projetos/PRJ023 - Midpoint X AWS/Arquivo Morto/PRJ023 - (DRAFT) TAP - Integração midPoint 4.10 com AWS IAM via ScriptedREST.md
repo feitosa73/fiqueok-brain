@@ -154,7 +154,7 @@ sudo docker exec iga-midpoint env | grep AWS_
 #### **2.1. AWS Signature V4 Helper (Biblioteca)**
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/AWSSignatureV4.groovy
+// /srv/iga-<REDACTED_SECRET>reV4.groovy
 // Helper para assinatura de requisições AWS
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
@@ -169,7 +169,7 @@ def sign(request, accessKey, secretKey, region, service) {
 #### **2.2. SearchScript.groovy (List Users)**
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/SearchScript.groovy
+// /srv/iga-<REDACTED_SECRET>pt.groovy
 // Busca usuários IAM existentes para reconciliação
 def AWS_ACCESS_KEY = System.getenv("AWS_ACCESS_KEY_ID")
 def AWS_SECRET_KEY = System.getenv("AWS_SECRET_ACCESS_KEY")
@@ -184,7 +184,7 @@ def listUsers() {
 #### **2.3. CreateScript.groovy (Create User)**
 
 ```groovy
-// /srv/iga-project/data/midpoint/scripts/CreateScript.groovy
+// /srv/iga-<REDACTED_SECRET>pt.groovy
 // Cria usuário IAM quando novo registro é detectado
 def createUser(attributes) {
     def userName = attributes.name

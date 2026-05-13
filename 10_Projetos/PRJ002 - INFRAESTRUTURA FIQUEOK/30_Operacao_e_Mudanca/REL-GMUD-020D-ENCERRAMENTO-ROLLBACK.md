@@ -1,7 +1,7 @@
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 RELATÓRIO DE ENCERRAMENTO DE MUDANÇA
 GMUD-020D v2 - MIGRAÇÃO DE REPOSITÓRIO H2 → POSTGRESQL 15
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 ID da Mudança: GMUD-020D-PRJ002-v2
 Título: Migração H2 → PostgreSQL 15 + Hardening de Persistência
 Status Final: 🔴 NÃO EXECUTADA COM SUCESSO (ROLLBACK APLICADO)
@@ -12,9 +12,9 @@ Orquestrador Técnico: Gemini Deep-Dive (CTO/Arch)
 Tempo Total de Execução: ~4 horas (incluindo 3 tentativas + rollback)
 Classificação: GMUD EVOLUTIVA (NÃO CONCLUÍDA)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 1. SUMÁRIO EXECUTIVO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 1.1 Objetivo da Mudança
 
@@ -52,9 +52,9 @@ de inicialização de subsistemas de segurança (Keystore) e persistência (Sche
 - A.17.1.2 (Continuidade de TI): ✅ RTO < 10 minutos (checkpoint)
 - A.16.1.7 (Lições Aprendidas): ✅ L16-L18 documentadas
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 2. CRONOLOGIA DE AÇÕES E FALHAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 2.1 Linha do Tempo Consolidada
 
@@ -283,9 +283,9 @@ docker volume ls -q | wc -l
 | **03** | Wipe + Clean Boot | Bean 'repositoryService' not found | Estado residual / cache | 45 min |
 | **TOTAL** | - | - | - | **120 min** |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 3. ANÁLISE DE CAUSA RAIZ (RCA)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 3.1 Causas Técnicas (5 Whys)
 
@@ -346,9 +346,9 @@ governança** da marca Fiqueok.
 - Atraso no roadmap PRJ-002 (+1 dia)
 - Necessidade de mudança de orquestrador (próxima GMUD: ChatGPT ou Claude)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 4. LIÇÕES APRENDIDAS (L16-L18)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 4.1 Lição L16: Sensibilidade de Transição de Motores
 
@@ -495,9 +495,9 @@ docker exec midpoint-server ls -l /opt/midpoint/var/config.xml
 - **Documentação:** Gemini
 - **Status:** ✅ DOCUMENTADA
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 5. PROCEDIMENTO DE ROLLBACK EXECUTADO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 5.1 Critério de Ativação
 
@@ -597,9 +597,9 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint/
 **Conformidade:**
 - ISO 27001 A.17.1.2 (Continuidade de TI): ✅ RTO < 15 minutos alcançado
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 6. ESTADO FINAL DO AMBIENTE
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 6.1 Componentes Ativos (As-Is Pós-Rollback)
 
@@ -638,9 +638,9 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint/
 - GMUD-021 (Conector OrangeHRM) pode prosseguir COM H2
 - GMUD-020E (nova tentativa de PostgreSQL) requer análise de viabilidade
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 7. MÉTRICAS FINAIS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 7.1 KPIs da GMUD-020D
 
@@ -677,9 +677,9 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint/
 - 6 horas-pessoa investidas sem resultado positivo
 - Aprendizado consolidado (L16-L18) é o único ativo gerado
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 8. RECOMENDAÇÕES E CAMINHOS PARA GMUD-020E
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 8.1 Recomendações Técnicas
 
@@ -762,7 +762,7 @@ docker compose up -d midpoint-server
 Consultar documentação específica de **Native Sqale Migration** para versão 4.8.8 LTS.
 
 **Referências:**
-- https://docs.evolveum.com/midpoint/reference/repository/native-postgresql/migration/
+- https://docs.evolveum.<REDACTED_SECRET>-postgresql/migration/
 - https://lists.evolveum.com/pipermail/midpoint/ (fórum oficial)
 
 **Ações:**
@@ -799,9 +799,9 @@ Consultar documentação específica de **Native Sqale Migration** para versão 
 □ Iniciar planejamento GMUD-021 (Conector OrangeHRM - SEM depender de PostgreSQL)
 □ Avaliar mudança de orquestrador técnico (ChatGPT/Claude para GMUD-020E)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 9. CONFORMIDADE E CONTROLES
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 9.1 Controles ISO 27001 Implementados
 
@@ -819,9 +819,9 @@ Consultar documentação específica de **Native Sqale Migration** para versão 
 | **Validação de Estratégia** | A.14.2.1 | MÉDIO | Testar em sandbox antes de GMUD oficial |
 | **Documentação de Vendor** | A.12.1.1 | BAIXO | Consultar docs oficiais ANTES de planejar |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 10. CONCLUSÃO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 10.1 Resumo do Encerramento
 
@@ -877,9 +877,9 @@ Isso é maturidade operacional.'"
 **Decisão:** ENCERRAR GMUD-020D SEM SUCESSO. PROSSEGUIR PARA GMUD-021 (H2)
 OU GMUD-020E (NOVA ESTRATÉGIA POSTGRESQL COM NOVO ORQUESTRADOR).
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 11. APROVAÇÕES E ASSINATURAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 11.1 Elaboração
 
@@ -928,9 +928,9 @@ Assinatura: _________________________________
 □ EXECUTAR GMUD-020E (Nova estratégia PostgreSQL)
 □ MANTER STATUS QUO (H2 permanente)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 12. REFERÊNCIAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## Documentos Relacionados
 
@@ -942,7 +942,7 @@ Assinatura: _________________________________
 ## Referências Técnicas
 
 - midPoint Native Sqale Migration:
-  https://docs.evolveum.com/midpoint/reference/repository/native-postgresql/migration/
+  https://docs.evolveum.<REDACTED_SECRET>-postgresql/migration/
 
 - Evolveum Community Forum:
   https://lists.evolveum.com/pipermail/midpoint/
@@ -956,9 +956,9 @@ Assinatura: _________________________________
 - /backup/GMUD-020D-v2/logs/tentativa_02_sql_script_not_found.log
 - /backup/GMUD-020D-v2/logs/tentativa_03_bean_not_found.log
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 FIM DO RELATÓRIO DE ENCERRAMENTO - GMUD-020D
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 **Documento gerado em:** 05/01/2026 21:03 BRT
 **Status do Projeto:** 🟢 ESTABILIZADO EM H2 EMBEDDED
@@ -968,5 +968,5 @@ FIM DO RELATÓRIO DE ENCERRAMENTO - GMUD-020D
 **Portfolio:** ✅ Lições L16-L18 disponíveis para LinkedIn/entrevistas
 **Transparência:** ✅ Falha documentada (não escondida) - ISO 27001 A.16.1.7
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 

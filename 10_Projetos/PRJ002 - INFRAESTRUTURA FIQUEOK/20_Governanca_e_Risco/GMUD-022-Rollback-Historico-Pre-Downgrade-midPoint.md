@@ -290,7 +290,7 @@ docker logs midpoint | grep -i "connector.*not found"
 # Ref: https://docs.evolveum.com/connectors/
 
 # Exemplo para Connector CSV/DatabaseTable:
-wget https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-csv/1.4.7.0/connector-csv-1.4.7.0.jar
+wget https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-csv/1.4.7.0/connector-csv-1.4.7.0.jar
 
 # 3. Copiar conectores para diretório de conectores do midPoint
 docker cp connector-csv-1.4.7.0.jar midpoint:/opt/midpoint/var/icf-connectors/
@@ -381,10 +381,10 @@ O rollback da GMUD-022 deve ser executado se:
 ### 9.2. Procedimento de Rollback
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # ROLLBACK DA GMUD-022
 # Ação: Retornar ao snapshot atual estável (pós GMUD-021A)
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. No Hyper-V Manager, restaurar snapshot de segurança
 Snapshot: "PRE-GMUD-022-Estado-Atual-20260107"
@@ -506,11 +506,11 @@ cd /opt/midpoint/bin
 
 | Sistema Alvo | Conector | Versão Recomendada | Download |
 |--------------|----------|-------------------|----------|
-| **CSV/TSV** | connector-csv | 1.4.7.0 | [Nexus](https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-csv/) |
-| **Database Table** | connector-databasetable | 1.5.5.0 | [Nexus](https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-databasetable/) |
+| **CSV/TSV** | connector-csv | 1.4.7.0 | [Nexus](https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-csv/) |
+| **Database Table** | connector-databasetable | 1.5.5.0 | [Nexus](https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-databasetable/) |
 | **LDAP/AD** | connector-ldap | 3.7 | Incluído no midPoint 4.8.x (bundled) |
-| **REST** | connector-rest | 1.5.0.0 | [Nexus](https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-rest/) |
-| **ScriptedSQL** | connector-scriptedsql | 1.5.0.0 | [Nexus](https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-scriptedsql/) |
+| **REST** | connector-rest | 1.5.0.0 | [Nexus](https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-rest/) |
+| **ScriptedSQL** | connector-scriptedsql | 1.5.0.0 | [Nexus](https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-scriptedsql/) |
 
 **Nota:** Conectores LDAP geralmente já vêm incluídos (bundled) nas imagens oficiais do midPoint.
 
@@ -518,7 +518,7 @@ cd /opt/midpoint/bin
 
 ```bash
 # 1. Download do conector
-wget https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-csv/1.4.7.0/connector-csv-1.4.7.0.jar
+wget https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-csv/1.4.7.0/connector-csv-1.4.7.0.jar
 
 # 2. Copiar para diretório de conectores do midPoint
 docker cp connector-csv-1.4.7.0.jar midpoint:/opt/midpoint/var/icf-connectors/

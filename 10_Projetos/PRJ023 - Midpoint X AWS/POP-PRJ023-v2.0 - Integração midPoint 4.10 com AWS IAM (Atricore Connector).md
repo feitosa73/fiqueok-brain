@@ -319,8 +319,8 @@ Clique em **Next**
 
 | Campo | Valor | Observação |
 |-------|-------|------------|
-| **awsAccessKeyId** | `AKIAVZCTR5O4PVUJR54U` | Digitar diretamente |
-| **awsSecretAccessKey** | `P/cBXHoe+CqPyohtvzI3jg3xVnMqdR9K6veFMmkL` | Selecionar "Use clear value" |
+| **awsAccessKeyId** | `<REDACTED_SECRET>` | Digitar diretamente |
+| **awsSecretAccessKey** | `<REDACTED_SECRET>` | Selecionar "Use clear value" |
 | **awsRegion** | `us-east-1` | Digitar |
 | **Allow Cache** | `False` (desmarcado) | Manter desativado |
 
@@ -343,9 +343,9 @@ Clique em **Next** até finalizar
     <connectorRef oid="327a818b-96a2-44b1-a2d2-096f27a3cb94"/>
     <connectorConfiguration>
         <icfc:configurationProperties>
-            <cfg:awsAccessKeyId>AKIAVZCTR5O4PVUJR54U</cfg:awsAccessKeyId>
+            <cfg:awsAccessKeyId><REDACTED_SECRET></cfg:awsAccessKeyId>
             <cfg:awsSecretAccessKey>
-                <t:clearValue>P/cBXHoe+CqPyohtvzI3jg3xVnMqdR9K6veFMmkL</t:clearValue>
+                <t:clearValue><REDACTED_SECRET></t:clearValue>
             </cfg:awsSecretAccessKey>
             <cfg:awsRegion>us-east-1</cfg:awsRegion>
             <cfg:allowCache>false</cfg:allowCache>
@@ -638,7 +638,7 @@ sudo docker logs iga-midpoint --tail 200 | grep -E "AWS IAM|provision|create"
 
 # Verificar Resource pelo OID
 curl -u administrator:M1dP0!ntAdm!n#2026 \
-  http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/resources/a6af855d-46b7-4c71-abe5-96c72b48863c
+  http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>-46b7-4c71-abe5-96c72b48863c
 
 # Verificar Role pelo OID
 curl -u administrator:M1dP0!ntAdm!n#2026 \

@@ -331,11 +331,11 @@ Rollback executado prioritariamente via **snapshot da VM** criado antes da sanit
 Os comandos abaixo representam o **rollback lógico** que seria executado caso o snapshot não estivesse disponível. São mantidos como **referência técnica** para situações futuras.
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # GMUD-021A - ROLLBACK LÓGICO (REFERÊNCIA)
 # Executor: Paulo Feitosa / ChatGPT (Systems Architect)
 # Nota: Rollback real foi via snapshot da VM
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Parar todos os containers relacionados ao midPoint
 docker-compose stop midpoint

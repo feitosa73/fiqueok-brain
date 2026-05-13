@@ -48,14 +48,14 @@ DNS request timed out.
 PS C:\Windows\system32> nslookup google.com 8.8.8.8^C
 PS C:\Windows\system32> # No AD
 PS C:\Windows\system32> route print -4
-===========================================================================
+<REDACTED_SECRET>===================================
 Interface List
   6...00 15 5d 44 69 02 ......Microsoft Hyper-V Network Adapter
   1...........................Software Loopback Interface 1
-===========================================================================
+<REDACTED_SECRET>===================================
 
 IPv4 Route Table
-===========================================================================
+<REDACTED_SECRET>===================================
 Active Routes:
 Network Destination        Netmask          Gateway       Interface  Metric
           0.0.0.0          0.0.0.0     172.24.192.1    172.24.192.10     16
@@ -69,11 +69,11 @@ Network Destination        Netmask          Gateway       Interface  Metric
         224.0.0.0        240.0.0.0         On-link     172.24.192.10    271
   255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
   255.255.255.255  255.255.255.255         On-link     172.24.192.10    271
-===========================================================================
+<REDACTED_SECRET>===================================
 Persistent Routes:
   Network Address          Netmask  Gateway Address  Metric
           0.0.0.0          0.0.0.0     172.24.192.1       1
-===========================================================================
+<REDACTED_SECRET>===================================
 PS C:\Windows\system32>
 PS C:\Windows\system32> # No AD
 PS C:\Windows\system32> Get-NetFirewallRule -Direction Outbound -Action Block | Select-Object DisplayName, Enabled
@@ -460,14 +460,14 @@ Ethernet adapter Ethernet:
 PS C:\Windows\system32>
 PS C:\Windows\system32> # Verificar tabela de rotas (deve mostrar apenas a rota local da sub-rede, sem 0.0.0.0)
 PS C:\Windows\system32> route print -4
-===========================================================================
+<REDACTED_SECRET>===================================
 Interface List
   6...00 15 5d 44 69 02 ......Microsoft Hyper-V Network Adapter
   1...........................Software Loopback Interface 1
-===========================================================================
+<REDACTED_SECRET>===================================
 
 IPv4 Route Table
-===========================================================================
+<REDACTED_SECRET>===================================
 Active Routes:
 Network Destination        Netmask          Gateway       Interface  Metric
         127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
@@ -480,7 +480,7 @@ Network Destination        Netmask          Gateway       Interface  Metric
         224.0.0.0        240.0.0.0         On-link     172.24.192.10    271
   255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
   255.255.255.255  255.255.255.255         On-link     172.24.192.10    271
-===========================================================================
+<REDACTED_SECRET>===================================
 Persistent Routes:
   None
 PS C:\Windows\system32>

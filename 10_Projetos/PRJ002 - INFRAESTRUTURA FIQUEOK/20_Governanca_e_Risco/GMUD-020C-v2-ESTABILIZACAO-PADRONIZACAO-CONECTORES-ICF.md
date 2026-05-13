@@ -1,6 +1,6 @@
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 GMUD-020C - ESTABILIZAÇÃO E PADRONIZAÇÃO DO STACK IAM (v2)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 Projeto: PRJ-002 Identity Governance & Administration (IGA)
 Título: Estabilização e Padronização do Stack IAM + Injeção de Conectores ICF
 ID da Mudança: GMUD-020C-PRJ002
@@ -13,9 +13,9 @@ Data de Execução: 05/01/2026
 Status: 🟡 PLANEJADA - PRONTA PARA EXECUÇÃO
 Versão: 2.0 (Incorpora descoberta crítica de conectores ICF)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 1. CONTEXTO E JUSTIFICATIVA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 1.1 Histórico de GMUDs Anteriores (Consolidado)
 
@@ -125,9 +125,9 @@ Construir autoridade técnica ao demonstrar que troubleshooting eficaz requer
 ✅ **L12 (Verificação de Requisitos de Aplicação)**: NOVA LIÇÃO (ver Seção 10.2)
 ✅ **L13 (Design de Arquitetura vs. Troca de Versões)**: NOVA LIÇÃO (ver Seção 10.2)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 2. ESCOPO E OBJETIVOS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 2.1 Escopo da Mudança
 
@@ -185,9 +185,9 @@ Construir autoridade técnica ao demonstrar que troubleshooting eficaz requer
 - Aplicação prática de RCA em múltiplas camadas
 - Portfolio técnico: "A Anatomia de um Troubleshooting de IGA"
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 3. NOVO DOCKER-COMPOSE.YML (VERSÃO ESTÁVEL 4.8.8 + ICF CONNECTORS)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 Este arquivo foi ajustado para:
 1. Utilizar PostgreSQL 15 Alpine (conformidade Evolveum)
@@ -264,9 +264,9 @@ volumes:
 | **Validações** | 10 testes | 12 testes (+2) | Validar conectores carregados |
 | **Tempo Estimado** | 21 min | 28 min (+7) | Download de .jar + validação GUI |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 4. PRÉ-REQUISITOS E VALIDAÇÕES INICIAIS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 4.1 Checklist de Auditoria (Obrigatório)
 
@@ -343,9 +343,9 @@ volumes:
 | **🆕 Conectores ICF** | Ausentes | .jar baixados | wget + volume mapping |
 | **Volumes** | Corrompidos/antigos | Novos (clean) | Deep Clean |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 5. PROCEDIMENTO DE EXECUÇÃO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## FASE 0: PREPARAÇÃO DE CONECTORES ICF (NOVA) - Tempo: 7 min
 
@@ -371,7 +371,7 @@ ls -ld /opt/stack-iga/icf-connectors
 
 **Comando:**
 ```bash
-wget https://nexus.evolveum.com/nexus/content/groups/public/com/evolveum/polygon/connector-sql/1.6.0.0/connector-sql-1.6.0.0.jar -P /opt/stack-iga/icf-connectors/
+wget https://nexus.evolveum.<REDACTED_SECRET>veum/polygon/connector-sql/1.6.0.0/connector-sql-1.6.0.0.jar -P /opt/stack-iga/icf-connectors/
 ```
 
 **Validação:**
@@ -390,7 +390,7 @@ wget https://github.com/Evolveum/connector-sql/releases/download/v1.6.0.0/connec
 
 **Comando:**
 ```bash
-wget https://nexus.evolveum.com/nexus/content/groups/public/com/evolveum/polygon/connector-db-table/1.6.0.0/connector-db-table-1.6.0.0.jar -P /opt/stack-iga/icf-connectors/
+wget https://nexus.evolveum.<REDACTED_SECRET>veum/polygon/connector-db-table/1.6.0.0/connector-db-table-1.6.0.0.jar -P /opt/stack-iga/icf-connectors/
 ```
 
 **Validação:**
@@ -763,9 +763,9 @@ Configuração (⚙️) → Recursos → Novo Recurso
 ✅ **🆕 Conectores selecionáveis ao criar recurso**
 ✅ Tempo < 7 minutos
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 6. MATRIZ DE VALIDAÇÃO CONSOLIDADA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 | # | Teste | Comando/Ação | Resultado Esperado | Status |
 |---|-------|--------------|-------------------|--------|
@@ -784,9 +784,9 @@ Configuração (⚙️) → Recursos → Novo Recurso
 
 **Taxa de Sucesso Requerida**: 12/12 testes (100%)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 7. ROLLBACK PLAN
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 7.1 Critérios de Ativação de Rollback
 
@@ -824,9 +824,9 @@ cp docker-compose.yml.bak_020c_v1_* docker-compose.yml
 # Não subir novamente (aguardar GMUD-020D)
 ```
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 8. ANÁLISE DE RISCO E MITIGAÇÃO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 8.1 Riscos Técnicos
 
@@ -846,9 +846,9 @@ cp docker-compose.yml.bak_020c_v1_* docker-compose.yml
 | **🆕 A.14.2.5 - Engenharia de Sistemas** | Design arquitetural completo | Conectores ICF incluídos |
 | **A.16.1.7 - Lições Aprendidas** | L12, L13 (novas) | Seção 10.2 |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 9. MÉTRICAS E KPIs
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 9.1 Tempo de Execução (RTO)
 
@@ -872,9 +872,9 @@ cp docker-compose.yml.bak_020c_v1_* docker-compose.yml
 | **Duração** | 35 min | 22 min | 21 min | **32 min (+11)** |
 | **Validações** | 5 | 10 | 10 | **12 (+2)** |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 10. LIÇÕES APRENDIDAS (CONSOLIDAÇÃO FINAL)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 10.1 Aplicação de Lições L1-L11
 
@@ -976,9 +976,9 @@ entender o PORQUÊ, não apenas o COMO."
 **Prazo:** Documentar em post LinkedIn até 10/01/2026
 **Referência:** Portfolio: "A Anatomia de um Troubleshooting de IGA"
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 11. COMUNICAÇÃO E STAKEHOLDERS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 11.1 Notificação Pré-GMUD (T-2h)
 
@@ -1038,9 +1038,9 @@ Próximos Passos:
 - Post LinkedIn: "A Anatomia de um Troubleshooting de IGA"
 ```
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 12. PRÓXIMOS PASSOS (PÓS-GMUD-020C v2)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 12.1 Imediato (Próximas 24h)
 
@@ -1072,9 +1072,9 @@ Próximos Passos:
 □ Publicar artigo técnico (Medium/LinkedIn)
 □ Adicionar ao portfolio: "Análise Arquitetural Bicamadas"
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 13. APROVAÇÕES E ASSINATURAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 13.1 Elaboração e Revisão
 
@@ -1118,9 +1118,9 @@ Horário de Término: ___:___ BRT
 **Observações:**
 _________________________________________________________________
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 14. REFERÊNCIAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## Documentos Relacionados
 
@@ -1135,7 +1135,7 @@ _________________________________________________________________
   https://docs.evolveum.com/midpoint/4.8/install/system-requirements/
 
 - ICF Connectors Repository:
-  https://nexus.evolveum.com/nexus/content/groups/public/com/evolveum/polygon/
+  https://nexus.evolveum.<REDACTED_SECRET>veum/polygon/
 
 - Connector SQL Documentation:
   https://docs.evolveum.com/connectors/connectors/com.evolveum.polygon.connector.sql.ScriptedSQLConnector/
@@ -1148,9 +1148,9 @@ _________________________________________________________________
 - Evolveum Community: https://lists.evolveum.com/
 - GitHub Polygon Connectors: https://github.com/Evolveum/connector-sql
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 FIM DA GMUD-020C v2
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 **Status**: 🟡 AGUARDANDO APROVAÇÃO
 **Versão**: 2.0 (Incorpora conectores ICF)
@@ -1168,5 +1168,5 @@ Esta GMUD implementa correção bicamadas.
 de aplicação que nenhuma troca de versão resolveria. Demonstra senioridade:
 entender o PORQUÊ, não apenas o COMO."
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 

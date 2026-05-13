@@ -256,7 +256,7 @@ _Prazo total estimado: 3 dias úteis a partir da aprovação deste TAP. Execuç�
 
 Ao encerrar o PRJ022, as seguintes ações de monitoramento contínuo são registradas no backlog do programa PRJ003:
 
-- Monitorar o repositório https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-rest/ para versões >= 3.x com suporte declarado a Java 21.
+- Monitorar o repositório https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-rest/ para versões >= 3.x com suporte declarado a Java 21.
 - Acompanhar o fórum da comunidade Evolveum (https://community.evolveum.com/) para respostas ao issue sobre GPathResult / Java 21.
 - Caso seja publicado um JAR standalone compatível, avaliar a substituição do pipeline CSV como projeto de melhoria autônomo.
 

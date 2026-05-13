@@ -47,10 +47,10 @@ A execução será realizada via automação PowerShell para garantir padroniza�
 PowerShell
 
 ```
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # ARTEFATO TÉCNICO: GMUD-004
 # AÇÃO: Criação de Estrutura de OUs (Fiqueok Standard)
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 Import-Module ActiveDirectory
 

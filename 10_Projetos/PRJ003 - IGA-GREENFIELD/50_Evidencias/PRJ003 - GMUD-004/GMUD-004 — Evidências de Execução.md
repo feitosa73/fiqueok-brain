@@ -90,7 +90,7 @@ Mode                 LastWriteTime         Length Name
 
 PS C:\WINDOWS\system32> ssh paulo@<LAB_VM_IP>
 The authenticity of host '<LAB_VM_IP> (<LAB_VM_IP>)' can't be established.
-ED25519 key fingerprint is SHA256:77jABALWRFfi17/Sm/UCJ1Z+1C6UN7S5p30VpvAHVNI.
+ED25519 key fingerprint is SHA256:<REDACTED_SECRET>VNI.
 This key is not known by any other names.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '<LAB_VM_IP>' (ED25519) to the list of known hosts.

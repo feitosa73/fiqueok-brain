@@ -150,12 +150,12 @@ networks:
 ### 2. Script de Orquestração (deploy-prj003-v11.ps1)
 
 \`\`\`powershell
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # GMUD-011 | Deploy Automatizado midPoint 4.9 + PostgreSQL 16
 # Projeto: PRJ003 - IGA Greenfield Reference Architecture
 # Executor: Paulo Feitosa
 # Data: 21 de janeiro de 2026
-# ============================================================================
+# <REDACTED_SECRET>====================================
 
 $ErrorActionPreference = "Stop"
 
@@ -172,9 +172,9 @@ $SQL_URLS = @(
     "https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native-new/postgres-quartz.sql"
 )
 
-Write-Host "==================================================================" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>==========================" -ForegroundColor Cyan
 Write-Host " PRJ003 | GMUD-011 | DEPLOY midPoint 4.9 (Manual Control)" -ForegroundColor Cyan
-Write-Host "==================================================================" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>==========================" -ForegroundColor Cyan
 Write-Host ""
 
 # --- PASSO A: LIMPEZA NUCLEAR ---
@@ -273,9 +273,9 @@ if ($http_test -eq "200") {
 
 # --- CONCLUSÃO ---
 Write-Host ""
-Write-Host "==================================================================" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>==========================" -ForegroundColor Cyan
 Write-Host " ✅ GMUD-011 EXECUTADA COM SUCESSO" -ForegroundColor Green
-Write-Host "==================================================================" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>==========================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "🔗 Acesso: http://xxx.xxx.xxx.xxx:8080/midpoint" -ForegroundColor White
 Write-Host "👤 Usuário: administrator" -ForegroundColor White

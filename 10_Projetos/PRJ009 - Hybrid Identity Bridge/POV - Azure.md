@@ -186,7 +186,7 @@ Resource provider 'Microsoft.ManagedIdentity' used by this operation is not regi
 Registration succeeded.
 {
   "clientId": "05195e48-c70c-413f-af09-47f2f7e58b9d",
-  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/fiqueok-prj009-api-identity",
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/Microsoft.<REDACTED_SECRET>iqueok-prj009-api-identity",
   "isolationScope": "None",
   "location": "brazilsouth",
   "name": "fiqueok-prj009-api-identity",
@@ -203,7 +203,7 @@ Registration succeeded.
 PS C:\WINDOWS\system32> az identity show --name "fiqueok-prj009-api-identity" --resource-group "fiqueok-prj009-poc-rg"
 {
   "clientId": "05195e48-c70c-413f-af09-47f2f7e58b9d",
-  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/fiqueok-prj009-api-identity",
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/Microsoft.<REDACTED_SECRET>iqueok-prj009-api-identity",
   "isolationScope": "None",
   "location": "brazilsouth",
   "name": "fiqueok-prj009-api-identity",

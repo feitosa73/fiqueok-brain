@@ -2196,7 +2196,7 @@
             </mappingsStatistics>
             <notificationsStatistics/>
             <lastMessageTimestamp>2026-05-04T14:50:59.964Z</lastMessageTimestamp>
-            <lastMessage>Successfully finished ConnIdOperation{identifier='1777906255167-58699-1', operation=ICF_SEARCH, resourceRef=ObjectReferenceType[value=PRV(oid=2fe1b874-8a5f-41d2-8ea9-9f4224c5f327, targetType={.../common/common-3}ResourceType, targetName=Fiqueok HR (Shadow API CSV), relation={.../common/org-3}default)], objectClassDef=ResourceObjectClassDefinitionImpl{native=Native object class 'AccountObjectClass'{4 item definitions}, attributeDefinitions: 4, associationDefinitions: 0, primaryIdentifiersNames: 1, secondaryIdentifiersNames: 0}, uid='null', startTimestamp=1777906255167, endTimestamp=1777906259964, result=null, message='null'} of AccountObjectClass on Fiqueok HR (Shadow API CSV)in 4797 ms</lastMessage>
+            <lastMessage>Successfully finished ConnIdOperation{identifier='1777906255167-58699-1', operation=ICF_SEARCH, resourceRef=ObjectReferenceType[value=PRV(oid=2fe1b874-8a5f-41d2-8ea9-9f4224c5f327, targetType={.../common/common-3}ResourceType, targetName=Fiqueok HR (Shadow API CSV), relation={.../common/org-3}default)], <REDACTED_SECRET>tionImpl{native=Native object class 'AccountObjectClass'{4 item definitions}, attributeDefinitions: 4, associationDefinitions: 0, primaryIdentifiersNames: 1, secondaryIdentifiersNames: 0}, uid='null', startTimestamp=1777906255167, endTimestamp=1777906259964, result=null, message='null'} of AccountObjectClass on Fiqueok HR (Shadow API CSV)in 4797 ms</lastMessage>
         </environmentalPerformanceInformation>
         <repositoryPerformanceInformation>
             <operation>
@@ -3706,7 +3706,7 @@
                 <maxOwnTime>330</maxOwnTime>
             </operation>
             <operation>
-                <name>com.evolveum.midpoint.provisioning.impl.shadows.AssociationsHelper.convertReferenceAttributesToAssociations</name>
+                <name>com.evolveum.midpoint.provisioning.impl.shadows.AssociationsHelper.<REDACTED_SECRET></name>
                 <invocationCount>306</invocationCount>
                 <totalTime>1614</totalTime>
                 <minTime>3</minTime>
@@ -3766,7 +3766,7 @@ Profiles: []</cachingConfiguration>
             <runStartTimestamp>2026-05-04T14:50:55.038Z</runStartTimestamp>
             <runEndTimestamp>2026-05-04T14:51:00.069Z</runEndTimestamp>
             <workState xsi:type="c:ReconciliationWorkStateType">
-                <resourceObjectsReconciliationStartTimestamp>2026-05-04T14:50:55.145Z</resourceObjectsReconciliationStartTimestamp>
+                <<REDACTED_SECRET>amp>2026-05-04T14:50:55.145Z<<REDACTED_SECRET>tamp>
             </workState>
             <persistence>singleRealization</persistence>
             <activity id="42">

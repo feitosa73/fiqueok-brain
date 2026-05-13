@@ -57,9 +57,9 @@ Validado em 01/04/2026: VMs provisionadas a partir do `Win2022-GF-GEN2.vhdx` fal
 ### 4.1. Clonar Golden Disk Windows Server 2022
 
 ```powershell
-# ============================================
+# <REDACTED_SECRET>====
 # CLONAR WINDOWS SERVER 2022 GOLDEN DISK
-# ============================================
+# <REDACTED_SECRET>====
 $NewVMName = "Nova-VM-Windows"           # Nome da nova VM
 
 # ATENÇÃO: Para DCs, usar GEN1 ou PURE-V3-GREENFIELD. NÃO usar GEN2.
@@ -103,9 +103,9 @@ Write-Host "   Acesse via console: vmconnect.exe localhost $NewVMName" -Foregrou
 ### 4.2. Clonar Golden Disk Ubuntu 24.04 LTS
 
 ```powershell
-# ============================================
+# <REDACTED_SECRET>====
 # CLONAR UBUNTU 24.04 LTS GOLDEN DISK
-# ============================================
+# <REDACTED_SECRET>====
 $NewVMName = "Nova-VM-Ubuntu"
 $GoldenDiskPath = "C:\Hyper-V\GoldenDisks\Ubuntu2404-GF\Ubuntu2404-GF-GEN2-Greenfield.vhdx"
 $VMPath = "C:\Hyper-V\VMs\$NewVMName"

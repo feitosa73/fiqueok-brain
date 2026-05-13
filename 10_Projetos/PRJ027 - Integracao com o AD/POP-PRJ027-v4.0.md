@@ -313,7 +313,7 @@ vault kv put secret/entra-id/auth \
 ```powershell
 # [PowerShell]
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest -Uri "https://nexus.evolveum.com/nexus/repository/public/com/evolveum/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar" \
+Invoke-WebRequest -Uri "https://nexus.evolveum.<REDACTED_SECRET>/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar" \
   -OutFile "C:\temp\midpoint-connectors\connector-msgraph-1.0.2.0.jar"
 
 scp C:\temp\midpoint-connectors\connector-msgraph-1.0.2.0.jar paulo@xxx.xxx.xxx.xxx:/tmp/

@@ -424,7 +424,7 @@ text
 
 **Versão**: 1.0  
 **Classificação**: Internal Use - Technical Decision  
-**Localização**: `10Projetos/PRJ002/40Arquitetura/ADRs/ADR-004-Connector-OrangeHRM.md`
+**Localização**: `<REDACTED_SECRET>-004-Connector-OrangeHRM.md`
 
 **Palavras-chave**: `ScriptedSQL, DatabaseTable, OrangeHRM, Connector, Groovy, GMUD-018, Post-Mortem`
 
@@ -483,7 +483,7 @@ text
 23. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_e242f38b-1891-4ef8-8ec4-5aa38b7ad657/72db5e28-03d5-466b-923e-ffe02ffa3a8b/REL-GMUD-011-PRJ002-Encerramento-e-Validacao-de-Rede-de-Integracao-Segura.md](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_e242f38b-1891-4ef8-8ec4-5aa38b7ad657/72db5e28-03d5-466b-923e-ffe02ffa3a8b/REL-GMUD-011-PRJ002-Encerramento-e-Validacao-de-Rede-de-Integracao-Segura.md)
 24. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_e242f38b-1891-4ef8-8ec4-5aa38b7ad657/3ce6397f-cc34-4c91-8db9-a056d454348a/REL-GMUD-009-PROJ002-Implantacao-do-OrangeHRM-Community-Edition.md](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_e242f38b-1891-4ef8-8ec4-5aa38b7ad657/3ce6397f-cc34-4c91-8db9-a056d454348a/REL-GMUD-009-PROJ002-Implantacao-do-OrangeHRM-Community-Edition.md)
 25. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_e242f38b-1891-4ef8-8ec4-5aa38b7ad657/eb3c7b87-912e-4397-a7bb-d56b08f8872b/REL-GMUD-008-PROJ002-Implantacao-da-Stack-Mindpoint-4.10.md](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_e242f38b-1891-4ef8-8ec4-5aa38b7ad657/eb3c7b87-912e-4397-a7bb-d56b08f8872b/REL-GMUD-008-PROJ002-Implantacao-da-Stack-Mindpoint-4.10.md)
-26. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/69453806/edc8dd07-6b3d-48c6-b663-d2042db45898/image.jpg](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/69453806/edc8dd07-6b3d-48c6-b663-d2042db45898/image.jpg)
+26. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-<REDACTED_SECRET>07-6b3d-48c6-b663-d2042db45898/image.jpg](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-<REDACTED_SECRET>07-6b3d-48c6-b663-d2042db45898/image.jpg)
 27. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/8015d411-627d-4011-9e4b-1fc8db58dca3/paste.txt](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/8015d411-627d-4011-9e4b-1fc8db58dca3/paste.txt)
 28. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/bc46b88d-b03a-47d4-8ad9-e29d9bc46790/paste.txt](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/bc46b88d-b03a-47d4-8ad9-e29d9bc46790/paste.txt)
 29. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/a38279b0-6c83-4009-a1a0-693f4cfdd853/REL-GMUD-016-PRJ002-Integracao-AD-Linking.md](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/a38279b0-6c83-4009-a1a0-693f4cfdd853/REL-GMUD-016-PRJ002-Integracao-AD-Linking.md)

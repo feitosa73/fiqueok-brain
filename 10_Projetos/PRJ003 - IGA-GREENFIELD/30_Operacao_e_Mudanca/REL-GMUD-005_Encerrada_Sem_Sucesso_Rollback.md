@@ -1,12 +1,12 @@
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # REL-GMUD-005 — RELATÓRIO DE EXECUÇÃO DA MUDANÇA
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Projeto: PRJ003 - IGA Greenfield Reference Architecture
 # GMUD: GMUD-005 v1.3 - Deploy Inicial midPoint + PostgreSQL
 # Data de Execução: 17/01/2026
 # Responsável: Paulo Feitosa
 # Status: ENCERRADA SEM SUCESSO - ROLLBACK APLICADO
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 ## 1. IDENTIFICAÇÃO DA GMUD
 

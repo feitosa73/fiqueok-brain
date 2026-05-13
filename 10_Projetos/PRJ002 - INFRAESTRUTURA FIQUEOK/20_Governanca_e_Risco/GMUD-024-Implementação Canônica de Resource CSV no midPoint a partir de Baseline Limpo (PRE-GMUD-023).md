@@ -629,9 +629,9 @@ Se Users devem ser preservados:
 - **POP-LAB-001-v1.7**: Procedimento de Cold Start Diário
 - **Manifesto de Governança de Dados HR Source**: Padrões de correlação e qualidade de dados
 - **midPoint Documentation**: 
-  - [Schema Handling](https://docs.evolveum.com/midpoint/reference/resources/resource-configuration/schema-handling/)
-  - [Synchronization](https://docs.evolveum.com/midpoint/reference/synchronization/introduction/)
-  - [Correlation and Confirmation Expressions](https://docs.evolveum.com/midpoint/reference/synchronization/correlation-and-confirmation-expressions/)
+  - [Schema Handling](https://docs.evolveum.<REDACTED_SECRET>e-configuration/schema-handling/)
+  - [Synchronization](https://docs.evolveum.<REDACTED_SECRET>ntroduction/)
+  - [Correlation and Confirmation Expressions](https://docs.evolveum.<REDACTED_SECRET>orrelation-and-confirmation-expressions/)
 - **ISO 27001:2022**: A.9.2.1 (User registration and de-registration)
 - **NIST CSF 2.0**: PR.AC-1 (Identities and credentials management)
 

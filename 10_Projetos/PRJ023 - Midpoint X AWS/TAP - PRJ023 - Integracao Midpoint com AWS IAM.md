@@ -101,8 +101,8 @@ environment:
 **Configuração do Resource:**
 ```json
 {
-  "awsAccessKeyId": "AKIAVZCTR5O4PVUJR54U",
-  "awsSecretAccessKey": "P/cBXHoe+CqPyohtvzI3jg3xVnMqdR9K6veFMmkL",
+  "awsAccessKeyId": "<REDACTED_SECRET>",
+  "awsSecretAccessKey": "<REDACTED_SECRET>",
   "awsRegion": "us-east-1",
   "allowCache": false
 }

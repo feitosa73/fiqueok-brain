@@ -192,9 +192,9 @@ O Living Lab Fiqueok possui os seguintes sistemas de identidade:
 ### 4.1. Geração de E-mail e UPN
 
 ```groovy
-// ============================================================
+// <REDACTED_SECRET>====================
 // REGRA DE DERIVAÇÃO DE E-MAIL E UPN
-// ============================================================
+// <REDACTED_SECRET>====================
 // Input: givenName, familyName (do RH)
 // Output: emailAddress, userPrincipalName
 
@@ -240,9 +240,9 @@ return [
 ### 4.2. Tratamento de Mudança de Nome (Mover)
 
 ```groovy
-// ============================================================
+// <REDACTED_SECRET>====================
 // REGRA PARA MUDANÇA DE NOME (MOVER)
-// ============================================================
+// <REDACTED_SECRET>====================
 // Quando givenName ou familyName mudam, preservar e-mail antigo como alias
 
 def oldEmail = focusOld.getEmailAddress()

@@ -207,9 +207,9 @@ import os
 import subprocess
 from datetime import datetime
 
-# ============================================================
+# <REDACTED_SECRET>====================
 # CONFIGURAÇÕES
-# ============================================================
+# <REDACTED_SECRET>====================
 SHADOW_API_URL = "http://127.0.0.1:8000/employees"
 
 # API Key obtida do Vault via variável de ambiente (NÃO hardcoded)
@@ -223,9 +223,9 @@ MIDPOINT_HOST = "xxx.xxx.xxx.xxx"
 MIDPOINT_USER = "paulo"
 MIDPOINT_PATH = "/srv/iga-project/data/midpoint/hr_export.csv"
 
-# ============================================================
+# <REDACTED_SECRET>====================
 # FUNÇÃO: Exportar dados da Shadow API para CSV
-# ============================================================
+# <REDACTED_SECRET>====================
 def export():
     """Consulta a Shadow API, gera CSV e retorna o nome do arquivo"""
     
@@ -259,9 +259,9 @@ def export():
     print(f"✅ Exportado {len(employees)} funcionários para {filename}")
     return filename
 
-# ============================================================
+# <REDACTED_SECRET>====================
 # FUNÇÃO: Sincronizar CSV com o midPoint via SCP
-# ============================================================
+# <REDACTED_SECRET>====================
 def sync_to_midpoint(filename):
     """Envia o arquivo CSV gerado para o servidor do midPoint"""
     
@@ -287,9 +287,9 @@ def sync_to_midpoint(filename):
     except subprocess.CalledProcessError as e:
         print(f"❌ Falha na sincronização via SCP: {e}")
 
-# ============================================================
+# <REDACTED_SECRET>====================
 # EXECUÇÃO PRINCIPAL
-# ============================================================
+# <REDACTED_SECRET>====================
 if __name__ == "__main__":
     try:
         generated_file = export()

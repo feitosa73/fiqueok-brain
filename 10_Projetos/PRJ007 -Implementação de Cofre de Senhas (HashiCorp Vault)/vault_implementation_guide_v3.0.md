@@ -202,7 +202,7 @@ getcap /usr/bin/vault
 
 **Saídas esperadas**:
 ```
-Vault v1.21.2 (781ba452d731fe2d59ccbc1b37ca7c5a18edb998), built 2026-01-06T08:33:05Z
+Vault v1.21.2 (<REDACTED_SECRET>), built 2026-01-06T08:33:05Z
 /usr/bin/vault
 /usr/bin/vault cap_ipc_lock=ep
 ```
@@ -323,14 +323,14 @@ sudo apparmor_parser -r /etc/apparmor.d/usr.bin.vault
 
 ```bash
 sudo tee /etc/vault.d/vault.hcl > /dev/null <<'EOF'
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # HashiCorp Vault Configuration - PRJ007 Living Lab Fiqueok 2.0
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Ambiente: Hyper-V Gen1 VM (Ubuntu 24.04 LTS)
 # Versão Vault: 1.21.2
 # Data: 10 de Fevereiro de 2026
 # Conformidade: CIS Benchmark, NIST SP 800-123, ISO 27001
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 # ------------------------------------------------------------------------------
 # STORAGE BACKEND: Raft (Integrated Storage)
@@ -439,9 +439,9 @@ disable_printable_check = false
 # ------------------------------------------------------------------------------
 # plugin_directory = "/opt/vault/plugins"
 
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # FIM DA CONFIGURAÇÃO
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 EOF
 ```
 
@@ -912,11 +912,11 @@ vault kv get secret/fiqueok/project
 ```bash
 sudo -u vault tee /opt/vault/scripts/vault_snapshot.sh > /dev/null <<'EOF'
 #!/bin/bash
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Script de Backup Automático - HashiCorp Vault PRJ007
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Executa snapshot do Raft storage com retenção de 7 dias
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 set -euo pipefail
 
@@ -998,9 +998,9 @@ sudo tail /opt/vault/logs/backup.log
 ```bash
 sudo -u vault tee /opt/vault/scripts/vault_healthcheck.sh > /dev/null <<'EOF'
 #!/bin/bash
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Health Check - HashiCorp Vault PRJ007
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 set -euo pipefail
 

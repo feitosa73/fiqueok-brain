@@ -6,7 +6,7 @@ PowerShell 7.5.5
 
 PS C:\Windows\System32> ssh paulo@xxx.xxx.xxx.xxx
 The authenticity of host 'xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)' can't be established.
-ED25519 key fingerprint is SHA256:MU20LDLRxqc//DMVExUqWrjrNUJo5xFdgah3FP3DsbE.
+ED25519 key fingerprint is SHA256:<REDACTED_SECRET>sbE.
 This host key is known by the following other names/addresses:
     C:\Users\win/.ssh/known_hosts:23: xxx.xxx.xxx.xxx
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
@@ -48,7 +48,7 @@ paulo@api-gf-01:~$ # Cria o diretório seguro
 sudo mkdir -p /var/lib/shadow-api
 
 # Grava o token no arquivo (Cole o token gerado anteriormente)
-echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null
+echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null
 
 # Restringe o acesso: apenas o root poderá ler este arquivo
 sudo chmod 600 /var/lib/shadow-api/vault_token
@@ -56,7 +56,7 @@ sudo chmod 600 /var/lib/shadow-api/vault_token
 Sorry, try again.
 [sudo] password for paulo:
 paulo@api-gf-01:~$ sudo cat /var/lib/shadow-api/vault_token
-hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE
 paulo@api-gf-01:~$
 paulo@api-gf-01:~$ # Cria a árvore de diretórios do projeto
 mkdir -p ~/prj008-shadow-api/{app,tests,config,scripts}
@@ -294,7 +294,7 @@ PS C:\Windows\System32>
 PS C:\Windows\System32>
 PS C:\Windows\System32> ssh paulo@192.168.99.64
 The authenticity of host '192.168.99.64 (192.168.99.64)' can't be established.
-ED25519 key fingerprint is SHA256:MU20LDLRxqc//DMVExUqWrjrNUJo5xFdgah3FP3DsbE.
+ED25519 key fingerprint is SHA256:<REDACTED_SECRET>sbE.
 This host key is known by the following other names/addresses:
     C:\Users\win/.ssh/known_hosts:23: xxx.xxx.xxx.xxx
     C:\Users\win/.ssh/known_hosts:32: xxx.xxx.xxx.xxx
@@ -353,7 +353,7 @@ logout
 Connection to 192.168.99.64 closed.
 PS C:\Windows\System32> ssh paulo@xxx.xxx.xxx.xxx
 The authenticity of host 'xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)' can't be established.
-ED25519 key fingerprint is SHA256:MU20LDLRxqc//DMVExUqWrjrNUJo5xFdgah3FP3DsbE.
+ED25519 key fingerprint is SHA256:<REDACTED_SECRET>sbE.
 This host key is known by the following other names/addresses:
     C:\Users\win/.ssh/known_hosts:23: xxx.xxx.xxx.xxx
     C:\Users\win/.ssh/known_hosts:32: xxx.xxx.xxx.xxx
@@ -1836,7 +1836,7 @@ curl --header "X-Vault-Token: $VAULT_TOKEN" \
 [sudo] password for paulo:
 Sorry, try again.
 [sudo] password for paulo:
-hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE
 {"errors":["2 errors occurred:\n\t* permission denied\n\t* invalid token\n\n"]}
 paulo@api-gf-01:~$
 paulo@api-gf-01:~$

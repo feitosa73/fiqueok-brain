@@ -1161,7 +1161,7 @@ O controle **A.13.1.3 (Segregação de redes)** recomenda que sistemas críticos
 ---
 
 **Documento mantido por:** Claude (Chief Documentation Officer – GRC Lead)  
-**Repositório:** `Obsidian Vault – FiqueokBrain/10Projetos/PRJ007/20Governanca/ADR-005.md`  
+**Repositório:** `Obsidian Vault – <REDACTED_SECRET>nca/ADR-005.md`  
 **Classificação:** 🔒 **Interno** (Lab Fiqueok – Não Confidencial)  
 **Versionamento:** Git (GitHub private repo `fiqueok-docs`)
 
@@ -1202,7 +1202,7 @@ _Ver seção 6.3 deste ADR_
 
 text
 
-`ADR-005-v2.0-Final-09-02-2026-1748-BRT SHA256: e8f4a2c9d1b7f3e6a5c8d2b4f1e9a3c7d6b8f2e5a1c4d7b9f3e8a2c5d1b6f4e7`
+`ADR-005-v2.0-Final-09-02-2026-1748-BRT SHA256: <REDACTED_SECRET>a1c4d7b9f3e8a2c5d1b6f4e7`
 
 **Status:** ✅ **APROVADO PARA IMPLEMENTAÇÃO IMEDIATA**
 

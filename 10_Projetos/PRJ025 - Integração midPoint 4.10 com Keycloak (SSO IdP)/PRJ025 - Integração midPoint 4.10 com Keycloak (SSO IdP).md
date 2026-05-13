@@ -195,7 +195,7 @@ curl -s -X GET "http://localhost:8081/admin/realms/fiqueok/clients/${CLIENT_OID}
 
 groovy
 
-// /srv/iga-project/data/midpoint/scripts/keycloak/SearchScript.groovy
+// /srv/iga-<REDACTED_SECRET>earchScript.groovy
 import groovy.json.JsonSlurper
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -241,7 +241,7 @@ def getAccessToken() {
 
 groovy
 
-// /srv/iga-project/data/midpoint/scripts/keycloak/CreateScript.groovy
+// /srv/iga-<REDACTED_SECRET>reateScript.groovy
 import groovy.json.JsonOutput
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -288,7 +288,7 @@ if (response.statusCode() == 201) {
 
 groovy
 
-// /srv/iga-project/data/midpoint/scripts/keycloak/GroupScript.groovy
+// /srv/iga-<REDACTED_SECRET>roupScript.groovy
 import groovy.json.JsonOutput
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -355,12 +355,12 @@ xml
         <groovyScripts>
             <searchScript>
                 <source>
-                    <include>/opt/midpoint/var/scripts/keycloak/SearchScript.groovy</include>
+                    <include><REDACTED_SECRET>hScript.groovy</include>
                 </source>
             </searchScript>
             <createScript>
                 <source>
-                    <include>/opt/midpoint/var/scripts/keycloak/CreateScript.groovy</include>
+                    <include><REDACTED_SECRET>eScript.groovy</include>
                 </source>
             </createScript>
         </groovyScripts>

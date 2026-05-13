@@ -206,13 +206,13 @@ text
 
 `DEPENDÊNCIAS: ├── GMUD-015A (Segmentação VLANs - Falha Silenciosa) ├── INC-FQK-2025-015B (Bloqueador - Recuperação midPoint) └── ADR-002 (RACI Perplexity GRC Lead) PRÓXIMOS: ├── INC-FQK-2025-015B v2.0 (Recuperação EXECUTAR) ├── GMUD-015B v2 (Schema OSA minimalista) └── GMUD-015C (Vault PKI VLAN 20)`
 
-**Documento arquivado**: `FiqueokBrain/10Projetos/PRJ001/20Governanca/REL-GMUDs/REL-GMUD-015-FIX-NET.md`
+**Documento arquivado**: `<REDACTED_SECRET>nca/REL-GMUDs/REL-GMUD-015-FIX-NET.md`
 
 **Classificação**: INTERNAL USE - Lab Operations GRC/IAM Learning
 
 1. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_c8737c37-d76d-417c-a629-c2b908421b68/cda39a11-0747-4005-a082-f16eebf5336e/Manifesto-de-Estrategia-e-Infraestrutura-Fiqueok-v2.0.pdf](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_c8737c37-d76d-417c-a629-c2b908421b68/cda39a11-0747-4005-a082-f16eebf5336e/Manifesto-de-Estrategia-e-Infraestrutura-Fiqueok-v2.0.pdf)
-2. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/69453806/8b752095-bea6-4afc-9f66-47865821338b/image.jpg](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/69453806/8b752095-bea6-4afc-9f66-47865821338b/image.jpg)
+2. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-<REDACTED_SECRET>95-bea6-4afc-9f66-47865821338b/image.jpg](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-<REDACTED_SECRET>95-bea6-4afc-9f66-47865821338b/image.jpg)
 3. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/f7f143fa-1114-485f-b573-f26c5c253213/INC-FQK-2025-015B-Report.docx](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/f7f143fa-1114-485f-b573-f26c5c253213/INC-FQK-2025-015B-Report.docx)
 4. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/1c29766f-2123-4381-891f-9f843cdddd0b/ADR-001-Redistribuicao-de-Papeis-e-Responsabilidades-das-IAs.md](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/1c29766f-2123-4381-891f-9f843cdddd0b/ADR-001-Redistribuicao-de-Papeis-e-Responsabilidades-das-IAs.md)
-5. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/69453806/e06ca9a6-2775-40f2-901f-150bc8d62ad3/image.jpg](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/images/69453806/e06ca9a6-2775-40f2-901f-150bc8d62ad3/image.jpg)
+5. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-<REDACTED_SECRET>a6-2775-40f2-901f-150bc8d62ad3/image.jpg](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-<REDACTED_SECRET>a6-2775-40f2-901f-150bc8d62ad3/image.jpg)
 6. [https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/7936776c-8d58-4aa7-ab09-af98f352e657/INC-FQK-2025-015B-Report.docx](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/69453806/7936776c-8d58-4aa7-ab09-af98f352e657/INC-FQK-2025-015B-Report.docx)

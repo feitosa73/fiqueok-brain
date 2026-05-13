@@ -152,10 +152,10 @@ paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$ # Gera o token de serviço (VLT-04)
 vault token create -policy=api-proxy-policy -period=24h -format=json | jq -r .auth.client_token
-hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
-paulo@vault-gf-01:~$ sudo mkdir -p /var/lib/shadow-api echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null sudo chmod 600 /var/lib/shadow-api/vault_token
+paulo@vault-gf-01:~$ sudo mkdir -p /var/lib/shadow-api echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null sudo chmod 600 /var/lib/shadow-api/vault_token
 [sudo] password for paulo:
 tee: /var/lib/shadow-api/vault_token: No such file or directory
 tee: /var/lib/shadow-api/vault_token: No such file or directory
@@ -374,10 +374,10 @@ paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$ # Gera o token de serviço (VLT-04)
 vault token create -policy=api-proxy-policy -period=24h -format=json | jq -r .auth.client_token
-hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
-paulo@vault-gf-01:~$ sudo mkdir -p /var/lib/shadow-api echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null sudo chmod 600 /var/lib/shadow-api/vault_token
+paulo@vault-gf-01:~$ sudo mkdir -p /var/lib/shadow-api echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null sudo chmod 600 /var/lib/shadow-api/vault_token
 [sudo] password for paulo:
 tee: /var/lib/shadow-api/vault_token: No such file or directory
 tee: /var/lib/shadow-api/vault_token: No such file or directory
@@ -642,10 +642,10 @@ paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$ # Gera o token de serviço (VLT-04)
 vault token create -policy=api-proxy-policy -period=24h -format=json | jq -r .auth.client_token
-hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
-paulo@vault-gf-01:~$ sudo mkdir -p /var/lib/shadow-api echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null sudo chmod 600 /var/lib/shadow-api/vault_token
+paulo@vault-gf-01:~$ sudo mkdir -p /var/lib/shadow-api echo "hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE" | sudo tee /var/lib/shadow-api/vault_token > /dev/null sudo chmod 600 /var/lib/shadow-api/vault_token
 [sudo] password for paulo:
 tee: /var/lib/shadow-api/vault_token: No such file or directory
 tee: /var/lib/shadow-api/vault_token: No such file or directory
@@ -768,7 +768,7 @@ version            1
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$
 paulo@vault-gf-01:~$ ls
- 600                    hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+ 600                    hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_<REDACTED_SECRET>JlZ0xsMlRSNEZrZm1WZVE
  api-proxy-policy.hcl   role-prj009.json
  chmod                  sudo
  colaborador-ssh.hcl   ':USERPROFILE\.ssh\id_rsa_vault'

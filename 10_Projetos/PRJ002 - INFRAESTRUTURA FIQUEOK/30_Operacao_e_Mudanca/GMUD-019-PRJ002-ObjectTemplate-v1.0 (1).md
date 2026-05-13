@@ -628,7 +628,7 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint
 **Data:** 04/01/2026 14:57 BRT  
 **Tipo:** GMUD Normal  
 **Classificação:** Internal Use  
-**Localização:** `10Projetos/PRJ002/20Governanca/GMUDs/GMUD-019-PRJ002-ObjectTemplate-v1.0.md`
+**Localização:** `<REDACTED_SECRET>D-019-PRJ002-ObjectTemplate-v1.0.md`
 
 **Alinhamento:**
 - ISO 27001:2022: A.12.1.2, A.14.2.2, A.16.1.7

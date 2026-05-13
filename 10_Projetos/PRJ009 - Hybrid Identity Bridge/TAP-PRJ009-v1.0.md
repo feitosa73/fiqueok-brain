@@ -1,6 +1,6 @@
 
 # TAP-PRJ009-v1.0: Hybrid Identity Bridge
-# ========================================
+# <REDACTED_SECRET>
 
 ## TERMO DE ABERTURA DO PROJETO
 **Versão:** 1.0  

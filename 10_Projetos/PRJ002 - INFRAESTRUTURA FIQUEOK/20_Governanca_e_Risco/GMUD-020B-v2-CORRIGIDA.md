@@ -1,6 +1,6 @@
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 GMUD-020B - RESTAURAÇÃO MIDPOINT 4.8.8 LTS (CLEAN SLATE)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 Projeto: PRJ-002 Identity Governance & Administration (IGA)
 Título: Restauração da Fundação de Dados e Estabilização midPoint 4.8 LTS
 ID da Mudança: GMUD-020B-PRJ002
@@ -11,9 +11,9 @@ Orquestrador Técnico: Gemini Deep-Dive (CTO/Arch)
 Data de Execução: 05/01/2026
 Status: 🟡 PLANEJADA - PRONTA PARA EXECUÇÃO
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 1. CONTEXTO E JUSTIFICATIVA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 1.1 Situação Atual
 
@@ -55,9 +55,9 @@ eliminando qualquer intervenção manual no banco de dados.
 ✅ L4: Diagnóstico contextual considerando histórico completo
 ✅ L5: Circuit breaker de 20 minutos por fase sem progresso
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 2. ESCOPO E OBJETIVOS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 2.1 Escopo da Mudança
 
@@ -94,9 +94,9 @@ OUT OF SCOPE:
   erros de "arquivo não encontrado"
 - **Rastreabilidade**: Base limpa para futuras integrações (OrangeHRM, AD)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 3. PRÉ-REQUISITOS E VALIDAÇÕES INICIAIS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 3.1 Validações de Ambiente (Obrigatórias)
 
@@ -165,9 +165,9 @@ Imagens Locais:
 - evolveum/midpoint:4.8.8-alpine (testada - falha de schema)
 - postgres:16-alpine ✅
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 4. PROCEDIMENTO DE EXECUÇÃO (FASE 3 - RESTAURAÇÃO)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 Esta fase substitui integralmente a Fase 3 falha da GMUD-020 e utiliza a
 estratégia de "Clean Slate".
@@ -499,9 +499,9 @@ docker inspect midpoint-server | grep -A 10 "Health"
 ✅ Dashboard visível sem erros
 ✅ Tempo < 5 minutos
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 5. MATRIZ DE VALIDAÇÃO CONSOLIDADA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 Executar TODOS os testes abaixo após a conclusão do Passo 5:
 
@@ -525,9 +525,9 @@ Executar TODOS os testes abaixo após a conclusão do Passo 5:
 - Verificar conectividade DB: `docker exec midpoint-db psql -U midpoint -d midpoint -c "\dt" | head -20`
 - Se não houver resolução em 10 minutos: Ativar Rollback (Seção 6)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 6. ROLLBACK PLAN
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 6.1 Critérios de Ativação de Rollback
 
@@ -660,9 +660,9 @@ docker compose up -d
 - Dados preservados
 - Possibilidade de replanejar estratégia de downgrade
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 7. ANÁLISE DE RISCO E AUDITORIA (ISO 27001)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 7.1 Riscos Técnicos
 
@@ -705,9 +705,9 @@ docker compose up -d
 - Aprovações registradas na Seção 12
 - Relatório pós-GMUD obrigatório (modelo em Seção 11.3)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 8. MÉTRICAS E KPIs
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 8.1 Tempo de Execução (RTO)
 
@@ -754,9 +754,9 @@ docker compose up -d
 □ Relatório pós-GMUD elaborado (Seção 11.3)
 □ Comunicação aos stakeholders (Seção 9)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 9. COMUNICAÇÃO E STAKEHOLDERS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 9.1 Notificação Pré-GMUD (T-2h)
 
@@ -831,9 +831,9 @@ Próxima Ação:
 - Reprogramação da GMUD-020B ou criação de GMUD-020C
 ```
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 10. LIÇÕES APRENDIDAS (Aplicadas e Esperadas)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 10.1 Lições Aplicadas da GMUD-020
 
@@ -862,9 +862,9 @@ Próxima Ação:
 - Aprendizado esperado: Thresholds esperados por versão (4.8 = 130+ tabelas)
 - Aplicação futura: Script automatizado de health check
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 11. DOCUMENTAÇÃO E EVIDÊNCIAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 11.1 Artefatos Gerados Durante a GMUD
 
@@ -928,9 +928,9 @@ Documento a ser criado: `REL-GMUD-020B.md`
    - Executor técnico
    - Aprovador de mudanças
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 12. APROVAÇÕES E ASSINATURAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 12.1 Elaboração e Revisão
 
@@ -983,9 +983,9 @@ _________________________________________________________________
 _________________________________________________________________
 _________________________________________________________________
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 13. PRÓXIMOS PASSOS (PÓS-GMUD-020B)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 13.1 Imediato (Próximas 24h)
 
@@ -1016,9 +1016,9 @@ _________________________________________________________________
 □ Integração com PKI (certificados digitais via midPoint)
 □ Monitoramento com Prometheus/Grafana
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 14. REFERÊNCIAS E ANEXOS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 14.1 Documentos Relacionados
 
@@ -1029,7 +1029,7 @@ _________________________________________________________________
 ## 14.2 Referências Técnicas
 
 - Evolveum midPoint 4.8 Documentation: https://docs.evolveum.com/midpoint/4.8/
-- Native Repository (Sqale): https://docs.evolveum.com/midpoint/reference/repository/native-postgresql/
+- Native Repository (Sqale): https://docs.evolveum.<REDACTED_SECRET>-postgresql/
 - Docker Compose Best Practices: https://docs.docker.com/compose/production/
 - ISO/IEC 27001:2013 - Controles A.12 (Segurança nas Operações)
 
@@ -1056,9 +1056,9 @@ Credenciais: [Armazenadas em Bitwarden]
 - Evolveum Community: https://evolveum.com/services/professional-support/
 - Fórum midPoint: https://lists.evolveum.com/
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 FIM DA GMUD-020B - RESTAURAÇÃO MIDPOINT 4.8.8 LTS (CLEAN SLATE)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 **Status**: 🟡 AGUARDANDO APROVAÇÃO
 **Próxima Ação**: Revisão e assinatura por Paulo Feitosa
@@ -1066,5 +1066,5 @@ FIM DA GMUD-020B - RESTAURAÇÃO MIDPOINT 4.8.8 LTS (CLEAN SLATE)
 **Tempo Estimado Total**: 22 minutos
 **Janela de Execução**: A definir pelo executor
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 

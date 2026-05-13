@@ -204,7 +204,7 @@ vault write ssh-client-signer/roles/[ROLE_NAME] @/tmp/role-[PROJETO].json
 > **Por que `key_id_format` importa para auditoria:**  
 > O campo `key_id_format` define o valor que aparece em `/var/log/auth.log` na VM.  
 > Com o formato acima, o log mostrará algo como:  
-> `ID vault-root-bc68faa30cd7c5288d9fb9db4b27eb44e2f3cfd0a28d1d0eeda1810788d37ad2`  
+> `ID vault-root-<REDACTED_SECRET>a28d1d0eeda1810788d37ad2`  
 > Isso permite correlacionar diretamente o login SSH com a entrada no audit log do Vault.
 
 ### 6.3 Validar a Role
@@ -322,8 +322,8 @@ ssh-keygen -L -f ~/.ssh/id_ed25519_[PROJETO]-cert.pub
 > **Evidência do Lab (TERMINAL-009) — certificado inspecionado:**
 > ```
 > Type: ssh-rsa-cert-v01@openssh.com user certificate
-> Signing CA: RSA SHA256:P/O1h08DKuekCrR0/YPtSas3KvPER/7dEbQsfWc8W60
-> Key ID: "vault-root-8ef4d616864c876878d24d721c5167a32267cfb66c56ee3446ba88a763f433b9"
+> Signing CA: RSA SHA256:<REDACTED_SECRET>W60
+> Key ID: "vault-root-<REDACTED_SECRET>6c56ee3446ba88a763f433b9"
 > Valid: from 2026-02-28T01:40:43 to 2026-02-28T02:11:13
 > Principals: fiqueok
 > Extensions: permit-port-forwarding, permit-pty
@@ -429,10 +429,10 @@ sudo tail -n 20 /var/log/auth.log
 > ```
 > Feb 28 01:54:03 fiqueok-prj009-gtw-canada sshd[14916]: Accepted publickey for fiqueok
 >   from xxx.xxx.xxx.xxx port 55514 ssh2: RSA-CERT
->   SHA256:vGj6owzXxSiNn7nbSyfrROLzz9CijR0O7aGBB4jTetI
->   ID vault-root-bc68faa30cd7c5288d9fb9db4b27eb44e2f3cfd0a28d1d0eeda1810788d37ad2
+>   SHA256:<REDACTED_SECRET>etI
+>   ID vault-root-<REDACTED_SECRET>a28d1d0eeda1810788d37ad2
 >   (serial 5656530220978839826)
->   CA RSA SHA256:P/O1h08DKuekCrR0/YPtSas3KvPER/7dEbQsfWc8W60
+>   CA RSA SHA256:<REDACTED_SECRET>W60
 > ```
 >
 > **O que este log prova:**

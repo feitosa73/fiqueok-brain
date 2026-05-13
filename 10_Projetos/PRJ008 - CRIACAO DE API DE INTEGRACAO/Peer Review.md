@@ -3910,7 +3910,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/LimitParam"
         - $ref: "#/components/parameters/OffsetParam"
-        - $ref: "#/components/parameters/IfNoneMatchHeader"
+        - $ref: "#<REDACTED_SECRET>"
 
         - name: status
           in: query
@@ -3971,7 +3971,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EmployeeListResponse"
+                $ref: "#<REDACTED_SECRET>"
               example:
                 data:
                   - emp_number: 42
@@ -4074,7 +4074,7 @@ paths:
           description: "Identificador imutável do empregado (âncora IGA)."
           example: 42
 
-        - $ref: "#/components/parameters/IfNoneMatchHeader"
+        - $ref: "#<REDACTED_SECRET>"
 
       responses:
 

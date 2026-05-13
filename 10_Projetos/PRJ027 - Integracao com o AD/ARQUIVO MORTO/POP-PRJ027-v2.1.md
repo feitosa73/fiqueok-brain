@@ -353,7 +353,7 @@ vault kv put secret/entra-id/auth \
 ```powershell
 # [PowerShell no Windows]
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest -Uri "https://nexus.evolveum.com/nexus/repository/public/com/evolveum/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar" `
+Invoke-WebRequest -Uri "https://nexus.evolveum.<REDACTED_SECRET>/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar" `
   -OutFile "C:\temp\midpoint-connectors\connector-msgraph-1.0.2.0.jar"
 ```
 
@@ -723,7 +723,7 @@ Adicione os seguintes mapeamentos (outbound, strength=strong):
 
 ```bash
 curl -X POST -u administrator:'M1dP0!ntAdm!n#2026' \
-  "http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/users/FP001/recompute"
+  "http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>ute"
 ```
 
 **Critério de Sucesso F9:** ✅ Role atribuída

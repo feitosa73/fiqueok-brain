@@ -470,7 +470,7 @@ DOWNSTREAM:
 **Data Criação:** 03/01/2026  
 **Tipo:** GMUD Retrospectiva  
 **Classificação:** Internal Use - Lab Operations  
-**Localização Obsidian:** `10Projetos/PRJ002/20Governanca/GMUDs/GMUD-016-PRJ002-Integracao-AD-Linking-User-0001.md`
+**Localização Obsidian:** `<REDACTED_SECRET>D-016-PRJ002-Integracao-AD-Linking-User-0001.md`
 
 ---
 

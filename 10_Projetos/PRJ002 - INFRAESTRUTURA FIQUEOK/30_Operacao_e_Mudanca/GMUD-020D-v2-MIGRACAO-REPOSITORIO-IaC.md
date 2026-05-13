@@ -1,6 +1,6 @@
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 GMUD-020D v2 - MIGRAÇÃO DE REPOSITÓRIO E HARDENING DE PERSISTÊNCIA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 Projeto: PRJ-002 Identity Governance & Administration (IGA)
 Título: Migração H2 → PostgreSQL 15 + Hardening de Persistência (REVISADA)
 ID da Mudança: GMUD-020D-PRJ002-v2
@@ -13,9 +13,9 @@ Status: 🟡 PLANEJADA - REVISADA APÓS DESCOBERTA TÉCNICA
 Versão: 2.0 (Corrige dependência oculta de Keystore + prioriza IaC)
 Pré-requisito: GMUD-020C v2 (SUCESSO PARCIAL - Sistema UP com H2)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 CHANGELOG - VERSÃO 2.0
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## Mudanças em Relação à v1 (05/01/2026 15:34 BRT)
 
@@ -78,9 +78,9 @@ reduzindo risco de omissão de dependências ocultas."
 **Responsável:** Gemini (correção) + Paulo (validação)
 **Status:** ✅ DOCUMENTADA E APLICADA NESTA VERSÃO
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 1. CONTEXTO E JUSTIFICATIVA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 1.1 Estado Atual (As-Is) - Idêntico à v1
 
@@ -130,9 +130,9 @@ de **Variáveis de Ambiente IaC** (MP_SET_*), garantindo:
 | **L14** | Imutabilidade de Configuração | **Substituída por L15 (IaC > Manual)** |
 | **L15** | Automação IaC > Edição Manual | **Variáveis MP_SET_* forçam PostgreSQL** |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 2. ESCOPO E OBJETIVOS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 2.1 Escopo da Mudança (REVISADO)
 
@@ -173,9 +173,9 @@ de **Variáveis de Ambiente IaC** (MP_SET_*), garantindo:
 - ✅ Demonstração de autocorreção técnica (v1 → v2)
 - ✅ Portfolio: "Identificação de lacuna de planejamento em GMUD"
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 3. ESTRATÉGIA REVISADA: IaC VIA VARIÁVEIS DE AMBIENTE
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 3.1 Fundamento Técnico (SUBSTITUIÇÃO da Seção 3.1 v1)
 
@@ -243,9 +243,9 @@ services:
     container_name: midpoint-server
     restart: always
     environment:
-      # ========================================
+      # <REDACTED_SECRET>
       # CONFIGURAÇÃO DE REPOSITÓRIO (PostgreSQL)
-      # ========================================
+      # <REDACTED_SECRET>
       - MP_SET_midpoint_repository_repositoryServiceFactoryClass=com.evolveum.midpoint.repo.sqale.SqaleRepositoryFactory
       - MP_SET_midpoint_repository_jdbcUrl=jdbc:postgresql://midpoint-db:5432/midpoint
       - MP_SET_midpoint_repository_jdbcUsername=midpoint
@@ -253,15 +253,15 @@ services:
       - MP_SET_midpoint_repository_database=postgresql
       - MP_SET_midpoint_repository_missingSchemaAction=create
 
-      # ========================================
+      # <REDACTED_SECRET>
       # CONFIGURAÇÃO DE KEYSTORE (CRÍTICO)
-      # ========================================
+      # <REDACTED_SECRET>
       # Nota: NÃO declarar explicitamente - permite autoconfiguração
       # midPoint gerará keystore.jceks automaticamente em /opt/midpoint/var/
 
-      # ========================================
+      # <REDACTED_SECRET>
       # AJUSTES DE MEMÓRIA
-      # ========================================
+      # <REDACTED_SECRET>
       - JAVA_OPTS=-Xms2g -Xmx4g
     ports:
       - "8080:8080"
@@ -302,9 +302,9 @@ volumes:
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <midpoint>
-        <!-- ========================================
+        <!-- <REDACTED_SECRET>
              PROTECTOR (KEYSTORE) - CRÍTICO
-             ======================================== -->
+             <REDACTED_SECRET> -->
         <protector>
             <keyStorePath>/opt/midpoint/var/keystore.jceks</keyStorePath>
             <keyStorePassword>5ecr3t</keyStorePassword>
@@ -313,9 +313,9 @@ volumes:
             </cryptographyServiceFactoryClass>
         </protector>
 
-        <!-- ========================================
+        <!-- <REDACTED_SECRET>
              REPOSITÓRIO (POSTGRESQL)
-             ======================================== -->
+             <REDACTED_SECRET> -->
         <repository>
             <repositoryServiceFactoryClass>
                 com.evolveum.midpoint.repo.sqale.SqaleRepositoryFactory
@@ -330,9 +330,9 @@ volumes:
             <jdbcConnectionTimeout>30000</jdbcConnectionTimeout>
         </repository>
 
-        <!-- ========================================
+        <!-- <REDACTED_SECRET>
              AUDITORIA (LOGGER)
-             ======================================== -->
+             <REDACTED_SECRET> -->
         <audit>
             <auditService>
                 <auditServiceFactoryClass>
@@ -371,9 +371,9 @@ services:
 **Se erro de sintaxe:**
 ❌ NÃO PROSSEGUIR - Corrigir YAML antes de deploy
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 4. PRÉ-REQUISITOS E VALIDAÇÕES INICIAIS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 4.1 Checklist de Auditoria (ATUALIZADO)
 
@@ -405,9 +405,9 @@ services:
 
 **Recomendação:** OPÇÃO B (Descartar H2)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 5. PROCEDIMENTO DE EXECUÇÃO (REVISADO)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## FASE 0: PREPARAÇÃO E BACKUP - Tempo: 10 min (Idêntico à v1)
 
@@ -465,9 +465,9 @@ nano docker-compose.yml
 
 ```yaml
     environment:
-      # ========================================
+      # <REDACTED_SECRET>
       # CONFIGURAÇÃO DE REPOSITÓRIO (PostgreSQL)
-      # ========================================
+      # <REDACTED_SECRET>
       - MP_SET_midpoint_repository_repositoryServiceFactoryClass=com.evolveum.midpoint.repo.sqale.SqaleRepositoryFactory
       - MP_SET_midpoint_repository_jdbcUrl=jdbc:postgresql://midpoint-db:5432/midpoint
       - MP_SET_midpoint_repository_jdbcUsername=midpoint
@@ -626,9 +626,9 @@ docker exec midpoint-server cat /opt/midpoint/var/config.xml | grep -A 3 "<prote
 - Seção <repository> presente com PostgreSQL
 - Arquivo completo e funcional
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 6. MATRIZ DE VALIDAÇÃO CONSOLIDADA (ATUALIZADA)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 | # | Teste | Comando/Ação | Resultado Esperado | Status |
 |---|-------|--------------|-------------------|--------|
@@ -652,15 +652,15 @@ docker exec midpoint-server cat /opt/midpoint/var/config.xml | grep -A 3 "<prote
 - Teste 3: Keystore gerada automaticamente (não omitida)
 - Teste 12: config.xml completo (protector + repository + audit)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 7. ROLLBACK PLAN (Mantido da v1)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 [Conteúdo idêntico à v1 - Seções 7.1 a 7.4]
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 8. ANÁLISE DE RISCO E MITIGAÇÃO (ATUALIZADA)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 8.1 Riscos Técnicos
 
@@ -681,9 +681,9 @@ docker exec midpoint-server cat /opt/midpoint/var/config.xml | grep -A 3 "<prote
 | **A.16.1.7** | Lições Aprendidas | Lição L15 (IaC > Manual) |
 | **🆕 A.14.2.8** | Testes de Segurança de Sistema | Validação de Keystore obrigatória |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 9. MÉTRICAS E KPIs (ATUALIZADA)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 9.1 Tempo de Execução (RTO)
 
@@ -709,9 +709,9 @@ docker exec midpoint-server cat /opt/midpoint/var/config.xml | grep -A 3 "<prote
 | **Tempo de Execução** | 62 min | **57 min (-8%)** |
 | **Maturidade Técnica** | Manual (propenso a erro humano/IA) | **IaC (Infrastructure as Code)** |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 10. ANÁLISE DA FALHA DE PLANEJAMENTO (IA) - TRANSPARÊNCIA TÉCNICA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 10.1 Root Cause da Falha na v1
 
@@ -805,9 +805,9 @@ o erro através de análise de dependências, revisei o plano (v1 → v2), e apl
 uma solução mais resiliente (IaC vs. config manual). Isso demonstra senioridade:
 detectar problemas ANTES da execução, não depois."
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 11. RECOMENDAÇÕES E PRÓXIMOS PASSOS (MANTIDO)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 [Conteúdo idêntico à v1 - Seções 11.1 a 11.3]
 
@@ -818,9 +818,9 @@ detectar problemas ANTES da execução, não depois."
 □ Criar checklist de validação de dependências para GMUDs futuras
 □ Compartilhar aprendizado com comunidade midPoint (forum Evolveum)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 12. APROVAÇÕES E ASSINATURAS (ATUALIZADO)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 12.1 Elaboração
 
@@ -868,9 +868,9 @@ Data de Aprovação: ___/___/______
 □ MÉDIA (Executar quando conveniente)
 □ BAIXA (Tech Debt aceitável)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 13. REFERÊNCIAS (ATUALIZADO)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## Documentos Relacionados
 
@@ -888,16 +888,16 @@ Data de Aprovação: ___/___/______
   https://docs.evolveum.com/midpoint/reference/security/crypto/
 
 - Native Sqale Repository:
-  https://docs.evolveum.com/midpoint/reference/repository/native-postgresql/
+  https://docs.evolveum.<REDACTED_SECRET>-postgresql/
 
 ## Análise de Falha (IA)
 
 - Gemini Deep-Dive: "Root Cause da Falha em GMUD-020D v1"
   (Documento interno - Seção 10 deste arquivo)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 FIM DA GMUD-020D v2
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 **Status**: 🟡 PLANEJADA - REVISADA APÓS DESCOBERTA TÉCNICA
 **Versão**: 2.0 (Corrige omissão de Keystore + prioriza IaC)
@@ -918,4 +918,4 @@ no objetivo declarado (PostgreSQL) sem validar dependências sistêmicas (cripto
 Esta versão corrige o erro através de IaC (variáveis MP_SET_*), permitindo que
 o sistema gere config.xml completo automaticamente."
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>

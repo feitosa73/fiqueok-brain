@@ -105,7 +105,7 @@ telemetry {
 
 text
 
-hvs.CAESICxfhVX-NKR73QGmo3yEOMU3BHHevS7YF_r5sRvekF_6Gh4KHGh2cy5OQ3ZRU0tGNExwaHRFOWFUY2xLSzJxR3g
+hvs.CAESICxfhVX-NKR73QGmo3yEOMU3BHHevS7YF_r5sRvekF_<REDACTED_SECRET>xR3g
 
 **Evidência do teste:**
 

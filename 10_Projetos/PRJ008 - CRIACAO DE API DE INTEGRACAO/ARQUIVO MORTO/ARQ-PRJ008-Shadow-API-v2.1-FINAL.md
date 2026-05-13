@@ -536,10 +536,10 @@ Script de validação automatizada para uso em manutenções, após reboots e em
 # Executar em: api-gf-01 como usuário paulo
 # Data de referência: 17/04/2026
 
-echo "================================================================"
+echo "<REDACTED_SECRET>========================"
 echo "   PRJ008 · Shadow API v2.1 AS-BUILT · Validação Operacional"
 echo "   $(date '+%Y-%m-%d %H:%M:%S')"
-echo "================================================================"
+echo "<REDACTED_SECRET>========================"
 
 VAULT_IP="xxx.xxx.xxx.xxx"
 MARIADB_IP="xxx.xxx.xxx.xxx"
@@ -632,7 +632,7 @@ echo "----------------------------------------------------------------"
 echo "  Resultado: $PASS aprovados | $FAIL falhas"
 [ "$FAIL" -eq 0 ] && echo "  Status: ✅ AMBIENTE CERTIFICADO" || \
   echo "  Status: ❌ REQUER ATENÇÃO — $FAIL controle(s) com falha"
-echo "================================================================"
+echo "<REDACTED_SECRET>========================"
 ```
 
 ---

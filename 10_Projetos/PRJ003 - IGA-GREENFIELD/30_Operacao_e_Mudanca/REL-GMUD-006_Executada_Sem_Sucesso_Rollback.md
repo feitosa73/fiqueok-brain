@@ -1,12 +1,12 @@
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # REL-GMUD-006 — RELATÓRIO DE EXECUÇÃO DA MUDANÇA
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Projeto: PRJ003 - IGA Greenfield Reference Architecture
 # GMUD: GMUD-006 v1.4.3 - Deploy IGA com Orquestração de Bootstrap
 # Data de Execução: 17/01/2026
 # Responsável: Paulo Feitosa
 # Status: ❌ EXECUTADA SEM SUCESSO - ROLLBACK APLICADO
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 ## 1. IDENTIFICAÇÃO DA GMUD
 

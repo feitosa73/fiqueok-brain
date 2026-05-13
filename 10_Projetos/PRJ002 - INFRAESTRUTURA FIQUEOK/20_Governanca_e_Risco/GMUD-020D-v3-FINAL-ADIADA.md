@@ -1,7 +1,7 @@
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 GMUD-020D v3 - MIGRAÇÃO DE REPOSITÓRIO H2 → POSTGRESQL 15
 VERSÃO FINAL: ADIADA INDEFINIDAMENTE (TECH DEBT ACEITÁVEL)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 Projeto: PRJ-002 Identity Governance & Administration (IGA)
 Título: Migração H2 → PostgreSQL 15 + Hardening de Persistência
 ID da Mudança: GMUD-020D-PRJ002-v3-FINAL
@@ -14,9 +14,9 @@ Status: ⏸️ ADIADA INDEFINIDAMENTE
 Versão: 3.0 FINAL (Consolida aprendizados do rollback + define critérios de retomada)
 Pré-requisito: REL-GMUD-020D-ENCERRAMENTO-ROLLBACK.md (falha documentada)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 CHANGELOG - VERSÃO 3.0 FINAL
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## Mudanças em Relação às Versões Anteriores
 
@@ -47,9 +47,9 @@ CHANGELOG - VERSÃO 3.0 FINAL
 4. **Apêndice A:** Análise Comparativa de Estratégias (3 tentativas)
 5. **Apêndice B:** Checklist de Pré-Requisitos Revisado (aprendizados aplicados)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 1. CONTEXTO E JUSTIFICATIVA
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 1.1 Estado Atual (As-Is) - Pós-GMUD-020D (Rollback)
 
@@ -113,9 +113,9 @@ consolidado** que:
 - **Próximo Orquestrador (ChatGPT/Claude):** Histórico completo + recomendações
 - **Portfolio:** Demonstração de transparência (documentar falha, não esconder)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 2. DECISÃO DE ADIAMENTO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 2.1 Status da GMUD-020D v3 FINAL
 
@@ -201,9 +201,9 @@ complexa do que inicialmente estimado** pela IA (Gemini).
 - ✅ GMUD-023 (Provisionamento): DESIMPEDIDA (H2 suficiente)
 - ⏸️ GMUD-020E (PostgreSQL): ADIADA (aguarda critérios de retomada)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 3. ESCOPO E OBJETIVOS (REFERÊNCIA HISTÓRICA)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 3.1 Escopo Original (v2 - NÃO EXECUTADO)
 
@@ -236,9 +236,9 @@ complexa do que inicialmente estimado** pela IA (Gemini).
 
 **Taxa de Alcance:** 1/5 objetivos (20%) - Apenas conectores preservados
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 4. LIÇÕES APRENDIDAS CONSOLIDADAS (L16-L18)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 4.1 Lição L16: Sensibilidade de Transição de Motores
 
@@ -324,9 +324,9 @@ docker exec midpoint-server ls -l /opt/midpoint/var/config.xml
 ### Status
 ✅ DOCUMENTADA no REL-GMUD-020D-ENCERRAMENTO-ROLLBACK.md (Seção 4.3)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 5. ANÁLISE DE CAUSA RAIZ (CONSOLIDADA)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 5.1 Root Cause da Falha (5 Whys)
 
@@ -377,9 +377,9 @@ Tentativa 03 encontrou estado residual.
 - Atraso no roadmap PRJ-002 (+1 dia)
 - Necessidade de mudança de IA para GMUD-020E
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 6. PROCEDIMENTO DE ROLLBACK (EXECUTADO COM SUCESSO)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 6.1 Resumo do Rollback
 
@@ -419,9 +419,9 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint/
 | **A.17.1.2** | Continuidade de TI | ✅ IMPLEMENTADO | Rollback < 10 min (RTO alcançado) |
 | **A.16.1.7** | Lições Aprendidas | ✅ IMPLEMENTADO | L16-L18 documentadas |
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 7. ESTADO ATUAL DO AMBIENTE (AS-IS PÓS-ROLLBACK)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 7.1 Componentes Ativos
 
@@ -441,9 +441,9 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint/
 
 **Status do Tech Debt:** ACEITÁVEL (não bloqueante para GMUDs 021-023)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 8. MÉTRICAS FINAIS DA GMUD-020D
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 8.1 KPIs Consolidados
 
@@ -477,9 +477,9 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint/
 
 **Conclusão:** Resultado técnico NEGATIVO, resultado pedagógico POSITIVO.
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 9. CRITÉRIOS DE RETOMADA (QUANDO EXECUTAR GMUD-020E?)
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 9.1 Pré-Condições Obrigatórias
 
@@ -505,7 +505,7 @@ os critérios abaixo forem satisfeitos:
 
 ☑ **Pesquisar documentação Native Sqale Migration** (versão 4.8.8)
 - Fontes:
-  - https://docs.evolveum.com/midpoint/reference/repository/native-postgresql/migration/
+  - https://docs.evolveum.<REDACTED_SECRET>-postgresql/migration/
   - https://lists.evolveum.com/pipermail/midpoint/ (fórum oficial)
 - Objetivo: Identificar procedimento oficial de migração (se existir)
 
@@ -568,9 +568,9 @@ Antes de iniciar GMUD-020E, validar:
 
 **Responsável pela Decisão:** Paulo Feitosa (CISO)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 10. HANDOVER PARA PRÓXIMO ORQUESTRADOR
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 10.1 Contexto para ChatGPT/Claude (Novo Orquestrador)
 
@@ -709,9 +709,9 @@ Antes de propor GMUD-020E oficial, validar em sandbox:
 >
 > Boa sorte. 🤝"
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 11. CONCLUSÃO E FECHAMENTO
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 11.1 Resumo da GMUD-020D (3 Versões)
 
@@ -809,9 +809,9 @@ e transformada em conhecimento aplicável."
 **Data da Aprovação:** ___/___/______
 **Assinatura:** _________________________________
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 12. REFERÊNCIAS CONSOLIDADAS
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 ## 12.1 Documentos da Série GMUD-020 (Completa)
 
@@ -846,7 +846,7 @@ e transformada em conhecimento aplicável."
 ## 12.3 Referências Técnicas
 
 - midPoint Native Sqale Migration:
-  https://docs.evolveum.com/midpoint/reference/repository/native-postgresql/migration/
+  https://docs.evolveum.<REDACTED_SECRET>-postgresql/migration/
 
 - Evolveum Community Forum:
   https://lists.evolveum.com/pipermail/midpoint/
@@ -859,9 +859,9 @@ e transformada em conhecimento aplicável."
   - A.16.1.7 (Lições Aprendidas)
   - A.17.1.2 (Continuidade de TI)
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 FIM DA GMUD-020D v3 FINAL
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 
 **Documento gerado em:** 05/01/2026 21:28 BRT
 **Status do Projeto:** 🟢 ESTÁVEL EM H2 EMBEDDED
@@ -878,5 +878,5 @@ do que suceder sem documentar o caminho."
 
 **— Gemini Deep-Dive, Janeiro 2026**
 
-================================================================================
+<REDACTED_SECRET><REDACTED_SECRET>
 

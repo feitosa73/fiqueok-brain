@@ -877,7 +877,7 @@ Após salvar, o workflow de aprovação será disparado:
 ```bash
 # Via REST API
 curl -X POST -u administrator:'M1dP0!ntAdm!n#2026' \
-  "http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/users/FP008/recompute"
+  "http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>ute"
 ```
 
 **Critério de Sucesso F9:** ✅ Role atribuída, workflow disparado
@@ -1152,7 +1152,7 @@ sudo docker logs iga-midpoint --tail 200 | grep -E "Entra ID|Graph|provision"
 
 # Verificar Resource pelo OID
 curl -u administrator:'M1dP0!ntAdm!n#2026' \
-  http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/resources/a6af855d-46b7-4c71-abe5-96c72b48863c
+  http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>-46b7-4c71-abe5-96c72b48863c
 
 # Listar shadows do Resource Entra ID
 curl -s -u administrator:'M1dP0!ntAdm!n#2026' \

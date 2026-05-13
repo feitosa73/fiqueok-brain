@@ -53,7 +53,7 @@ grep: /caminho/do/seu/docker-compose.yml: No such file or directory
 paulo@rh-gf-01:~$ docker stop orange-db
 orange-db
 paulo@rh-gf-01:~$ docker run -d --name orange-db-safe --volumes-from orange-db mariadb:10.11 --skip-grant-tables
-cafc278ec85bf8becf9b63abb5d4e0ec702bfe00226af46f1192434dd4eb1be7
+<REDACTED_SECRET>226af46f1192434dd4eb1be7
 paulo@rh-gf-01:~$ docker exec -it orange-db-safe mariadb -u root
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 3

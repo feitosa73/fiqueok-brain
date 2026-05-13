@@ -223,10 +223,10 @@ docker pull evolveum/midpoint:4.8.8-alpine
 mkdir -p /opt/backups/midpoint-4.10-$(date +%Y%m%d-%H%M)
 
 # Exportar configuração System
-curl -u administrator:Gmud018@2025   http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/systemConfigurations/00000000-0000-0000-0000-000000000001   -H "Accept: application/xml"   > /opt/backups/midpoint-4.10-$(date +%Y%m%d-%H%M)/system-config.xml
+curl -u administrator:Gmud018@2025   http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>ns/00000000-0000-0000-0000-000000000001   -H "Accept: application/xml"   > /opt/backups/midpoint-4.10-$(date +%Y%m%d-%H%M)/system-config.xml
 
 # Exportar Resource OrangeHRM (para comparação)
-curl -u administrator:Gmud018@2025   http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/resources/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx   -H "Accept: application/xml"   > /opt/backups/midpoint-4.10-$(date +%Y%m%d-%H%M)/resource-orangehrm-4.10.xml
+curl -u administrator:Gmud018@2025   http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>-xxxx-xxxx-xxxx-xxxxxxxxxxxx   -H "Accept: application/xml"   > /opt/backups/midpoint-4.10-$(date +%Y%m%d-%H%M)/resource-orangehrm-4.10.xml
 ```
 
 ---
@@ -1095,7 +1095,7 @@ curl -I http://xxx.xxx.xxx.xxx:8080/midpoint
 **Data:** 04/01/2026 17:20 BRT  
 **Tipo:** GMUD Normal (Downgrade Estratégico)  
 **Classificação:** Internal Use  
-**Localização:** `10Projetos/PRJ002/20Governanca/GMUDs/GMUD-020-PRJ002-Downgrade-4.8.8-v1.0.md`
+**Localização:** `<REDACTED_SECRET>D-020-PRJ002-Downgrade-4.8.8-v1.0.md`
 
 **Alinhamento:**
 - ISO 27001:2022: A.12.1.2, A.14.2.2, A.16.1.7

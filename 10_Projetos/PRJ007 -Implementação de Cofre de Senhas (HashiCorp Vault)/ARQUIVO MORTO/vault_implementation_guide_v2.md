@@ -134,7 +134,7 @@ vault version
 
 **Saída esperada**:
 ```
-Vault v1.21.2 (5e2dd7a21e64c45a2e1f06feb8629d3f6e8ccd76), built 2024-XX-XX
+Vault v1.21.2 (<REDACTED_SECRET>), built 2024-XX-XX
 ```
 
 ```bash
@@ -443,11 +443,11 @@ cat ~/vault-backup/vault_init_*.txt
 
 **Você verá algo como**:
 ```
-Unseal Key 1: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-Unseal Key 2: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-Unseal Key 3: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-Unseal Key 4: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-Unseal Key 5: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Unseal Key 1: <REDACTED_SECRET>xxx
+Unseal Key 2: <REDACTED_SECRET>xxx
+Unseal Key 3: <REDACTED_SECRET>xxx
+Unseal Key 4: <REDACTED_SECRET>xxx
+Unseal Key 5: <REDACTED_SECRET>xxx
 
 Initial Root Token: hvs.xxxxxxxxxxxxxxxxxxxx
 ```

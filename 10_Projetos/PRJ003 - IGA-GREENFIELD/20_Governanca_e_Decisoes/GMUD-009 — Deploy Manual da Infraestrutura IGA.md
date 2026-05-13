@@ -459,7 +459,7 @@ bash
 
 bash
 
-`IP_VM=$(hostname -I | awk '{print $1}') echo "Endereço IP da VM: $IP_VM" echo "URL de Acesso: http://$IP_VM:8080/midpoint" # Salvar informações de acesso cat > /srv/prj003/ACCESS-INFO.txt <<EOF ============================================== INFORMAÇÕES DE ACESSO - IGA ============================================== URL: http://$IP_VM:8080/midpoint Usuário: administrator Senha: Conforme .env (MIDPOINT_ADMIN_PASSWORD) Tipo de Repositório: PostgreSQL (validado) Data do Deploy: $(date) ============================================== EOF cat /srv/prj003/ACCESS-INFO.txt`
+`IP_VM=$(hostname -I | awk '{print $1}') echo "Endereço IP da VM: $IP_VM" echo "URL de Acesso: http://$IP_VM:8080/midpoint" # Salvar informações de acesso cat > /srv/prj003/ACCESS-INFO.txt <<EOF <REDACTED_SECRET>====== INFORMAÇÕES DE ACESSO - IGA <REDACTED_SECRET>====== URL: http://$IP_VM:8080/midpoint Usuário: administrator Senha: Conforme .env (MIDPOINT_ADMIN_PASSWORD) Tipo de Repositório: PostgreSQL (validado) Data do Deploy: $(date) <REDACTED_SECRET>====== EOF cat /srv/prj003/ACCESS-INFO.txt`
 
 **Checkpoint 9.2:**
 

@@ -267,9 +267,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # ============================================================================
+      # <REDACTED_SECRET>====================================
       # ESTRATÉGIA 1: SOBERANIA DE VARIÁVEIS (Evita Fallback H2)
-      # ============================================================================
+      # <REDACTED_SECRET>====================================
       # Impõe PostgreSQL como tipo de banco (bypass de lógica legada)
       MP_SET_midpoint_repository_database: postgresql
       MP_SET_midpoint_repository_type: native
@@ -281,15 +281,15 @@ services:
       # Desabilita verificação de schema (já injetado manualmente)
       MP_SET_midpoint_repository_missingSchemaAction: stop
 
-      # ============================================================================
+      # <REDACTED_SECRET>====================================
       # ESTRATÉGIA 2: CONTROLE DE PERFORMANCE (Kernel Ubuntu 24.04)
-      # ============================================================================
+      # <REDACTED_SECRET>====================================
       # Heap limitado a 1GB (teto de 1.5GB do kernel - buffer de 512MB)
       JAVA_OPTS: "-Xms512m -Xmx1024m -XX:MaxMetaspaceSize=256m -Dmidpoint.repository.database=postgresql -Dmidpoint.repository.type=native -Dfile.encoding=UTF8 -Djava.security.egd=file:/dev/./urandom"
 
-      # ============================================================================
+      # <REDACTED_SECRET>====================================
       # ESTRATÉGIA 3: SEGURANÇA E INICIALIZAÇÃO
-      # ============================================================================
+      # <REDACTED_SECRET>====================================
       # Senha do keystore JCEKS (gerado automaticamente no primeiro boot)
       MP_KEYSTORE_PASSWORD: 'midpoint_keystore_2026'
 
@@ -327,13 +327,13 @@ networks:
 ### 2. Script de Orquestração Final (deploy-prj003-v12.ps1)
 
 \`\`\`powershell
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # GMUD-012 | Deploy midPoint 4.10 + PostgreSQL 16 (Checkmate Técnico)
 # Projeto: PRJ003 - IGA Greenfield Reference Architecture
 # Executor: Paulo Feitosa
 # Data: 21 de janeiro de 2026
 # Estratégia: Soberania de Dados + Bypass de Entrypoint + Manual Schema Injection
-# ============================================================================
+# <REDACTED_SECRET>====================================
 
 param(
     [switch]$SkipCleanup,
@@ -361,9 +361,9 @@ function Write-Success { param($msg) Write-Host "    ✅ $msg" -ForegroundColor 
 function Write-Error-Custom { param($msg) Write-Host "    ❌ $msg" -ForegroundColor Red }
 function Write-Info { param($msg) Write-Host "    ℹ️  $msg" -ForegroundColor Yellow }
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # BANNER
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Clear-Host
 Write-Host "╔══════════════════════════════════════════════════════════════════════╗" -ForegroundColor Magenta
 Write-Host "║  GMUD-012 | Deploy midPoint 4.10 (ÚLTIMA TENTATIVA - CHECKMATE)     ║" -ForegroundColor Magenta
@@ -372,9 +372,9 @@ Write-Host "║  Estratégia: Soberania de Dados + Bypass de Entrypoint         
 Write-Host "╚══════════════════════════════════════════════════════════════════════╝" -ForegroundColor Magenta
 Write-Host ""
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # PRÉ-FLIGHT CHECKS
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Step "PRÉ-FLIGHT: Validando pré-requisitos"
 
 # Teste SSH
@@ -395,9 +395,9 @@ if ($compose_version) {
     exit 1
 }
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # FASE A: HIGIENIZAÇÃO DE AMBIENTE (NUCLEAR CLEANUP)
-# ============================================================================
+# <REDACTED_SECRET>====================================
 if (-not $SkipCleanup) {
     Write-Step "[A] LIMPEZA NUCLEAR: Removendo rastros de tentativas anteriores"
 
@@ -420,9 +420,9 @@ if (-not $SkipCleanup) {
     Write-Info "Limpeza pulada (flag -SkipCleanup)"
 }
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # FASE B: UPLOAD DE ARTEFATOS
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Step "[B] UPLOAD: Enviando Docker Compose para VM"
 
 # Validar existência local do arquivo
@@ -434,9 +434,9 @@ if (-not (Test-Path ".\$COMPOSE_FILE")) {
 scp ".\$COMPOSE_FILE" ${USER}@${VM_IP}:${PRJ_PATH}/ | Out-Null
 Write-Success "docker-compose.yml transferido"
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # FASE C: PROVISIONAMENTO POSTGRESQL
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Step "[C] POSTGRESQL: Subindo banco de dados"
 
 ssh ${USER}@${VM_IP} "cd $PRJ_PATH && sudo docker compose up -d postgres" | Out-Null
@@ -466,9 +466,9 @@ if ($healthy) {
 $pg_version = ssh ${USER}@${VM_IP} "sudo docker exec iga-postgres psql -U midpoint_user -d midpoint -t -c 'SELECT version();'"
 Write-Success "Versão: $(($pg_version -split '\n')[0].Trim())"
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # FASE D: INJEÇÃO MANUAL DE SCHEMA (DATA SOVEREIGNTY)
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Step "[D] SCHEMA: Injetando SQL nativo SQALE do midPoint $MIDPOINT_VERSION"
 
 # Download dos scripts SQL
@@ -522,9 +522,9 @@ Write-Verbose "    Tabelas críticas criadas:"
 $tables = ssh ${USER}@${VM_IP} "sudo docker exec iga-postgres psql -U midpoint_user -d midpoint -t -c \"SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename LIMIT 10;\""
 $tables -split "\n" | ForEach-Object { Write-Verbose "      - $($_.Trim())" }
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # FASE E: BOOT DO MIDPOINT 4.10
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Step "[E] MIDPOINT: Iniciando aplicação $MIDPOINT_VERSION"
 
 ssh ${USER}@${VM_IP} "cd $PRJ_PATH && sudo docker compose up -d midpoint" | Out-Null
@@ -537,9 +537,9 @@ for ($i = 90; $i -ge 0; $i -= 10) {
 }
 Write-Progress -Activity "Inicializando midPoint 4.10" -Completed
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # FASE F: VALIDAÇÃO DE SUCESSO
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Step "[F] VALIDAÇÃO: Verificando estado da aplicação"
 
 # Capturar últimas 100 linhas do log
@@ -575,9 +575,9 @@ if ($http_status -eq "200") {
     $all_passed = $false
 }
 
-# ============================================================================
+# <REDACTED_SECRET>====================================
 # CONCLUSÃO
-# ============================================================================
+# <REDACTED_SECRET>====================================
 Write-Host ""
 if ($all_passed) {
     Write-Host "╔══════════════════════════════════════════════════════════════════════╗" -ForegroundColor Green

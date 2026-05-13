@@ -166,7 +166,7 @@ docker exec midpoint-server ls -lh /opt/midpoint/var/scripts/orangehrm/
 **Comando Executado:**
 
 ```bash
-curl -k -u administrator:5ecr3t   -H "Content-Type: application/xml"   -X PUT   -d @resource-orangehrm-scripted-v3.xml   https://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/resources/d8b60510-8fbc-4257-befe-1bd30e62801e
+curl -k -u administrator:5ecr3t   -H "Content-Type: application/xml"   -X PUT   -d @resource-orangehrm-scripted-v3.xml   https://xxx.xxx.xxx.xxx:<REDACTED_SECRET>-8fbc-4257-befe-1bd30e62801e
 ```
 
 **Erro Encontrado:**
@@ -222,15 +222,15 @@ ls: /opt/midpoint/var/connectors/: No such file or directory
 
 # Procurar ScriptedSQL no container
 $ docker exec midpoint-server find /opt/midpoint -name "*scripted*sql*"
-/opt/midpoint/doc/samples/resources/scriptedsql
-/opt/midpoint/doc/samples/resources/scriptedsql/ScriptedSQL.xml
+<REDACTED_SECRET>ptedsql
+<REDACTED_SECRET>ptedsql/ScriptedSQL.xml
 # ⚠️ Apenas samples de documentação - NENHUM JAR INSTALADO
 ```
 
 #### Tentativa de Instalação: Download Nexus Evolveum
 
 ```bash
-$ wget https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-scripted-sql/1.5.1.0/connector-scripted-sql-1.5.1.0.jar
+$ wget https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-scripted-sql/1.5.1.0/connector-scripted-sql-1.5.1.0.jar
 
 --2026-01-04 01:46:12--  https://nexus.evolveum.com/nexus/...
 HTTP/1.1 404 Not Found ❌
@@ -665,8 +665,8 @@ sleep 60
 
 3. **Output `docker exec find`:** Apenas samples de documentação
    ```
-   /opt/midpoint/doc/samples/resources/scriptedsql
-   /opt/midpoint/doc/samples/resources/scriptedsql/ScriptedSQL.xml
+   <REDACTED_SECRET>ptedsql
+   <REDACTED_SECRET>ptedsql/ScriptedSQL.xml
    ```
 
 4. **Backup Resource:** `./backup-gmud018/resource-orangehrm-backup.xml`

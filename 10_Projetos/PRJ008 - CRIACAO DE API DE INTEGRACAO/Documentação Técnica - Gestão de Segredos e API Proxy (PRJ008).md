@@ -19,7 +19,7 @@ Nesta etapa do laboratório, configuramos a camada de **Secret Management** (Ges
 
 ## 3. Anatomia do Token do Vault
 
-- **Token (O Segredo):** `hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ`
+- **Token (O Segredo):** `<REDACTED_SECRET><REDACTED_SECRET>VHJKUDA3aXZPSGt2NEhtUzVnSmQ`
     
     - _Para que serve:_ É a credencial mestre para a API. Sem ele, o API Proxy não consegue buscar informações no Vault.
         
@@ -60,7 +60,7 @@ VAULT_TOKEN="[COLE_O_TOKEN_AQUI]" vault token lookup
 Bash
 
 ```
-echo "hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ" | sudo tee /var/lib/shadow-api/vault_token
+echo "<REDACTED_SECRET><REDACTED_SECRET>VHJKUDA3aXZPSGt2NEhtUzVnSmQ" | sudo tee /var/lib/shadow-api/vault_token
 sudo chmod 600 /var/lib/shadow-api/vault_token
 ```
 

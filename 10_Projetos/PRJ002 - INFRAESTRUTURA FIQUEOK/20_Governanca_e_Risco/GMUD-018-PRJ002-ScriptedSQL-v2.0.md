@@ -271,7 +271,7 @@ docker exec midpoint-server ls -lh /opt/midpoint/var/scripts/orangehrm/
 curl -k -u administrator:5ecr3t   -H "Content-Type: application/xml"   -X POST   -d @object-template-user.xml   https://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/objectTemplates
 
 # Validar
-curl -k -u administrator:5ecr3t   https://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/objectTemplates/00000000-0000-0000-0000-000000000222
+curl -k -u administrator:5ecr3t   https://xxx.xxx.xxx.xxx:<REDACTED_SECRET>000000-0000-0000-0000-000000000222
 ```
 
 **Critério:** ✅ HTTP 201 Created
@@ -494,7 +494,7 @@ curl -k -u administrator:5ecr3t   -X DELETE   https://xxx.xxx.xxx.xxx:8080/midpo
 **Data:** 03/01/2026 21:10 BRT  
 **Tipo:** GMUD Normal  
 **Classificação:** Internal Use  
-**Localização:** `10Projetos/PRJ002/20Governanca/GMUDs/GMUD-018-PRJ002-ScriptedSQL-v2.0.md`
+**Localização:** `<REDACTED_SECRET>D-018-PRJ002-ScriptedSQL-v2.0.md`
 
 **Alinhamento:**
 - ISO 27001:2022: A.12.1.2, A.14.2.2, A.16.1.7

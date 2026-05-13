@@ -143,7 +143,7 @@ version: 1
 C:\Program Files (x86)\Google\Cloud SDK>
 C:\Program Files (x86)\Google\Cloud SDK>
 C:\Program Files (x86)\Google\Cloud SDK>gcloud iam service-accounts keys create %USERPROFILE%\midpoint-gcp-key.json --iam-account=midpoint-connector@midpoint-iga.iam.gserviceaccount.com --project=midpoint-iga
-created key [b44ccf9e237280be443070178bf775b8abe667e5] of type [json] as [C:\Users\win\midpoint-gcp-key.json] for [midpoint-connector@midpoint-iga.iam.gserviceaccount.com]
+created key [<REDACTED_SECRET>] of type [json] as [C:\Users\win\midpoint-gcp-key.json] for [midpoint-connector@midpoint-iga.iam.gserviceaccount.com]
 
 C:\Program Files (x86)\Google\Cloud SDK>
 C:\Program Files (x86)\Google\Cloud SDK># Verificar se o arquivo foi criado
@@ -169,8 +169,8 @@ C:\Program Files (x86)\Google\Cloud SDK>type %USERPROFILE%\midpoint-gcp-key.json
 {
   "type": "service_account",
   "project_id": "midpoint-iga",
-  "private_key_id": "b44ccf9e237280be443070178bf775b8abe667e5",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4FiLF8Cs3C1zo\nCd7pHVDc/j6wx6LvOtVcg7z2hPNSsXdnaXqrB4KDGpxFyDpLItUN3RllNFAdY47G\nSGrp/iMcHuOz2CbtGWOM/rshJ7I1hTl9hHrYO7CI7yBOK9olaSGpuetCM8BgAlP4\n+Rb5zC1SwutK5anLsnFKMGDYm95XLhppSnLXKARMklm91GKoHiGqwPvZVuZvpy7O\nylTljapPgAk0ngu2XpimhSFVJ5ykZQktIq/162X4PMEfQIxrtD0iligxuwXRV+/P\nfCiRyzlYZ66ZiogenTQvQYyinWAz4pJseR4ndt6FdBkgJ0K+Ji4ArjSKZfCvWQc/\nZbkBqaYFAgMBAAECggEACB590SIbHdXj9p381WZEG0Mha7WaY5fCMk7jJjJN8w89\nt3NpBCMUKAkj7FX88DRslixywspwYCN0eB1YjdJ2JPbdzyBQ8zMj92OCyF8SVpb2\nJqmRq3jSe++kCp6Xg//jirNXA3f526IupvQBhenx880CCK8hcoj/wyhoFRWm1Exy\nmQVVq+1XS4I01k0IpEpfsD5bRWZPywFdzupGx05slwPUTjgT+wxS79DKDLaxS0mR\nYySH1N8wfFQ1gJWiPH33ksQCP/rVYEl+/mn2NObeSxtjt3mJqKc9YDlwk43iuADg\nzm0l1lOMiXjHWRmYWqcz5RJ/gf5vgEngRWiBLMZ4TwKBgQDeihekAFkvEUr1JAkS\neEOdZTv5KVWHMZ0rHaXVzxrLV2moLa+pXEr2HbI3nXyK1xXjJIMdWIgjfSAN3Qq3\neqQsb2a6znWqUrTQh44IW9lOqSipFgrTaKpAcnT0m0S48O1qsEcGVuNArOZJU/gz\nF7DekAtGkVUxfVx4ix1udkp24wKBgQDTw+0W6JvMnBTV4EKHM7RvZ2RfZLeJBHUE\nxitjLpv5i1Xlj9H7KUtMykxkpZROsWD6qXdpCq0i589Do7Wap3JHdRfeC3NKqA2Z\nETNJAefkOK80uzqGJwMzjW7GnWy70ZWnVO6JwdcpBok45FK2h+Xfmd+XFyN6oBW/\nyfTmIU0b9wKBgDskRf4e3ZTFqr8VcZfIAGgvBE5GbuV8CQHxYiY9YSiTNZAtfBat\nYXqhD8D6CKQ5Xya7iGDfK2cLFN66VOPIIyNwA8Q3pEu8qTMWI2gTSOA/0n+FTSE8\nGqsAABcVwKDJ3r7Q1D9aDhEdIiJwv3CMpkOv0l9Rtmttnoqmpg66PzXzAoGBAIt5\n50WIbV1li/+WVpswPe6GPcDq2EuhqOU9FMSdpVPGJwwtHtN7TkJEl+5OdJEkGUjf\np2uDAagU4Bmf0PQMx6MzB0ZTaltItrQTdSDn5XEWuKdVjeVf+qbQx55/f2dxUk1F\nDlujVXCLAoR7NdNNTOVqNq8QKWkR2WFZxjhwxJXfAoGAIWWOsZCNj+XFxA1oeE7e\nISsX84GCATMU1Y85jx1gHlFZT5zrPRZbVCS0jUoae3+3idmJQT9lKcfO6RaHYvtT\n8ap2Pe2knnB7cdxYClLBsxeeg8KGsHBHQ/QrFvBuI3E5zsUrMnKkjK+S9m3GjEa+\nJadNH6JZRunO5ibFKb2xf2M=\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "<REDACTED_SECRET>",
+  "private_key": "-----BEGIN PRIVATE KEY-----\<REDACTED_SECRET>jAgEAAoIBAQC4FiLF8Cs3C1zo\<REDACTED_SECRET>DGpxFyDpLItUN3RllNFAdY47G\<REDACTED_SECRET>I7yBOK9olaSGpuetCM8BgAlP4\<REDACTED_SECRET>Mklm91GKoHiGqwPvZVuZvpy7O\<REDACTED_SECRET>4PMEfQIxrtD0iligxuwXRV+/P\<REDACTED_SECRET>FdBkgJ0K+Ji4ArjSKZfCvWQc/\<REDACTED_SECRET>EG0Mha7WaY5fCMk7jJjJN8w89\<REDACTED_SECRET>2JPbdzyBQ8zMj92OCyF8SVpb2\<REDACTED_SECRET>x880CCK8hcoj/wyhoFRWm1Exy\<REDACTED_SECRET>slwPUTjgT+wxS79DKDLaxS0mR\<REDACTED_SECRET>eSxtjt3mJqKc9YDlwk43iuADg\<REDACTED_SECRET>4TwKBgQDeihekAFkvEUr1JAkS\<REDACTED_SECRET>3nXyK1xXjJIMdWIgjfSAN3Qq3\<REDACTED_SECRET>0m0S48O1qsEcGVuNArOZJU/gz\<REDACTED_SECRET>MnBTV4EKHM7RvZ2RfZLeJBHUE\<REDACTED_SECRET>i589Do7Wap3JHdRfeC3NKqA2Z\<REDACTED_SECRET>pBok45FK2h+Xfmd+XFyN6oBW/\<REDACTED_SECRET>GbuV8CQHxYiY9YSiTNZAtfBat\<REDACTED_SECRET>3pEu8qTMWI2gTSOA/0n+FTSE8\<REDACTED_SECRET>Rtmttnoqmpg66PzXzAoGBAIt5\<REDACTED_SECRET>GJwwtHtN7TkJEl+5OdJEkGUjf\<REDACTED_SECRET>WuKdVjeVf+qbQx55/f2dxUk1F\<REDACTED_SECRET>fAoGAIWWOsZCNj+XFxA1oeE7e\<REDACTED_SECRET>ae3+3idmJQT9lKcfO6RaHYvtT\<REDACTED_SECRET>uI3E5zsUrMnKkjK+S9m3GjEa+\nJadNH6JZRunO5ibFKb2xf2M=\n-----END PRIVATE KEY-----\n",
   "client_email": "midpoint-connector@midpoint-iga.iam.gserviceaccount.com",
   "client_id": "106389980620576348642",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -181,7 +181,7 @@ C:\Program Files (x86)\Google\Cloud SDK>type %USERPROFILE%\midpoint-gcp-key.json
 }
 
 C:\Program Files (x86)\Google\Cloud SDK>gcloud iam service-accounts keys create %USERPROFILE%\midpoint-gcp-key.json --iam-account=midpoint-connector@midpoint-iga.iam.gserviceaccount.com --project=midpoint-iga
-created key [1d8b981e01e3cd1f11e1e10b9aa932356672c75a] of type [json] as [C:\Users\win\midpoint-gcp-key.json] for [midpoint-connector@midpoint-iga.iam.gserviceaccount.com]
+created key [<REDACTED_SECRET>] of type [json] as [C:\Users\win\midpoint-gcp-key.json] for [midpoint-connector@midpoint-iga.iam.gserviceaccount.com]
 
 C:\Program Files (x86)\Google\Cloud SDK>
 C:\Program Files (x86)\Google\Cloud SDK>

@@ -201,7 +201,7 @@ TAILSCALE MESH VPN
 ## 5. CAMINHOS PARA DESBLOQUEIO FUTURO (Estágio B)
 
 ### Caminho A — Aguardar Release Oficial Evolveum
-Monitorar: `https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-rest/`
+Monitorar: `https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-rest/`
 Para versão `>= 3.x` com suporte declarado a Java 21.
 
 ### Caminho B — Build Maven (Viabilidade Confirmada no Pré-Flight)

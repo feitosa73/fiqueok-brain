@@ -416,14 +416,14 @@ O conector oficial da Evolveum para Microsoft Graph API chama-se **`connector-ms
 - URL: `https://github.com/Evolveum/connector-microsoft-graph-api`
 
 O arquivo JAR deve ser obtido via **Nexus Repository** (não há releases no GitHub):
-- URL: `https://nexus.evolveum.com/nexus/repository/public/com/evolveum/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar`
+- URL: `https://nexus.evolveum.<REDACTED_SECRET>/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar`
 
 ### 8.1. Baixar o Conector (via PowerShell no Windows)
 
 ```powershell
 # [PowerShell] - Baixar do Nexus
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest -Uri "https://nexus.evolveum.com/nexus/repository/public/com/evolveum/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar" `
+Invoke-WebRequest -Uri "https://nexus.evolveum.<REDACTED_SECRET>/polygon/connector-msgraph/1.0.2.0/connector-msgraph-1.0.2.0.jar" `
   -OutFile "C:\temp\midpoint-connectors\connector-msgraph-1.0.2.0.jar"
 ```
 
@@ -820,7 +820,7 @@ Após salvar, o workflow de aprovação será disparado. Aprove os casos no dash
 ```bash
 # Via REST API
 curl -X POST -u administrator:'M1dP0!ntAdm!n#2026' \
-  "http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/users/FP001/recompute"
+  "http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>ute"
 ```
 
 **Critério de Sucesso F9:** ✅ Role atribuída

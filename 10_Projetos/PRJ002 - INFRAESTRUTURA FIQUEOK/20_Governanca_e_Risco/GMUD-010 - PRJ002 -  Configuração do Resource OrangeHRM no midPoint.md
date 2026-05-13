@@ -89,7 +89,7 @@ No Resource → **Synchronization** tab:
     
 - Correlation: enabled.
     
-- Execute **Run** para import inicial.[evolveum](https://docs.evolveum.com/midpoint/reference/master/tasks/synchronization-tasks/)​
+- Execute **Run** para import inicial.[evolveum](https://docs.evolveum.<REDACTED_SECRET>hronization-tasks/)​
     
 
 ## Plano de Testes
@@ -102,7 +102,7 @@ No Resource → **Synchronization** tab:
     
 4. **Reconciliação**: Adicione/altere employee no OrangeHRM → Rode LiveSync → Confirme sync.
     
-5. **Critérios**: 100% match por `personalNumber`; `termination_date` ativa/desativa corretamente.[evolveum](https://docs.evolveum.com/midpoint/reference/master/tasks/synchronization-tasks/)​
+5. **Critérios**: 100% match por `personalNumber`; `termination_date` ativa/desativa corretamente.[evolveum](https://docs.evolveum.<REDACTED_SECRET>hronization-tasks/)​
     
 
 |Teste|Critério|Evidência|
@@ -150,21 +150,21 @@ No Resource → **Synchronization** tab:
 
 1. [https://docs.evolveum.com/connectors/resources/databasetable/](https://docs.evolveum.com/connectors/resources/databasetable/)
 2. [https://docs.evolveum.com/midpoint/reference/before-4.8/repository/generic/mariadb/](https://docs.evolveum.com/midpoint/reference/before-4.8/repository/generic/mariadb/)
-3. [https://docs.evolveum.com/midpoint/reference/master/tasks/synchronization-tasks/](https://docs.evolveum.com/midpoint/reference/master/tasks/synchronization-tasks/)
+3. [https://docs.evolveum.<REDACTED_SECRET>hronization-tasks/](https://docs.evolveum.<REDACTED_SECRET>hronization-tasks/)
 4. [https://docs.evolveum.com/connectors/connectors/org.identityconnectors.databasetable.DatabaseTableConnector/](https://docs.evolveum.com/connectors/connectors/org.identityconnectors.databasetable.DatabaseTableConnector/)
 5. [https://docs.evolveum.com/midpoint/reference/support-4.9/repository/generic/mysql/](https://docs.evolveum.com/midpoint/reference/support-4.9/repository/generic/mysql/)
 6. [https://estuary.dev/blog/mariadb-connectors/](https://estuary.dev/blog/mariadb-connectors/)
-7. [https://docs.evolveum.com/midpoint/reference/master/resources/resource-schema/](https://docs.evolveum.com/midpoint/reference/master/resources/resource-schema/)
+7. [https://docs.evolveum.<REDACTED_SECRET>resource-schema/](https://docs.evolveum.<REDACTED_SECRET>resource-schema/)
 8. [https://docs.evolveum.com/book/02-midpoint-overview/](https://docs.evolveum.com/book/02-midpoint-overview/)
 9. [https://docs.evolveum.com/midpoint/exercises/08-orgstruct-sync-magic/](https://docs.evolveum.com/midpoint/exercises/08-orgstruct-sync-magic/)
-10. [https://github.com/Evolveum/docs/blob/master/midpoint/release/4.2/index.adoc](https://github.com/Evolveum/docs/blob/master/midpoint/release/4.2/index.adoc)
-11. [https://docs.evolveum.com/midpoint/reference/master/resources/resource-configuration/](https://docs.evolveum.com/midpoint/reference/master/resources/resource-configuration/)
-12. [https://docs.evolveum.com/midpoint/reference/master/expressions/mappings/range/custom/](https://docs.evolveum.com/midpoint/reference/master/expressions/mappings/range/custom/)
+10. [https://github.<REDACTED_SECRET>elease/4.2/index.adoc](https://github.<REDACTED_SECRET>elease/4.2/index.adoc)
+11. [https://docs.evolveum.<REDACTED_SECRET>resource-configuration/](https://docs.evolveum.<REDACTED_SECRET>resource-configuration/)
+12. [https://docs.evolveum.<REDACTED_SECRET>s/mappings/range/custom/](https://docs.evolveum.<REDACTED_SECRET>s/mappings/range/custom/)
 13. [https://docs.evolveum.com/midpoint/exercises/07-orgstruct-ldap-sync/](https://docs.evolveum.com/midpoint/exercises/07-orgstruct-ldap-sync/)
 14. [https://docs.evolveum.com/midpoint/release/4.3/](https://docs.evolveum.com/midpoint/release/4.3/)
 15. [https://lists.evolveum.com/pipermail/midpoint/2016-June/001961.html](https://lists.evolveum.com/pipermail/midpoint/2016-June/001961.html)
-16. [https://docs.evolveum.com/midpoint/reference/master/resources/resource-configuration/schema-handling/](https://docs.evolveum.com/midpoint/reference/master/resources/resource-configuration/schema-handling/)
-17. [https://docs.evolveum.com/midpoint/reference/master/samples/story-tests/orgsync/](https://docs.evolveum.com/midpoint/reference/master/samples/story-tests/orgsync/)
-18. [https://docs.evolveum.com/midpoint/reference/master/repository/repository-database-support/](https://docs.evolveum.com/midpoint/reference/master/repository/repository-database-support/)
+16. [https://docs.evolveum.<REDACTED_SECRET>resource-configuration/schema-handling/](https://docs.evolveum.<REDACTED_SECRET>resource-configuration/schema-handling/)
+17. [https://docs.evolveum.<REDACTED_SECRET>ory-tests/orgsync/](https://docs.evolveum.<REDACTED_SECRET>ory-tests/orgsync/)
+18. [https://docs.evolveum.<REDACTED_SECRET>/repository-database-support/](https://docs.evolveum.<REDACTED_SECRET>/repository-database-support/)
 19. [https://docs.evolveum.com/midpoint/reference/before-4.8/repository/generic/configuration/](https://docs.evolveum.com/midpoint/reference/before-4.8/repository/generic/configuration/)
-20. [https://docs.evolveum.com/midpoint/reference/master/expressions/mappings/](https://docs.evolveum.com/midpoint/reference/master/expressions/mappings/)
+20. [https://docs.evolveum.<REDACTED_SECRET>s/mappings/](https://docs.evolveum.<REDACTED_SECRET>s/mappings/)

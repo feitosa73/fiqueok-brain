@@ -401,7 +401,7 @@ sudo chown paulo:paulo /srv/iga-project/data/midpoint/scripts
 
 ```bash
 # [iga-gf-02]$
-cat > /srv/iga-project/data/midpoint/scripts/SchemaScript.groovy << 'EOF'
+cat > /srv/iga-<REDACTED_SECRET>pt.groovy << 'EOF'
 // SchemaScript.groovy
 // Define os atributos que o midPoint espera receber da Shadow API
 import org.identityconnectors.framework.common.objects.*
@@ -459,7 +459,7 @@ EOF
 
 ```bash
 # [iga-gf-02]$
-cat > /srv/iga-project/data/midpoint/scripts/SearchScript.groovy << 'EOF'
+cat > /srv/iga-<REDACTED_SECRET>pt.groovy << 'EOF'
 // SearchScript.groovy
 // Busca todos os funcionários na Shadow API via HTTP GET
 import java.net.http.HttpClient
@@ -518,8 +518,8 @@ EOF
 
 ```bash
 # [iga-gf-02]$
-sudo docker cp /srv/iga-project/data/midpoint/scripts/SchemaScript.groovy iga-midpoint:/opt/midpoint/var/scripts/
-sudo docker cp /srv/iga-project/data/midpoint/scripts/SearchScript.groovy iga-midpoint:/opt/midpoint/var/scripts/
+sudo docker cp /srv/iga-<REDACTED_SECRET>pt.groovy iga-midpoint:/opt/midpoint/var/scripts/
+sudo docker cp /srv/iga-<REDACTED_SECRET>pt.groovy iga-midpoint:/opt/midpoint/var/scripts/
 ```
 
 ### 10.5. Configurar Variável de Ambiente SHADOW_API_KEY

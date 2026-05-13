@@ -118,11 +118,11 @@ Esta GMUD depende das seguintes mudanças anteriores:
 #### 5.0.1. Inventário de Ativos Pré-Sanitização
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # FASE 0.1: INVENTÁRIO COMPLETO DE ATIVOS (PRÉ-SANITIZAÇÃO)
 # Executor: Paulo Feitosa / ChatGPT (Systems Architect)
 # Data: 07/01/2026 19:00
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Listar todos os containers (ativos e parados)
 docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}" > /opt/stack-iga/GMUD-021A-inventario-pre-sanitizacao-containers.txt
@@ -151,11 +151,11 @@ cat /opt/stack-iga/GMUD-021A-inventario-pre-sanitizacao-arquivos.txt
 #### 5.0.2. Descomissionamento de Ativos Obsoletos (CRÍTICO)
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # FASE 0.2: DESCOMISSIONAMENTO DE CONTAINERS OBSOLETOS
 # Justificativa: midPoint 4.10 substituído por 4.8.8 LTS (H2 Embedded)
 # Referência: GMUD-020D (Rollback para H2)
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Validar que midPoint 4.10 (midpoint-server) está rodando
 docker ps | grep midpoint-server
@@ -209,10 +209,10 @@ EOF
 #### 5.0.3. Expurgo de Redes Docker Órfãs e Limpeza de Filesystem
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # FASE 0.3: EXPURGO DE REDES DOCKER ÓRFÃS E SANITIZAÇÃO DE FILESYSTEM
 # Objetivo: Remover redes experimentais e arquivos residuais da versão 4.10
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # ========== PARTE A: REDES DOCKER ==========
 
@@ -295,10 +295,10 @@ EOF
 #### 5.0.4. Deploy do Novo Container midPoint 4.8.8 LTS
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # FASE 0.4: DEPLOY DO NOVO CONTAINER midpoint (4.8.8 LTS)
 # Objetivo: Subir novo container midPoint e restaurar disponibilidade
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Navegar ao diretório de stack
 cd /opt/stack-iga/
@@ -357,9 +357,9 @@ EOF
 #### 5.0.5. Validação da Stack midPoint Pós-Sanitização
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # FASE 0.5: VALIDAÇÃO DE INTEGRIDADE PÓS-SANITIZAÇÃO
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Validar que midPoint continua operacional
 docker ps | grep midpoint
@@ -491,9 +491,9 @@ networks:
     name: stack-iga_midpoint-net
 
 services:
-  # ========================================
+  # <REDACTED_SECRET>
   # Stack midPoint 4.8.8 LTS (H2 Embedded File Mode)
-  # ========================================
+  # <REDACTED_SECRET>
   midpoint:
     image: evolveum/midpoint:4.8.8-alpine
     container_name: midpoint
@@ -514,9 +514,9 @@ services:
       - midpoint-net
     restart: unless-stopped
 
-  # ========================================
+  # <REDACTED_SECRET>
   # Stack OrangeHRM 5.8 (NOVO - GMUD-021A)
-  # ========================================
+  # <REDACTED_SECRET>
   orangehrm-db:
     image: mariadb:11.4
     container_name: orangehrm-db
@@ -561,11 +561,11 @@ services:
 ### 5.3. Sequência de Comandos de Execução (Deploy OrangeHRM)
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # GMUD-021A - FASE 1: DEPLOY ORANGEHRM 5.8
 # Executor: Paulo Feitosa / ChatGPT (Systems Architect)
 # Data: 07/01/2026 20:30
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Navegação ao diretório de stack
 cd /opt/stack-iga/
@@ -634,10 +634,10 @@ O rollback deve ser executado imediatamente se:
 ### 6.2. Procedimento de Reversão (Fase 0)
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # ROLLBACK FASE 0 - RESTAURAÇÃO DE CONTAINER midpoint-server
 # EXECUTAR SOMENTE SE midPoint FICAR INDISPONÍVEL
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Parar container midpoint (4.8.8) com problema
 docker stop midpoint
@@ -665,9 +665,9 @@ echo "Rollback Fase 0 executado em $(date). Motivo: [PREENCHER]" >> /opt/stack-i
 ### 6.3. Procedimento de Reversão (Fase 1)
 
 ```bash
-# ===================================================================
+# <REDACTED_SECRET>===========================
 # ROLLBACK FASE 1 - REMOÇÃO DE CONTAINERS ORANGEHRM
-# ===================================================================
+# <REDACTED_SECRET>===========================
 
 # 1. Navegar ao diretório de stack
 cd /opt/stack-iga/

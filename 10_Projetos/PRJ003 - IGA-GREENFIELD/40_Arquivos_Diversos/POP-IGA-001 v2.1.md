@@ -234,32 +234,32 @@ As variáveis de ambiente foram **alinhadas com a GMUD-008 v1.2** para garantir 
 ```bash
 # Criar template do arquivo .env
 cat > .env.template << 'EOF'
-# ============================================
+# <REDACTED_SECRET>====
 # CONFIGURAÇÕES DO AMBIENTE IGA
-# ============================================
+# <REDACTED_SECRET>====
 # Este arquivo contém variáveis sensíveis.
 # NUNCA compartilhe ou versione em repositórios públicos.
 
-# ============================================
+# <REDACTED_SECRET>====
 # CREDENCIAIS DO POSTGRESQL (Backend)
-# ============================================
+# <REDACTED_SECRET>====
 # 🔴 NOVO v2.1: Nomenclatura alinhada com GMUD-008 v1.2
 POSTGRES_DB=midpoint
 POSTGRES_USER=midpoint
 POSTGRES_PASSWORD=SuaSenhaPostgreSQL_Aqui
 
-# ============================================
+# <REDACTED_SECRET>====
 # CREDENCIAIS DO MIDPOINT (Frontend)
-# ============================================
+# <REDACTED_SECRET>====
 # Esta senha será usada para login inicial:
 # Usuário: administrator
 # Senha: [valor definido abaixo]
 # 🔴 NOVO v2.1: Nomenclatura alinhada com GMUD-008 v1.2
 MIDPOINT_ADMIN_PASSWORD=SuaSenhaMidPoint_Aqui
 
-# ============================================
+# <REDACTED_SECRET>====
 # NOTAS DE SEGURANÇA
-# ============================================
+# <REDACTED_SECRET>====
 # - Use senhas fortes (mínimo 16 caracteres)
 # - Combine letras maiúsculas, minúsculas, números e símbolos
 # - Evite palavras do dicionário
@@ -1199,7 +1199,7 @@ Set-Alias -Name iga -Value Connect-IGAServer
 ### **15.1. Documentação Oficial**
 
 - **midPoint:** https://docs.evolveum.com/midpoint/
-- **midPoint Configuration:** https://docs.evolveum.com/midpoint/reference/repository/configuration/
+- **midPoint Configuration:** https://docs.evolveum.<REDACTED_SECRET>uration/
 - **PostgreSQL:** https://www.postgresql.org/docs/
 - **Docker:** https://docs.docker.com/
 - **Docker Compose:** https://docs.docker.com/compose/

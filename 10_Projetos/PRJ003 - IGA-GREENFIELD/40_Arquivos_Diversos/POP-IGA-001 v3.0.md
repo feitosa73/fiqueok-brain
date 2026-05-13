@@ -125,11 +125,11 @@ Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
 # ====================================
 # VALIDAÇÃO 2: Virtualização Habilitada no BIOS
 # ====================================
-Get-ComputerInfo | Select-Object -Property HyperVisorPresent, HyperVRequirementVirtualizationFirmwareEnabled
+Get-ComputerInfo | Select-Object -Property HyperVisorPresent, <REDACTED_SECRET>nabled
 
 # Resultado esperado:
 # HyperVisorPresent: True
-# HyperVRequirementVirtualizationFirmwareEnabled: True
+# <REDACTED_SECRET>nabled: True
 
 # ====================================
 # VALIDAÇÃO 3: Espaço em Disco Disponível
@@ -620,30 +620,30 @@ docker compose config
 # CRIAR TEMPLATE DO ARQUIVO .env
 # ====================================
 cat > .env.template << 'EOF'
-# ============================================
+# <REDACTED_SECRET>====
 # CONFIGURAÇÕES DO AMBIENTE IGA v3.0
-# ============================================
+# <REDACTED_SECRET>====
 # ⚠️ ATENÇÃO: Use aspas simples para senhas
 # Exemplo CORRETO: POSTGRES_PASSWORD='Senh@123!'
 # Exemplo ERRADO: POSTGRES_PASSWORD=Senh@123!
 
-# ============================================
+# <REDACTED_SECRET>====
 # CREDENCIAIS DO POSTGRESQL
-# ============================================
+# <REDACTED_SECRET>====
 POSTGRES_DB='midpoint'
 POSTGRES_USER='midpoint_user'
 POSTGRES_PASSWORD='SuaSenhaPostgreSQL_Aqui'
 
-# ============================================
+# <REDACTED_SECRET>====
 # CREDENCIAIS DO MIDPOINT
-# ============================================
+# <REDACTED_SECRET>====
 # Usuário de login: administrator
 # Senha: [valor abaixo]
 MIDPOINT_ADMIN_PASSWORD='SuaSenhaMidPoint_Aqui'
 
-# ============================================
+# <REDACTED_SECRET>====
 # NOTAS DE SEGURANÇA
-# ============================================
+# <REDACTED_SECRET>====
 # - Use senhas fortes (mínimo 16 caracteres)
 # - Combine letras maiúsculas, minúsculas, números e símbolos
 # - SEMPRE use aspas simples para proteger caracteres especiais

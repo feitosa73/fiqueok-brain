@@ -1837,7 +1837,7 @@
                                   id =&gt;
                                     136 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/securityPolicyRef (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>Ref (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1853,7 +1853,7 @@
                                   id =&gt;
                                     268 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/lifecycleState (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET> (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -1896,7 +1896,7 @@
                                   id =&gt;
                                     140 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/objectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>jectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1904,7 +1904,7 @@
                                   id =&gt;
                                     141 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/auxiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>xiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1912,7 +1912,7 @@
                                   id =&gt;
                                     142 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/searchHierarchyScope (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>archHierarchyScope (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1920,7 +1920,7 @@
                                   id =&gt;
                                     143 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/filter (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>lter (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1928,7 +1928,7 @@
                                   id =&gt;
                                     144 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/classificationCondition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>assificationCondition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -1971,7 +1971,7 @@
                                   id =&gt;
                                     147 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/access/read (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/access/read (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1979,7 +1979,7 @@
                                   id =&gt;
                                     148 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/access/add (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/access/add (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1987,7 +1987,7 @@
                                   id =&gt;
                                     149 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/access/modify (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/access/modify (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -1995,7 +1995,7 @@
                                   id =&gt;
                                     150 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/minOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/minOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2003,7 +2003,7 @@
                                   id =&gt;
                                     151 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/maxOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/maxOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2011,7 +2011,7 @@
                                   id =&gt;
                                     152 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/processing (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/processing (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -2025,7 +2025,7 @@
                             identifier =&gt;
                               limitations (class java.lang.String)
                             path =&gt;
-                              schemaHandling/objectType/attribute/limitations (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>tations (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -2054,7 +2054,7 @@
                                   id =&gt;
                                     155 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/name (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/name (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2062,7 +2062,7 @@
                                   id =&gt;
                                     156 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2070,7 +2070,7 @@
                                   id =&gt;
                                     157 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/situation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/situation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -2084,7 +2084,7 @@
                             identifier =&gt;
                               reaction (class java.lang.String)
                             path =&gt;
-                              schemaHandling/objectType/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>n/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -2113,7 +2113,7 @@
                                   id =&gt;
                                     160 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/condition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/condition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2121,7 +2121,7 @@
                                   id =&gt;
                                     161 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/channel (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/channel (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2129,7 +2129,7 @@
                                   id =&gt;
                                     162 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/order (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/order (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -2143,7 +2143,7 @@
                             identifier =&gt;
                               reaction (class java.lang.String)
                             path =&gt;
-                              schemaHandling/objectType/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>n/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -2172,7 +2172,7 @@
                                   id =&gt;
                                     263 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/associationType/subject/association/synchronization/reaction/name (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET><REDACTED_SECRET> (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2180,7 +2180,7 @@
                                   id =&gt;
                                     264 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/associationType/subject/association/synchronization/reaction/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET><REDACTED_SECRET>ription (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2188,7 +2188,7 @@
                                   id =&gt;
                                     265 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/associationType/subject/association/synchronization/reaction/situation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET><REDACTED_SECRET>ation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -2202,7 +2202,7 @@
                             identifier =&gt;
                               associationReactionMain (class java.lang.String)
                             path =&gt;
-                              schemaHandling/associationType/subject/association/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>ssociation/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -2230,7 +2230,7 @@
                                 id =&gt;
                                   257 (class java.lang.Long)
                                 path =&gt;
-                                  schemaHandling/associationType/subject/association/synchronization/reaction/order (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET><REDACTED_SECRET>r (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             identifier =&gt;
                               associationReactionOptionalSetting (class java.lang.String)
@@ -2243,7 +2243,7 @@
                             identifier =&gt;
                               associationReactionOptional (class java.lang.String)
                             path =&gt;
-                              schemaHandling/associationType/subject/association/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>ssociation/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -2280,7 +2280,7 @@
                                   id =&gt;
                                     166 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/displayName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>layName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2288,7 +2288,7 @@
                                   id =&gt;
                                     167 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/help (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET> (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2296,7 +2296,7 @@
                                   id =&gt;
                                     168 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ription (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2304,7 +2304,7 @@
                                   id =&gt;
                                     169 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/tolerant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>rant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2312,7 +2312,7 @@
                                   id =&gt;
                                     170 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/exclusiveStrong (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>usiveStrong (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2320,7 +2320,7 @@
                                   id =&gt;
                                     171 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/readReplaceMode (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ReplaceMode (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2328,7 +2328,7 @@
                                   id =&gt;
                                     172 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/fetchStrategy (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>hStrategy (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2336,7 +2336,7 @@
                                   id =&gt;
                                     173 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/matchingRule (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>hingRule (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2344,7 +2344,7 @@
                                   id =&gt;
                                     270 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/volatility/incoming/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tility/incoming/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2352,7 +2352,7 @@
                                   id =&gt;
                                     271 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/volatility/outgoing/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tility/outgoing/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -2395,7 +2395,7 @@
                                   id =&gt;
                                     176 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/ref (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>f (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2403,7 +2403,7 @@
                                   id =&gt;
                                     177 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/displayName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>splayName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2411,7 +2411,7 @@
                                   id =&gt;
                                     178 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>scription (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2419,7 +2419,7 @@
                                   id =&gt;
                                     179 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/auxiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>xiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2427,7 +2427,7 @@
                                   id =&gt;
                                     180 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/kind (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>nd (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2435,7 +2435,7 @@
                                   id =&gt;
                                     181 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/intent (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tent (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2443,7 +2443,7 @@
                                   id =&gt;
                                     182 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/direction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>rection (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2451,7 +2451,7 @@
                                   id =&gt;
                                     183 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/associationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>sociationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2459,7 +2459,7 @@
                                   id =&gt;
                                     184 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/shortcutAssociationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ortcutAssociationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2467,7 +2467,7 @@
                                   id =&gt;
                                     185 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/valueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>lueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2475,7 +2475,7 @@
                                   id =&gt;
                                     186 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/shortcutValueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ortcutValueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2483,7 +2483,7 @@
                                   id =&gt;
                                     187 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/explicitReferentialIntegrity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>plicitReferentialIntegrity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -2491,7 +2491,7 @@
                                   id =&gt;
                                     253 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/tolerant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>lerant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -2552,43 +2552,43 @@
                                 id =&gt;
                                   191 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/jdbcUrlTemplate (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/jdbcUrlTemplate (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   192 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/jdbcDriver (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/jdbcDriver (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   193 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/password (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/password (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   194 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/user (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/user (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   195 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   196 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   197 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/database (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/database (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             ]
                           identifier =&gt;
@@ -2602,7 +2602,7 @@
                           identifier =&gt;
                             configurationProperties (class java.lang.String)
                           path =&gt;
-                            connectorConfiguration/configurationProperties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                            <REDACTED_SECRET>erties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                         )
                       ]
                     identifier =&gt;
@@ -2648,19 +2648,19 @@
                                 id =&gt;
                                   201 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   202 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   203 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -2668,7 +2668,7 @@
                                 id =&gt;
                                   204 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -2676,7 +2676,7 @@
                                 id =&gt;
                                   205 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             ]
                           identifier =&gt;
@@ -2690,7 +2690,7 @@
                           identifier =&gt;
                             configurationProperties (class java.lang.String)
                           path =&gt;
-                            connectorConfiguration/configurationProperties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                            <REDACTED_SECRET>erties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                         )
                       ]
                     identifier =&gt;
@@ -2736,19 +2736,19 @@
                                 id =&gt;
                                   209 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   210 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   211 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -2756,7 +2756,7 @@
                                 id =&gt;
                                   212 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -2764,7 +2764,7 @@
                                 id =&gt;
                                   213 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             ]
                           identifier =&gt;
@@ -2778,7 +2778,7 @@
                           identifier =&gt;
                             configurationProperties (class java.lang.String)
                           path =&gt;
-                            connectorConfiguration/configurationProperties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                            <REDACTED_SECRET>erties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                         )
                       ]
                     identifier =&gt;
@@ -6265,7 +6265,7 @@ metadata: (1)
                                   id =&gt;
                                     136 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/securityPolicyRef (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>Ref (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6281,7 +6281,7 @@ metadata: (1)
                                   id =&gt;
                                     268 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/lifecycleState (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET> (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6324,7 +6324,7 @@ metadata: (1)
                                   id =&gt;
                                     140 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/objectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>jectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6332,7 +6332,7 @@ metadata: (1)
                                   id =&gt;
                                     141 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/auxiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>xiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6340,7 +6340,7 @@ metadata: (1)
                                   id =&gt;
                                     142 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/searchHierarchyScope (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>archHierarchyScope (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6348,7 +6348,7 @@ metadata: (1)
                                   id =&gt;
                                     143 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/filter (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>lter (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6356,7 +6356,7 @@ metadata: (1)
                                   id =&gt;
                                     144 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/delineation/classificationCondition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>assificationCondition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6399,7 +6399,7 @@ metadata: (1)
                                   id =&gt;
                                     147 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/access/read (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/access/read (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6407,7 +6407,7 @@ metadata: (1)
                                   id =&gt;
                                     148 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/access/add (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/access/add (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6415,7 +6415,7 @@ metadata: (1)
                                   id =&gt;
                                     149 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/access/modify (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/access/modify (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6423,7 +6423,7 @@ metadata: (1)
                                   id =&gt;
                                     150 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/minOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/minOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6431,7 +6431,7 @@ metadata: (1)
                                   id =&gt;
                                     151 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/maxOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/maxOccurs (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6439,7 +6439,7 @@ metadata: (1)
                                   id =&gt;
                                     152 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/limitations/processing (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tations/processing (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6453,7 +6453,7 @@ metadata: (1)
                             identifier =&gt;
                               limitations (class java.lang.String)
                             path =&gt;
-                              schemaHandling/objectType/attribute/limitations (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>tations (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -6482,7 +6482,7 @@ metadata: (1)
                                   id =&gt;
                                     155 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/name (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/name (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6490,7 +6490,7 @@ metadata: (1)
                                   id =&gt;
                                     156 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6498,7 +6498,7 @@ metadata: (1)
                                   id =&gt;
                                     157 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/situation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/situation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6512,7 +6512,7 @@ metadata: (1)
                             identifier =&gt;
                               reaction (class java.lang.String)
                             path =&gt;
-                              schemaHandling/objectType/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>n/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -6541,7 +6541,7 @@ metadata: (1)
                                   id =&gt;
                                     160 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/condition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/condition (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6549,7 +6549,7 @@ metadata: (1)
                                   id =&gt;
                                     161 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/channel (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/channel (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6557,7 +6557,7 @@ metadata: (1)
                                   id =&gt;
                                     162 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/synchronization/reaction/order (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>n/reaction/order (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6571,7 +6571,7 @@ metadata: (1)
                             identifier =&gt;
                               reaction (class java.lang.String)
                             path =&gt;
-                              schemaHandling/objectType/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>n/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -6600,7 +6600,7 @@ metadata: (1)
                                   id =&gt;
                                     263 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/associationType/subject/association/synchronization/reaction/name (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET><REDACTED_SECRET> (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6608,7 +6608,7 @@ metadata: (1)
                                   id =&gt;
                                     264 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/associationType/subject/association/synchronization/reaction/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET><REDACTED_SECRET>ription (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6616,7 +6616,7 @@ metadata: (1)
                                   id =&gt;
                                     265 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/associationType/subject/association/synchronization/reaction/situation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET><REDACTED_SECRET>ation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6630,7 +6630,7 @@ metadata: (1)
                             identifier =&gt;
                               associationReactionMain (class java.lang.String)
                             path =&gt;
-                              schemaHandling/associationType/subject/association/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>ssociation/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -6658,7 +6658,7 @@ metadata: (1)
                                 id =&gt;
                                   257 (class java.lang.Long)
                                 path =&gt;
-                                  schemaHandling/associationType/subject/association/synchronization/reaction/order (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET><REDACTED_SECRET>r (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             identifier =&gt;
                               associationReactionOptionalSetting (class java.lang.String)
@@ -6671,7 +6671,7 @@ metadata: (1)
                             identifier =&gt;
                               associationReactionOptional (class java.lang.String)
                             path =&gt;
-                              schemaHandling/associationType/subject/association/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                              <REDACTED_SECRET>ssociation/synchronization/reaction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                           )
                         ]
                       identifier =&gt;
@@ -6708,7 +6708,7 @@ metadata: (1)
                                   id =&gt;
                                     166 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/displayName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>layName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6716,7 +6716,7 @@ metadata: (1)
                                   id =&gt;
                                     167 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/help (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET> (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6724,7 +6724,7 @@ metadata: (1)
                                   id =&gt;
                                     168 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ription (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6732,7 +6732,7 @@ metadata: (1)
                                   id =&gt;
                                     169 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/tolerant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>rant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6740,7 +6740,7 @@ metadata: (1)
                                   id =&gt;
                                     170 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/exclusiveStrong (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>usiveStrong (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6748,7 +6748,7 @@ metadata: (1)
                                   id =&gt;
                                     171 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/readReplaceMode (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ReplaceMode (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6756,7 +6756,7 @@ metadata: (1)
                                   id =&gt;
                                     172 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/fetchStrategy (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>hStrategy (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6764,7 +6764,7 @@ metadata: (1)
                                   id =&gt;
                                     173 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/matchingRule (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>hingRule (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6772,7 +6772,7 @@ metadata: (1)
                                   id =&gt;
                                     270 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/volatility/incoming/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tility/incoming/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6780,7 +6780,7 @@ metadata: (1)
                                   id =&gt;
                                     271 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/attribute/volatility/outgoing/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tility/outgoing/operation (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6823,7 +6823,7 @@ metadata: (1)
                                   id =&gt;
                                     176 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/ref (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>f (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6831,7 +6831,7 @@ metadata: (1)
                                   id =&gt;
                                     177 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/displayName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>splayName (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6839,7 +6839,7 @@ metadata: (1)
                                   id =&gt;
                                     178 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/description (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>scription (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6847,7 +6847,7 @@ metadata: (1)
                                   id =&gt;
                                     179 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/auxiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>xiliaryObjectClass (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6855,7 +6855,7 @@ metadata: (1)
                                   id =&gt;
                                     180 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/kind (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>nd (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6863,7 +6863,7 @@ metadata: (1)
                                   id =&gt;
                                     181 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/intent (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>tent (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6871,7 +6871,7 @@ metadata: (1)
                                   id =&gt;
                                     182 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/direction (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>rection (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6879,7 +6879,7 @@ metadata: (1)
                                   id =&gt;
                                     183 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/associationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>sociationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6887,7 +6887,7 @@ metadata: (1)
                                   id =&gt;
                                     184 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/shortcutAssociationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ortcutAssociationAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6895,7 +6895,7 @@ metadata: (1)
                                   id =&gt;
                                     185 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/valueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>lueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6903,7 +6903,7 @@ metadata: (1)
                                   id =&gt;
                                     186 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/shortcutValueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>ortcutValueAttribute (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6911,7 +6911,7 @@ metadata: (1)
                                   id =&gt;
                                     187 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/explicitReferentialIntegrity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>plicitReferentialIntegrity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                                 (
                                   visibility =&gt;
@@ -6919,7 +6919,7 @@ metadata: (1)
                                   id =&gt;
                                     253 (class java.lang.Long)
                                   path =&gt;
-                                    schemaHandling/objectType/association/tolerant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                    <REDACTED_SECRET>lerant (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                                 )
                               ]
                             identifier =&gt;
@@ -6980,43 +6980,43 @@ metadata: (1)
                                 id =&gt;
                                   191 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/jdbcUrlTemplate (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/jdbcUrlTemplate (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   192 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/jdbcDriver (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/jdbcDriver (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   193 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/password (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/password (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   194 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/user (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/user (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   195 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   196 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   197 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/database (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/database (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             ]
                           identifier =&gt;
@@ -7030,7 +7030,7 @@ metadata: (1)
                           identifier =&gt;
                             configurationProperties (class java.lang.String)
                           path =&gt;
-                            connectorConfiguration/configurationProperties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                            <REDACTED_SECRET>erties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                         )
                       ]
                     identifier =&gt;
@@ -7076,19 +7076,19 @@ metadata: (1)
                                 id =&gt;
                                   201 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   202 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   203 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -7096,7 +7096,7 @@ metadata: (1)
                                 id =&gt;
                                   204 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -7104,7 +7104,7 @@ metadata: (1)
                                 id =&gt;
                                   205 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             ]
                           identifier =&gt;
@@ -7118,7 +7118,7 @@ metadata: (1)
                           identifier =&gt;
                             configurationProperties (class java.lang.String)
                           path =&gt;
-                            connectorConfiguration/configurationProperties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                            <REDACTED_SECRET>erties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                         )
                       ]
                     identifier =&gt;
@@ -7164,19 +7164,19 @@ metadata: (1)
                                 id =&gt;
                                   209 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/host (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   210 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/port (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 id =&gt;
                                   211 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/connectionSecurity (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -7184,7 +7184,7 @@ metadata: (1)
                                 id =&gt;
                                   212 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindDn (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                               (
                                 visibility =&gt;
@@ -7192,7 +7192,7 @@ metadata: (1)
                                 id =&gt;
                                   213 (class java.lang.Long)
                                 path =&gt;
-                                  connectorConfiguration/configurationProperties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                                  <REDACTED_SECRET>erties/bindPassword (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                               )
                             ]
                           identifier =&gt;
@@ -7206,7 +7206,7 @@ metadata: (1)
                           identifier =&gt;
                             configurationProperties (class java.lang.String)
                           path =&gt;
-                            connectorConfiguration/configurationProperties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
+                            <REDACTED_SECRET>erties (class com.evolveum.prism.xml.ns._public.types_3.ItemPathType)
                         )
                       ]
                     identifier =&gt;
@@ -8618,7 +8618,7 @@ com.evolveum.midpoint.prism.impl.marshaller.PrismParserImpl.doParse(PrismParserI
 com.evolveum.midpoint.prism.impl.marshaller.PrismParserImplIO.parse(PrismParserImplIO.java:31)
 com.evolveum.midpoint.rest.impl.MidpointAbstractHttpMessageConverter.readInternal(MidpointAbstractHttpMessageConverter.java:70)
 org.springframework.http.converter.AbstractHttpMessageConverter.read(AbstractHttpMessageConverter.java:198)
-org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:203)
+org.springframework.web.servlet.mvc.method.annotation.<REDACTED_SECRET>solver.readWithMessageConverters(<REDACTED_SECRET>solver.java:203)
 org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:176)
 org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:150)
 org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
@@ -8676,7 +8676,7 @@ com.evolveum.midpoint.authentication.impl.filter.MidpointAuthFilter$VirtualFilte
 com.evolveum.midpoint.authentication.impl.filter.HttpAuthenticationFilter.doFilterInternal(HttpAuthenticationFilter.java:118)
 org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
 com.evolveum.midpoint.authentication.impl.filter.MidpointAuthFilter$VirtualFilterChain.doFilter(MidpointAuthFilter.java:471)
-com.evolveum.midpoint.authentication.impl.filter.RedirectForLoginPagesWithAuthenticationFilter.doFilterInternal(RedirectForLoginPagesWithAuthenticationFilter.java:38)
+com.evolveum.midpoint.authentication.impl.filter.<REDACTED_SECRET>ilter.doFilterInternal(<REDACTED_SECRET>ilter.java:38)
 org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
 com.evolveum.midpoint.authentication.impl.filter.MidpointAuthFilter$VirtualFilterChain.doFilter(MidpointAuthFilter.java:471)
 org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
@@ -8761,7 +8761,7 @@ paulo@iga-gf-02:~$
 paulo@iga-gf-02:~$
 paulo@iga-gf-02:~$ # Verificar se o objectPolicyConfiguration foi persistido
 curl -s -u administrator:'M1dP0!ntAdm!n#2026' \
-  "http://localhost:8080/midpoint/ws/rest/systemConfigurations/00000000-0000-0000-0000-000000000001" \
+  "http://localhost:<REDACTED_SECRET>ns/00000000-0000-0000-0000-000000000001" \
   | grep -A10 "objectPolicyConfiguration"
 paulo@iga-gf-02:~$
 paulo@iga-gf-02:~$

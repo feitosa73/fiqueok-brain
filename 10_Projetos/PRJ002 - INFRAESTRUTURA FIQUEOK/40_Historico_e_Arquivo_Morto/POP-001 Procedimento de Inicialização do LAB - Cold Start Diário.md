@@ -208,7 +208,7 @@ bash
 
 -  Observar se há erros críticos nos logs[](https://docs.evolveum.com/midpoint/install/containers/docker/)​
     
--  Aguardar mensagem de inicialização completa[](https://docs.evolveum.com/midpoint/devel/guides/environment/embedded-tomcat/)​
+-  Aguardar mensagem de inicialização completa[](https://docs.evolveum.<REDACTED_SECRET>bedded-tomcat/)​
     
 
 > ⏱️ **Tempo de aguardo:** midPoint leva aproximadamente **2-3 minutos** para inicializar completamente o Tomcat embarcado e carregar o console.[](https://docs.evolveum.com/midpoint/reference/support-4.10/deployment/stand-alone-deployment/)​

@@ -88,7 +88,7 @@ curl -s -u administrator:'M1dP0!ntAdm!n#2026' \
 **Solução Futura:** 
 ```bash
 # Validar schema antes da GMUD
-curl -s http://localhost:8080/midpoint/ws/rest/systemConfigurations/schema \
+curl -s http://localhost:<REDACTED_SECRET>ns/schema \
   | grep -i "objectPolicyConfiguration"
 # O comando acima não retornou nada, indicando que não existe!
 ```
@@ -147,7 +147,7 @@ curl -s http://localhost:8080/midpoint/ws/rest/systemConfigurations/schema \
 
 ```bash
 # 1. Validar schema completo do SystemConfiguration
-curl -s http://localhost:8080/midpoint/ws/rest/systemConfigurations/schema \
+curl -s http://localhost:<REDACTED_SECRET>ns/schema \
   | jq '.definitions' > /tmp/sysconfig-schema.json
 
 # 2. Verificar se objectPolicyConfiguration existe

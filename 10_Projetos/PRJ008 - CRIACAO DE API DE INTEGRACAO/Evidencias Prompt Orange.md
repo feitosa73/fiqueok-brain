@@ -192,7 +192,7 @@ services:
     depends_on:
       - orange-db
     restart: always
-paulo@rh-gf-01:~/prj005-orange-greenfield$ oEsTfWPoOxUX2aIanYODDo/LREhYyCQwiS/5ZH/0/TZPpbqYqNWKHjIi8A9hGDuo3lVWldCnbN1xFiTSHMRQfNkcuHJaOwx91YJyxX/H0nhO2+ST1XFIs5WfHrFPGXLLZFJW^[[200~hvs.jQ7AHVUkfNvEguKd7NApHKXz~^C
+paulo@rh-gf-01:~/prj005-orange-greenfield$ <REDACTED_VAULT_UNSEAL_KEY_1><REDACTED_VAULT_UNSEAL_KEY_2><REDACTED_SECRET>ZFJW^[[200~<REDACTED_VAULT_ROOT_TOKEN>~^C
 paulo@rh-gf-01:~/prj005-orange-greenfield$
 paulo@rh-gf-01:~/prj005-orange-greenfield$
 paulo@rh-gf-01:~/prj005-orange-greenfield$ sudo docker exec -it orange-db mariadb -u root -p
@@ -488,7 +488,7 @@ Bye
 paulo@rh-gf-01:~/prj005-orange-greenfield$
 paulo@rh-gf-01:~/prj005-orange-greenfield$
 paulo@rh-gf-01:~/prj005-orange-greenfield$ sudo docker exec -it orange-app php -r 'echo password_hash("**********", PASSWORD_BCRYPT) . "\n";'
-$2y$10$qkIMrwd7nGbjSanvVgqYAuhClYlpwwXTnTpP85gtUQ/hZ76KY5ZnC
+$2y$10$<REDACTED_SECRET>UQ/hZ76KY5ZnC
 paulo@rh-gf-01:~/prj005-orange-greenfield$
 paulo@rh-gf-01:~/prj005-orange-greenfield$
 paulo@rh-gf-01:~/prj005-orange-greenfield$ sudo docker exec -it orange-db mariadb -u root -p
@@ -507,14 +507,14 @@ MariaDB [(none)]> USE orangehrm;
 passworReading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
-d = '$2y$10$qkIMrwd7nGbjSanvVgqYAuhClYlpwwXTnTpP85gtUQ/hZ76KY5ZnC'
+d = '$2y$10$<REDACTED_SECRET>UQ/hZ76KY5ZnC'
 WHERE user_name = 'paulo';
 
 COMMIT;
 EXIT;Database changed
 MariaDB [orangehrm]>
 MariaDB [orangehrm]> UPDATE ohrm_user
-    -> SET user_password = '$2y$10$qkIMrwd7nGbjSanvVgqYAuhClYlpwwXTnTpP85gtUQ/hZ76KY5ZnC'
+    -> SET user_password = '$2y$10$<REDACTED_SECRET>UQ/hZ76KY5ZnC'
     -> WHERE user_name = 'paulo';
 Query OK, 1 row affected (0.001 sec)
 Rows matched: 1  Changed: 1  Warnings: 0

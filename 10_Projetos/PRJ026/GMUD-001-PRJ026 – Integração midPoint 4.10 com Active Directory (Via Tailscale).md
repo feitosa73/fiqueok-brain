@@ -315,10 +315,10 @@ Segundo **ADR-008**, a tabela de autoridade é:
 
     <name>User Object Template - ADR-008</name>
 
-    <!-- ============================================================ -->
+    <!-- <REDACTED_SECRET>==================== -->
     <!-- REGRA DE DERIVAÇÃO DE E-MAIL, UPN E sAMAccountName          -->
     <!-- Conforme ADR-008: Resolução automática de colisões (N+1)    -->
-    <!-- ============================================================ -->
+    <!-- <REDACTED_SECRET>==================== -->
     <mapping>
         <name>email-upn-generation</name>
         <strength>strong</strength>
@@ -346,12 +346,12 @@ Segundo **ADR-008**, a tabela de autoridade é:
                     import com.evolveum.midpoint.util.logging.Trace;
                     import com.evolveum.midpoint.util.logging.LoggingUtils;
 
-                    // ============================================================
+                    // <REDACTED_SECRET>====================
                     // REGRA DE DERIVAÇÃO DE E-MAIL E UPN (ADR-008)
-                    // ============================================================
+                    // <REDACTED_SECRET>====================
                     // Input: givenName, familyName, personalNumber (employeeID)
                     // Output: emailAddress, userPrincipalName, sAMAccountName
-                    // ============================================================
+                    // <REDACTED_SECRET>====================
 
                     def given = basic.norm(givenName)
                     def family = basic.norm(familyName)
@@ -369,9 +369,9 @@ Segundo **ADR-008**, a tabela de autoridade é:
                     def emailAddress = baseEmail
                     def counter = 1
 
-                    // ============================================================
+                    // <REDACTED_SECRET>====================
                     // Resolução automática de colisões (lógica N+1)
-                    // ============================================================
+                    // <REDACTED_SECRET>====================
                     while (true) {
                         // Verificar se email já existe no repositório
                         def query = prismContext.queryFor(UserType.class)
@@ -422,9 +422,9 @@ Segundo **ADR-008**, a tabela de autoridade é:
         </condition>
     </mapping>
 
-    <!-- ============================================================ -->
+    <!-- <REDACTED_SECRET>==================== -->
     <!-- REGRA DE DERIVAÇÃO DE DISPLAYNAME                            -->
-    <!-- ============================================================ -->
+    <!-- <REDACTED_SECRET>==================== -->
     <mapping>
         <name>displayName-generation</name>
         <strength>strong</strength>
@@ -452,9 +452,9 @@ Segundo **ADR-008**, a tabela de autoridade é:
         </expression>
     </mapping>
 
-    <!-- ============================================================ -->
+    <!-- <REDACTED_SECRET>==================== -->
     <!-- REGRA PARA MUDANÇA DE NOME (MOVER) - Preservar alias         -->
-    <!-- ============================================================ -->
+    <!-- <REDACTED_SECRET>==================== -->
     <mapping>
         <name>move-name-preserve-alias</name>
         <strength>strong</strength>

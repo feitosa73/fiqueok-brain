@@ -73,10 +73,10 @@ A Sprint 6 objetivava configurar o Resource REST no midPoint para consumir `GET 
 ### 3.2 Linha do Tempo do Bloqueio
 
 **Tentativa 1 — Polygon REST Connector (connector-rest 2.x):**
-URLs testadas: Nexus Evolveum `/releases/com/evolveum/polygon/connector-rest/2.6/` e `/2.7/`, Maven Central `/com/evolveum/polygon/connector-rest/2.6/`. Todas retornaram **HTTP 404**. Causa confirmada: `connector-rest` é uma **biblioteca superclass para desenvolvedores** (dependência Maven), não um conector ICF standalone deployável. Nunca existiu como JAR pronto para download.
+URLs testadas: Nexus Evolveum `<REDACTED_SECRET>-rest/2.6/` e `/2.7/`, Maven Central `/com/evolveum/polygon/connector-rest/2.6/`. Todas retornaram **HTTP 404**. Causa confirmada: `connector-rest` é uma **biblioteca superclass para desenvolvedores** (dependência Maven), não um conector ICF standalone deployável. Nunca existiu como JAR pronto para download.
 
 **Tentativa 2 — ScriptedREST Connector 1.1.1.e2 (ForgeRock/Evolveum):**
-JAR obtido com sucesso: `https://nexus.evolveum.com/nexus/repository/connectors/org/forgerock/openicf/connectors/scriptedrest-connector/1.1.1.e2/scriptedrest-connector-1.1.1.e2.jar` (1.3MB). Conector reconhecido pelo midPoint, OID `c89f121b-f6a3-483e-9300-91b91bbe06f5`. Test Connection: **FALHA** com `groovy/util/slurpersupport/GPathResult`. Causa: conector desenvolvido para midPoint 3.x / Groovy 2.x / Java 11. O midPoint 4.10 roda Java 21 com runtime Groovy diferente onde `GPathResult` foi movido. A falha ocorre na inicialização do bundle, antes de qualquer script ser executado.
+JAR obtido com sucesso: `https://nexus.evolveum.<REDACTED_SECRET>erock/openicf/connectors/scriptedrest-connector/1.1.1.e2/scriptedrest-connector-1.1.1.e2.jar` (1.3MB). Conector reconhecido pelo midPoint, OID `c89f121b-f6a3-483e-9300-91b91bbe06f5`. Test Connection: **FALHA** com `groovy/util/slurpersupport/GPathResult`. Causa: conector desenvolvido para midPoint 3.x / Groovy 2.x / Java 11. O midPoint 4.10 roda Java 21 com runtime Groovy diferente onde `GPathResult` foi movido. A falha ocorre na inicialização do bundle, antes de qualquer script ser executado.
 
 **Tentativa 3 — Script Groovy mínimo (validação do classpath):**
 Script sem nenhum import de Groovy, apenas classes ConnId. Mesmo erro `GPathResult`. Confirmação definitiva: o problema é no classpath de inicialização do JAR do conector, não no script.
@@ -121,7 +121,7 @@ TAILSCALE MESH VPN
 
 **Arquivos relevantes na iga-gf-02:**
 - `/srv/iga-project/docker-compose.yml` — stack midPoint + PostgreSQL
-- `/srv/iga-project/data/midpoint/scripts/SearchScript.groovy` — script de busca
+- `/srv/iga-<REDACTED_SECRET>pt.groovy` — script de busca
 - `/srv/iga-project/data/midpoint/connid-connectors/` — diretório para o JAR
 - `/tmp/shadow-api-resource-v2.xml` — Resource XML (pode precisar ser recriado)
 
@@ -143,7 +143,7 @@ mvn clean install -pl connector-rest -am -Dmaven.test.skip=true
 Copiar o JAR gerado para `/srv/iga-project/data/midpoint/connid-connectors/`.
 
 ### Caminho B — Aguardar Release Oficial
-Monitorar: `https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-rest/`
+Monitorar: `https://nexus.evolveum.<REDACTED_SECRET>um/polygon/connector-rest/`
 Para uma versão >= 3.x com suporte declarado a Java 21.
 
 ### Caminho C — Conector HTTP Genérico de Terceiros

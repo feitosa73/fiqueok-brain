@@ -1,6 +1,6 @@
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # GMUD-006 — DEPLOY IGA COM ORQUESTRAÇÃO DE BOOTSTRAP (v1.4)
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 # Projeto: PRJ003 - IGA Greenfield Reference Architecture
 # Data: 18/01/2026
 # Responsável: Paulo Feitosa
@@ -8,7 +8,7 @@
 # Prioridade: Alta
 # Risco: Médio (Ambiente controlado - Living Lab)
 # Dependências: REL-GMUD-005 (Rollback concluído)
-# ==============================================================================
+# <REDACTED_SECRET>======================================
 
 ## 1. IDENTIFICAÇÃO E CONTEXTO
 

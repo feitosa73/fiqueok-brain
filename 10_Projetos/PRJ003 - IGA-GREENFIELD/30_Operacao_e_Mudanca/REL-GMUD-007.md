@@ -1,6 +1,6 @@
 ## 📋 — Relatório de Execução Completo
 
-Entendo perfeitamente. Segue o **relatório formal de execução** para encerramento da GMUD-007 como "Executada sem Sucesso".​[](https://docs.evolveum.com/midpoint/install/containers/customization/)​
+Entendo perfeitamente. Segue o **relatório formal de execução** para encerramento da GMUD-007 como "Executada sem Sucesso".​[](https://docs.evolveum.<REDACTED_SECRET>ation/)​
 
 ---
 
@@ -46,13 +46,13 @@ Reexecutar o Cold Start da infraestrutura IAM (midPoint + PostgreSQL) após falh
 
 ## Diagnóstico Técnico
 
-**Problema**: Incompatibilidade de mapeamento de variáveis de ambiente na imagem `evolveum/midpoint:4.8`.[](https://docs.evolveum.com/midpoint/install/containers/customization/)​
+**Problema**: Incompatibilidade de mapeamento de variáveis de ambiente na imagem `evolveum/midpoint:4.8`.[](https://docs.evolveum.<REDACTED_SECRET>ation/)​
 
 **O que aconteceu**:
 
 - O midPoint 4.8 **ignorou** as variáveis `MIDPOINT_REPOSITORY_DATABASE_URL`, `MIDPOINT_REPOSITORY_DATABASE_USERNAME` e `MIDPOINT_REPOSITORY_DATABASE_PASSWORD`
     
-- Motivo: A versão 4.8 exige sintaxe específica `MP_SET_midpoint_repository_*` ou configuração via `config.xml`[](https://docs.evolveum.com/midpoint/install/containers/customization/)​
+- Motivo: A versão 4.8 exige sintaxe específica `MP_SET_midpoint_repository_*` ou configuração via `config.xml`[](https://docs.evolveum.<REDACTED_SECRET>ation/)​
     
 
 **Consequência**:
@@ -90,7 +90,7 @@ Reexecutar o Cold Start da infraestrutura IAM (midPoint + PostgreSQL) após falh
 
 **LL-001 - Configuração de Plataforma**  
 Lição: A automação e o deploy manual de plataformas complexas como o midPoint exigem validação rigorosa da sintaxe de variáveis de ambiente específica para a versão (v4.8).  
-Ação Corretiva: Consultar documentação oficial (docs.evolveum.com) ANTES da execução da GMUD, não durante troubleshooting.[](https://docs.evolveum.com/midpoint/install/containers/customization/)​
+Ação Corretiva: Consultar documentação oficial (docs.evolveum.com) ANTES da execução da GMUD, não durante troubleshooting.[](https://docs.evolveum.<REDACTED_SECRET>ation/)​
 
 **LL-002 - Risco de Integridade**  
 Lição: O fallback silencioso para banco H2 é um risco de integridade que deve ser mitigado com testes de 'Connection Success' antes da liberação do portal.  
@@ -121,7 +121,7 @@ Ação Corretiva: Script de validação automática - grep nos primeiros 50 linh
 
 ## 6. Solução Identificada (Não Executada)
 
-Durante o troubleshooting, foi identificada a solução técnica com base na documentação oficial da Evolveum:[](https://docs.evolveum.com/midpoint/install/containers/customization/)​
+Durante o troubleshooting, foi identificada a solução técnica com base na documentação oficial da Evolveum:[](https://docs.evolveum.<REDACTED_SECRET>ation/)​
 
 **Substituir** variáveis `MIDPOINT_REPOSITORY_*` **por** `MP_SET_midpoint_repository_*`
 
@@ -146,7 +146,7 @@ Durante o troubleshooting, foi identificada a solução técnica com base na doc
 
 ## Conclusão
 
-A GMUD-007 foi **executada sem sucesso** devido a incompatibilidade de sintaxe de variáveis de ambiente específica do midPoint 4.8, não detectada na fase de planejamento.[](https://docs.evolveum.com/midpoint/install/containers/customization/)​​
+A GMUD-007 foi **executada sem sucesso** devido a incompatibilidade de sintaxe de variáveis de ambiente específica do midPoint 4.8, não detectada na fase de planejamento.[](https://docs.evolveum.<REDACTED_SECRET>ation/)​​
 
 A causa raiz foi identificada e documentada, com solução técnica validada pela documentação oficial. A aplicação desta correção será formalizada na **GMUD-008**, seguindo princípios de governança e com lições aprendidas incorporadas.
 

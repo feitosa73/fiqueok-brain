@@ -53,9 +53,9 @@ Este Procedimento Operacional Padrão descreve como criar novas máquinas virtua
 
 powershell
 
-# ============================================
+# <REDACTED_SECRET>====
 # CLONAR WINDOWS SERVER 2022 GOLDEN DISK
-# ============================================
+# <REDACTED_SECRET>====
 $NewVMName = "Nova-VM-Windows"           # Nome da nova VM
 $GoldenDiskPath = "C:\Hyper-V\GoldenDisks\Win2022-GF\Win2022-GF-GEN2.vhdx"  # Use GEN1 ou GEN2
 $VMPath = "C:\Hyper-V\VMs\$NewVMName"
@@ -88,9 +88,9 @@ Write-Host "   Acesse via console: vmconnect.exe localhost $NewVMName" -Foregrou
 
 powershell
 
-# ============================================
+# <REDACTED_SECRET>====
 # CLONAR UBUNTU 24.04 LTS GOLDEN DISK
-# ============================================
+# <REDACTED_SECRET>====
 $NewVMName = "Nova-VM-Ubuntu"            # Nome da nova VM
 $GoldenDiskPath = "C:\Hyper-V\GoldenDisks\Ubuntu2404-GF\Ubuntu2404-GF-GEN2-Greenfield.vhdx"
 $VMPath = "C:\Hyper-V\VMs\$NewVMName"

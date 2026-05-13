@@ -79,10 +79,10 @@ Executar o script Rollback-Rede-Fiqueok.ps1 com privilégios administrativos.
 PowerShell
 
 ```
-# =========================================================
+# <REDACTED_SECRET>=================
 # SCRIPT DE CONTINGÊNCIA: Rollback Rede Fiqueok
 # OBJETIVO: Remover configurações de NAT e vSwitch, limpando o Host.
-# =========================================================
+# <REDACTED_SECRET>=================
 
 $SwitchName = "vSwitch_Fiqueok_Corp"
 $NatName    = "NAT_Fiqueok_Network"

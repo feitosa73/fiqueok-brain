@@ -248,7 +248,7 @@ Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
 
 # ====================================
 
-Get-ComputerInfo | Select-Object -Property HyperVisorPresent, HyperVRequirementVirtualizationFirmwareEnabled
+Get-ComputerInfo | Select-Object -Property HyperVisorPresent, <REDACTED_SECRET>nabled
 
   
 
@@ -256,7 +256,7 @@ Get-ComputerInfo | Select-Object -Property HyperVisorPresent, HyperVRequirementV
 
 # HyperVisorPresent: True
 
-# HyperVRequirementVirtualizationFirmwareEnabled: True
+# <REDACTED_SECRET>nabled: True
 
   
 
@@ -1358,11 +1358,11 @@ A diferença entre v1.0 e v2.0:
 
 cat > .env.template << 'EOF'
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # CONFIGURAÇÕES DO AMBIENTE IGA
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # Este arquivo contém variáveis sensíveis.
 
@@ -1370,11 +1370,11 @@ cat > .env.template << 'EOF'
 
   
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # CREDENCIAIS DO POSTGRESQL (Backend)
 
-# ============================================
+# <REDACTED_SECRET>====
 
 POSTGRES_DB=midpoint
 
@@ -1384,11 +1384,11 @@ POSTGRES_PASSWORD=SuaSenhaPostgreSQL_Aqui
 
   
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # CREDENCIAIS DO MIDPOINT (Frontend)
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # Esta senha será usada para login inicial:
 
@@ -1400,11 +1400,11 @@ MIDPOINT_ADMIN_PASSWORD=SuaSenhaMidPoint_Aqui
 
   
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # NOTAS DE SEGURANÇA
 
-# ============================================
+# <REDACTED_SECRET>====
 
 # - Use senhas fortes (mínimo 16 caracteres)
 
@@ -2832,7 +2832,7 @@ Set-Alias -Name iga -Value Connect-IGAServer
 
 - **midPoint:** https://docs.evolveum.com/midpoint/
 
-- **midPoint Configuration:** https://docs.evolveum.com/midpoint/reference/repository/configuration/
+- **midPoint Configuration:** https://docs.evolveum.<REDACTED_SECRET>uration/
 
 - **PostgreSQL:** https://www.postgresql.org/docs/
 

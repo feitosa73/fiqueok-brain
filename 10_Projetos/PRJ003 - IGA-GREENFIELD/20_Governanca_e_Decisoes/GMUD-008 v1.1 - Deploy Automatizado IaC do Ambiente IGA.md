@@ -1,14 +1,14 @@
-# ====================================================================
+# <REDACTED_SECRET>============================
 # 
 # Projeto: PRJ003 - IGA Greenfield Reference Architecture
 # Versão: 1.1 (Correções de Escaping e Timeout)
 # Data: 18/01/2026 22:00
 # Executor: Paulo Feitosa
-# ====================================================================
+# <REDACTED_SECRET>============================
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # CONFIGURAÇÃO INICIAL - LEITURA DE CREDENCIAIS
-# ====================================================================
+# <REDACTED_SECRET>============================
 
 # Verificar se arquivo .env existe no diretório local
 if (-not (Test-Path ".env")) {
@@ -36,15 +36,15 @@ if (-not $VM_IP -or -not $VM_USER -or -not $POSTGRES_PASSWORD -or -not $MIDPOINT
 $BASE_DIR = "/srv/prj003"
 $EVIDENCE_DIR = "$BASE_DIR/evidencias"
 
-Write-Host "`n========================================" -ForegroundColor Cyan
+Write-Host "`<REDACTED_SECRET>=" -ForegroundColor Cyan
 Write-Host "GMUD-008 v1.1 - Deploy Automatizado IaC" -ForegroundColor Cyan
-Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>" -ForegroundColor Cyan
 Write-Host "VM: $VM_USER@$VM_IP" -ForegroundColor White
-Write-Host "========================================`n" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>`n" -ForegroundColor Cyan
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 1: PRÉ-FLIGHT CHECKLIST (Red Teaming)
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 1] Executando Pre-Flight Checklist..." -ForegroundColor Yellow
 
 # 1.1 Conectividade SSH
@@ -129,9 +129,9 @@ Write-Host "    ✅ Ambiente limpo" -ForegroundColor Green
 
 Write-Host "`n[STEP 1] ✅ Pre-Flight Checklist APROVADO`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 2: PREPARAÇÃO DO AMBIENTE
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 2] Preparando estrutura de diretórios..." -ForegroundColor Yellow
 
 ssh "$VM_USER@$VM_IP" @"
@@ -144,9 +144,9 @@ sudo chown -R $VM_USER:$VM_USER $BASE_DIR
 
 Write-Host "[STEP 2] ✅ Estrutura criada`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 3: CRIAÇÃO DO ARQUIVO .env NA VM
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 3] Criando arquivo .env na VM..." -ForegroundColor Yellow
 
 # CORREÇÃO v1.1: Usar heredoc com aspas simples para evitar expansão local
@@ -166,9 +166,9 @@ chmod 600 $BASE_DIR/.env
 
 Write-Host "[STEP 3] ✅ Arquivo .env criado na VM`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 4: CRIAÇÃO DO docker-compose.yml CORRIGIDO
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 4] Criando docker-compose.yml (CORREÇÃO GMUD-008 v1.1)..." -ForegroundColor Yellow
 
 # CORREÇÃO v1.1: Heredoc com aspas simples + expansão manual das variáveis críticas
@@ -238,9 +238,9 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "[STEP 4] ✅ docker-compose.yml criado e validado`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 5: PULL DE IMAGENS DOCKER
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 5] Fazendo pull das imagens Docker..." -ForegroundColor Yellow
 
 Write-Host "  Baixando postgres:16-alpine..." -ForegroundColor Gray
@@ -261,9 +261,9 @@ ssh "$VM_USER@$VM_IP" "docker images > $EVIDENCE_DIR/images-downloaded.txt"
 
 Write-Host "[STEP 5] ✅ Imagens baixadas com sucesso`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 6: INICIALIZAÇÃO FASE 1 - POSTGRESQL
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 6] Inicializando PostgreSQL (Fase 1)..." -ForegroundColor Yellow
 
 ssh "$VM_USER@$VM_IP" "cd $BASE_DIR && docker compose up -d postgres" 2>&1 | Out-Null
@@ -299,9 +299,9 @@ ssh "$VM_USER@$VM_IP" "docker logs postgres > $EVIDENCE_DIR/postgres-bootstrap.l
 
 Write-Host "[STEP 6] ✅ PostgreSQL inicializado e saudável`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 7: INICIALIZAÇÃO FASE 2 - MIDPOINT
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 7] Inicializando midPoint (Fase 2)..." -ForegroundColor Yellow
 
 ssh "$VM_USER@$VM_IP" "cd $BASE_DIR && docker compose up -d midpoint" 2>&1 | Out-Null
@@ -319,9 +319,9 @@ ssh "$VM_USER@$VM_IP" "docker logs midpoint > $EVIDENCE_DIR/midpoint-bootstrap.l
 
 Write-Host "[STEP 7] ✅ midPoint inicializado (aguardou 180s)`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 8: GATE DE VALIDAÇÃO CRÍTICO (PostgreSQL vs H2)
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 8] GATE CRÍTICO - Validando tipo de repositório..." -ForegroundColor Yellow
 
 # Verificar se H2 foi detectado (FALHA)
@@ -372,9 +372,9 @@ if ($postgres_detected) {
 
 Write-Host "[STEP 8] ✅ Gate de validação APROVADO (nenhum H2 detectado)`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 9: VALIDAÇÃO DE ENDPOINT HTTP
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 9] Validando endpoint HTTP..." -ForegroundColor Yellow
 
 # Aguardar adicional para garantir estabilização
@@ -394,9 +394,9 @@ ssh "$VM_USER@$VM_IP" "curl -v http://$VM_IP:8080/midpoint > $EVIDENCE_DIR/http-
 Write-Host "  ✅ Endpoint HTTP respondendo: $http_test" -ForegroundColor Green
 Write-Host "[STEP 9] ✅ Validação HTTP concluída`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # STEP 10: COLETA DE EVIDÊNCIAS FINAIS
-# ====================================================================
+# <REDACTED_SECRET>============================
 Write-Host "[STEP 10] Coletando evidências técnicas..." -ForegroundColor Yellow
 
 ssh "$VM_USER@$VM_IP" @"
@@ -417,12 +417,12 @@ echo 'Versão da GMUD: 008 v1.1' >> $EVIDENCE_DIR/INDEX.txt
 
 Write-Host "[STEP 10] ✅ Evidências coletadas`n" -ForegroundColor Green
 
-# ====================================================================
+# <REDACTED_SECRET>============================
 # CONCLUSÃO
-# ====================================================================
-Write-Host "`n========================================" -ForegroundColor Cyan
+# <REDACTED_SECRET>============================
+Write-Host "`<REDACTED_SECRET>=" -ForegroundColor Cyan
 Write-Host "GMUD-008 v1.1 EXECUTADA COM SUCESSO" -ForegroundColor Green
-Write-Host "========================================`n" -ForegroundColor Cyan
+Write-Host "<REDACTED_SECRET>`n" -ForegroundColor Cyan
 
 Write-Host "📋 Próximas ações MANUAIS:" -ForegroundColor Yellow
 Write-Host "  1. Acessar http://$VM_IP:8080/midpoint" -ForegroundColor White

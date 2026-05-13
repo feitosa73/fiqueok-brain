@@ -577,7 +577,7 @@ OPÇÃO C (Última instância): API REST OrangeHRM
 **Data Criação:** 03/01/2026  
 **Tipo:** GMUD Retrospectiva (Falha)  
 **Classificação:** Internal Use - Lab Operations  
-**Localização Obsidian:** `10Projetos/PRJ002/20Governanca/GMUDs/GMUD-017-PRJ002-Correcao-OrangeHRM-midPoint.md`
+**Localização Obsidian:** `<REDACTED_SECRET>D-017-PRJ002-Correcao-OrangeHRM-midPoint.md`
 
 **Alinhamento ISO 27001:**
 - ✅ A.12.1.2 (Change Management)

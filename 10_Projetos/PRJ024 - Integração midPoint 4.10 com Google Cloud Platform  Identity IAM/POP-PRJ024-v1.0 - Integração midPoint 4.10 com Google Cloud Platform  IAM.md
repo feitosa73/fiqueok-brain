@@ -664,11 +664,11 @@ sudo docker logs iga-midpoint --tail 200 | grep -E "GCP IAM|provision|create"
 
 # Verificar Resource pelo OID
 curl -u administrator:M1dP0!ntAdm!n#2026 \
-  http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/resources/16478ce0-2831-4380-8176-ab795c4f16ba
+  http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>-2831-4380-8176-ab795c4f16ba
 
 # Listar shadows do Resource GCP
 curl -s -u administrator:'M1dP0!ntAdm!n#2026' \
-  "http://xxx.xxx.xxx.xxx:8080/midpoint/ws/rest/resources/16478ce0-2831-4380-8176-ab795c4f16ba/shadows" \
+  "http://xxx.xxx.xxx.xxx:<REDACTED_SECRET>-2831-4380-8176-ab795c4f16ba/shadows" \
   -H "Accept: application/xml" | grep -o 'resourceObjectName="[^"]*"'
 ```
 

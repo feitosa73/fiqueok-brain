@@ -137,8 +137,8 @@ Senha: M1dP0!ntAdm!n#2026
 |-------|-------|------------|
 | **Name** | `AWS IAM` | Nome do Resource |
 | **Display Name** | `AWS Identity and Access Management` | Opcional |
-| **awsAccessKeyId** | `AKIAVZCTR5O4PVUJR54U` | Digitar no campo |
-| **awsSecretAccessKey** | `P/cBXHoe+CqPyohtvzI3jg3xVnMqdR9K6veFMmkL` | Selecionar "Use clear value" |
+| **awsAccessKeyId** | `<REDACTED_SECRET>` | Digitar no campo |
+| **awsSecretAccessKey** | `<REDACTED_SECRET>` | Selecionar "Use clear value" |
 | **awsRegion** | `us-east-1` | Digitar no campo |
 | **Allow Cache** | `False` (desmarcado) | Manter desativado |
 

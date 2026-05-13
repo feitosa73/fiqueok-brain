@@ -110,7 +110,7 @@ Execute as validações abaixo **antes** de iniciar o procedimento:
 
 powershell
 
-`# VALIDAÇÃO 1: Hyper-V Instalado Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V # Resultado esperado: State = Enabled # VALIDAÇÃO 2: Virtualização Habilitada no BIOS Get-ComputerInfo | Select-Object -Property HyperVisorPresent, HyperVRequirementVirtualizationFirmwareEnabled # Resultado esperado: HyperVisorPresent = True, HyperVRequirementVirtualizationFirmwareEnabled = True # VALIDAÇÃO 3: Espaço em Disco Disponível Get-PSDrive C | Select-Object Used,Free # Resultado esperado: Free > 100 GB # VALIDAÇÃO 4: Conectividade com Internet Test-NetConnection -ComputerName releases.ubuntu.com -Port 443 # Resultado esperado: TcpTestSucceeded = True`
+`# VALIDAÇÃO 1: Hyper-V Instalado Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V # Resultado esperado: State = Enabled # VALIDAÇÃO 2: Virtualização Habilitada no BIOS Get-ComputerInfo | Select-Object -Property HyperVisorPresent, <REDACTED_SECRET>nabled # Resultado esperado: HyperVisorPresent = True, <REDACTED_SECRET>nabled = True # VALIDAÇÃO 3: Espaço em Disco Disponível Get-PSDrive C | Select-Object Used,Free # Resultado esperado: Free > 100 GB # VALIDAÇÃO 4: Conectividade com Internet Test-NetConnection -ComputerName releases.ubuntu.com -Port 443 # Resultado esperado: TcpTestSucceeded = True`
 
 ## 2.2. Instalação do Hyper-V (Se Necessário)
 
@@ -619,7 +619,7 @@ bash
 
 bash
 
-`# CRIAR TEMPLATE DO ARQUIVO .env cat > /srv/iga-project/.env.template <<'EOF' # ============================================================ # CONFIGURAÇÕES DO AMBIENTE IGA v4.1 # ============================================================ # 🔐 POLÍTICA DE SEGREDOS (LEIA ANTES DE EDITAR) # # ❌ PROIBIÇÕES ABSOLUTAS: # 1. NÃO use aspas simples ou duplas # 2. NÃO use o caractere cifrão ($) # 3. NÃO use espaços em branco # # ✅ FORMATO CORRETO: # POSTGRES_PASSWORD=P0stgr3sS3cur3#2026! # # ❌ FORMATO ERRADO: # POSTGRES_PASSWORD='P0stgr3sS3cur3#2026!'  (tem aspas) # POSTGRES_PASSWORD=P@$$w0rd  (tem cifrão) # # ============================================================ # CREDENCIAIS DO POSTGRESQL POSTGRES_DB=midpoint POSTGRES_USER=midpoint POSTGRES_PASSWORD=SuaSenhaPostgreSQLAqui # CREDENCIAIS DO MIDPOINT # Usuário de login: administrator # Senha: valor abaixo MIDPOINT_ADMIN_PASSWORD=SuaSenhaMidPointAqui # ============================================================ # NOTAS DE SEGURANÇA # - Use senhas fortes (mínimo 16 caracteres) # - Combine letras maiúsculas, minúsculas, números e símbolos # - Caracteres permitidos: @ # ! % & * - _ + = # ============================================================ EOF # Copiar template para arquivo real cp /srv/iga-project/.env.template /srv/iga-project/.env`
+`# CRIAR TEMPLATE DO ARQUIVO .env cat > /srv/iga-project/.env.template <<'EOF' # <REDACTED_SECRET>==================== # CONFIGURAÇÕES DO AMBIENTE IGA v4.1 # <REDACTED_SECRET>==================== # 🔐 POLÍTICA DE SEGREDOS (LEIA ANTES DE EDITAR) # # ❌ PROIBIÇÕES ABSOLUTAS: # 1. NÃO use aspas simples ou duplas # 2. NÃO use o caractere cifrão ($) # 3. NÃO use espaços em branco # # ✅ FORMATO CORRETO: # POSTGRES_PASSWORD=P0stgr3sS3cur3#2026! # # ❌ FORMATO ERRADO: # POSTGRES_PASSWORD='P0stgr3sS3cur3#2026!'  (tem aspas) # POSTGRES_PASSWORD=P@$$w0rd  (tem cifrão) # # <REDACTED_SECRET>==================== # CREDENCIAIS DO POSTGRESQL POSTGRES_DB=midpoint POSTGRES_USER=midpoint POSTGRES_PASSWORD=SuaSenhaPostgreSQLAqui # CREDENCIAIS DO MIDPOINT # Usuário de login: administrator # Senha: valor abaixo MIDPOINT_ADMIN_PASSWORD=SuaSenhaMidPointAqui # <REDACTED_SECRET>==================== # NOTAS DE SEGURANÇA # - Use senhas fortes (mínimo 16 caracteres) # - Combine letras maiúsculas, minúsculas, números e símbolos # - Caracteres permitidos: @ # ! % & * - _ + = # <REDACTED_SECRET>==================== EOF # Copiar template para arquivo real cp /srv/iga-project/.env.template /srv/iga-project/.env`
 
 ---
 
@@ -958,7 +958,7 @@ bash
 
 bash
 
-`IP_VM=$(hostname -I | awk '{print $1}') echo "Endereço IP da VM: $IP_VM" echo "URL de Acesso: http://$IP_VM:8080/midpoint" # Salvar informações de acesso cat > /srv/iga-project/ACCESS-INFO.txt <<EOF ============================================== INFORMAÇÕES DE ACESSO - IGA ============================================== URL: http://$IP_VM:8080/midpoint Usuário: administrator Senha: Conforme .env (MIDPOINT_ADMIN_PASSWORD) Tipo de Repositório: PostgreSQL (validado) Data do Deploy: $(date) ============================================== EOF cat /srv/iga-project/ACCESS-INFO.txt`
+`IP_VM=$(hostname -I | awk '{print $1}') echo "Endereço IP da VM: $IP_VM" echo "URL de Acesso: http://$IP_VM:8080/midpoint" # Salvar informações de acesso cat > /srv/iga-project/ACCESS-INFO.txt <<EOF <REDACTED_SECRET>====== INFORMAÇÕES DE ACESSO - IGA <REDACTED_SECRET>====== URL: http://$IP_VM:8080/midpoint Usuário: administrator Senha: Conforme .env (MIDPOINT_ADMIN_PASSWORD) Tipo de Repositório: PostgreSQL (validado) Data do Deploy: $(date) <REDACTED_SECRET>====== EOF cat /srv/iga-project/ACCESS-INFO.txt`
 
 ---
 
