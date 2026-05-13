@@ -1,0 +1,41 @@
+Analisando o **REL-PRJ007** e o novo **ADR-006**, fica claro que você realizou uma transição crítica de mentalidade: de uma solução tática (WSL2) para uma visão de infraestrutura resiliente e auditável. O ADR-006 é um documento de governança exemplar, pois não apenas aponta as falhas, mas revoga formalmente uma decisão arquitetural anterior (ADR-005) com base em evidências técnicas de indisponibilidade.
+
+Aqui está a análise técnica do cenário atual e o plano de ação para a **PRJ008**:
+
+### 1. Diagnóstico do Incidente (10/02)
+
+A falha recorrente no Tailscale e o estado `dead` do Vault confirmam as limitações estruturais do WSL2 para serviços de infraestrutura:
+
+* **Conflito de Socket:** O erro `safesocket.Listen: ... address already in use` ocorre porque o Tailscale do Windows e o do WSL2 disputam o mesmo recurso de rede, impedindo a persistência do daemon no Linux.
+* **Instabilidade do Raft:** O log `Raft RPC layer closed` indica que o backend de armazenamento do Vault perdeu o consenso devido às falhas na stack de rede virtualizada do WSL2.
+* **Indisponibilidade Operacional:** O serviço é classificado como "tecnicamente inadequado" para a PRJ008, pois exige entre 5 a 7 minutos de intervenção manual (unseal + troubleshooting) a cada boot.
+
+### 2. A Transição para o PRJ008
+
+Conforme o ADR-006, o foco mudou de "integração de API" para "estabilização de plataforma". Para que sua API Serverless funcione, o Vault precisa de um **SLA de Disponibilidade** que o WSL2 não pode prover.
+
+#### Comparativo de Plataformas para a PRJ008:
+
+| Critério | **Cloud (OCI Free Tier)** | **Virtualização (Hyper-V)** |
+| --- | --- | --- |
+| **Persistência** | Nativa (Systemd confiável) | Alta (VM dedicada) |
+| **Auto-Unseal** | Nativo via OCI Vault KMS | Complexo (Requer outro Vault) |
+| **Custo** | Zero (Always Free) | Zero (Recurso local) |
+| **Tailscale** | Nativo (Sem conflito) | Nativo (Interface TUN/TAP real) |
+
+### 3. Plano de Ação Imediato
+
+Considerando sua inclinação anterior por **Serverless** e a necessidade de resolver o **Unseal**, a recomendação do ADR-006 para a **Opção 1 (OCI)** é a mais alinhada com os objetivos de GRC.
+
+**O que faremos agora:**
+
+1. **Habilitação do Auto-Unseal:** Independentemente da nuvem, migraremos para o desbloqueio automático para eliminar a dependência humana.
+2. **Configuração de AppRole:** Estabeleceremos a identidade da API Serverless para que ela se autentique no novo Vault sem usar o Root Token.
+
+---
+
+### 🛡️ Próximo Passo de Governança
+
+Para oficializar a transição e iniciar o **PRJ008**, precisamos definir a "Plataforma Alvo" no **ADR-007**.
+
+**Você deseja que eu prepare o roteiro técnico para a migração do Vault do WSL2 para a Oracle Cloud (OCI), incluindo a configuração do Auto-Unseal?** Isso garantirá que sua API Serverless sempre encontre o cofre aberto e disponível. Seria o início prático da sua "estabilização de plataforma".

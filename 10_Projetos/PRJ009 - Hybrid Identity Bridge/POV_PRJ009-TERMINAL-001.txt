@@ -1,0 +1,426 @@
+O Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos os direitos reservados.
+
+Instale o PowerShell mais recente para obter novos recursos e aprimoramentos! https://aka.ms/PSWindows
+
+PS C:\WINDOWS\system32> az login
+Select the account you want to log in with. For more information on login with Azure CLI, see https://go.microsoft.com/fwlink/?linkid=2271136
+User canceled the flow. Status: Response_Status.Status_UserCanceled, Error code: 0, Tag: 593773845
+Run the command below to authenticate interactively; additional arguments may be added as needed:
+az logout
+az login
+PS C:\WINDOWS\system32> az login
+Select the account you want to log in with. For more information on login with Azure CLI, see https://go.microsoft.com/fwlink/?linkid=2271136
+User cancelled the Accounts Control Operation.. Status: Response_Status.Status_UserCanceled, Error code: 0, Tag: 528315210
+Run the command below to authenticate interactively; additional arguments may be added as needed:
+az logout
+az login
+PS C:\WINDOWS\system32> az login --use-device-code
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code BRWAC28K3 to authenticate.
+
+Retrieving tenants and subscriptions for the selection...
+
+[Tenant and subscription selection]
+
+No     Subscription name     Subscription ID                       Tenant
+-----  --------------------  ------------------------------------  -----------------
+[1] *  Azure subscription 1  8c8a1deb-2cbc-4c51-a177-87b874d44923  Default Directory
+
+The default is marked with an *; the default tenant is 'Default Directory' and subscription is 'Azure subscription 1' (8c8a1deb-2cbc-4c51-a177-87b874d44923).
+
+Select a subscription and tenant (Type a number or Enter for no changes): https://microsoft.com/devicelogin
+Invalid selection.
+Select a subscription and tenant (Type a number or Enter for no changes):
+
+Tenant: Default Directory
+Subscription: Azure subscription 1 (8c8a1deb-2cbc-4c51-a177-87b874d44923)
+
+[Announcements]
+With the new Azure CLI login experience, you can select the subscription you want to use more easily. Learn more about it and its configuration at https://go.microsoft.com/fwlink/?linkid=2271236
+
+If you encounter any problem, please open an issue at https://aka.ms/azclibug
+
+[Warning] The login output has been updated. Please be aware that it no longer displays the full list of available subscriptions by default.
+
+PS C:\WINDOWS\system32> az account show --output json
+{
+  "environmentName": "AzureCloud",
+  "homeTenantId": "503bbd0e-f33f-4ebe-b12e-f24a506978c9",
+  "id": "8c8a1deb-2cbc-4c51-a177-87b874d44923",
+  "isDefault": true,
+  "managedByTenants": [],
+  "name": "Azure subscription 1",
+  "state": "Enabled",
+  "tenantDefaultDomain": "paulofiqueokcom.onmicrosoft.com",
+  "tenantDisplayName": "Default Directory",
+  "tenantId": "503bbd0e-f33f-4ebe-b12e-f24a506978c9",
+  "user": {
+    "name": "paulo@fiqueok.com.br",
+    "type": "user"
+  }
+}
+PS C:\WINDOWS\system32> az group create --name "fiqueok-prj009-poc-rg" --location "brazilsouth" --tags "Projeto=PRJ009""Ambiente=POC" "Responsavel=Paulo" "Empresa=Fiqueok"
+{
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg",
+  "location": "brazilsouth",
+  "managedBy": null,
+  "name": "fiqueok-prj009-poc-rg",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": {
+    "Ambiente": "POC",
+    "Empresa": "Fiqueok",
+    "Projeto": "PRJ009",
+    "Responsavel": "Paulo"
+  },
+  "type": "Microsoft.Resources/resourceGroups"
+}
+PS C:\WINDOWS\system32> az group list --output table
+Name                   Location     Status
+---------------------  -----------  ---------
+fiqueok-prj009-poc-rg  brazilsouth  Succeeded
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # Definindo o nome do Vault (deve ter entre 3-24 caracteres, apenas letras e números)
+PS C:\WINDOWS\system32> $VAULT_NAME="fiqueok-prj009-poc-kv"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az keyvault create `
+>>   --name $VAULT_NAME `
+>>   --resource-group "fiqueok-prj009-poc-rg" `
+>>   --location "brazilsouth" `
+>>   --enable-rbac-authorization true `
+>>   --tags "Projeto=PRJ009" "Ambiente=POC"
+(MissingSubscriptionRegistration) The subscription is not registered to use namespace 'Microsoft.KeyVault'. See https://aka.ms/rps-not-found for how to register subscriptions.
+Code: MissingSubscriptionRegistration
+Message: The subscription is not registered to use namespace 'Microsoft.KeyVault'. See https://aka.ms/rps-not-found forhow to register subscriptions.
+Exception Details:      (MissingSubscriptionRegistration) The subscription is not registered to use namespace 'Microsoft.KeyVault'. See https://aka.ms/rps-not-found for how to register subscriptions.
+        Code: MissingSubscriptionRegistration
+        Message: The subscription is not registered to use namespace 'Microsoft.KeyVault'. See https://aka.ms/rps-not-found for how to register subscriptions.
+        Target: Microsoft.KeyVault
+PS C:\WINDOWS\system32> az provider register --namespace 'Microsoft.KeyVault'
+Registering is still on-going. You can monitor using 'az provider show -n Microsoft.KeyVault'
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az provider show -n
+argument --namespace/-n: expected one argument
+
+Examples from AI knowledge base:
+az provider show --namespace Microsoft.Storage
+Gets the specified resource provider. (autogenerated)
+
+az provider show --expand {expand} --namespace Microsoft.Storage
+Gets the specified resource provider. (autogenerated)
+
+https://docs.microsoft.com/en-US/cli/azure/provider#az_provider_show
+Read more about the command in reference docs
+PS C:\WINDOWS\system32> az provider show -n Microsoft.KeyVault --query "registrationState"
+"Registered"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> $VAULT_NAME="fiqueok-prj009-poc-kv"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az keyvault create `
+>>   --name $VAULT_NAME `
+>>   --resource-group "fiqueok-prj009-poc-rg" `
+>>   --location "brazilsouth" `
+>>   --enable-rbac-authorization true `
+>>   --tags "Projeto=PRJ009" "Ambiente=POC"
+{
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv",
+  "location": "brazilsouth",
+  "name": "fiqueok-prj009-poc-kv",
+  "properties": {
+    "accessPolicies": [],
+    "createMode": null,
+    "enablePurgeProtection": null,
+    "enableRbacAuthorization": true,
+    "enableSoftDelete": true,
+    "enabledForDeployment": false,
+    "enabledForDiskEncryption": false,
+    "enabledForTemplateDeployment": false,
+    "hsmPoolResourceId": null,
+    "networkAcls": null,
+    "privateEndpointConnections": null,
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "sku": {
+      "family": "A",
+      "name": "standard"
+    },
+    "softDeleteRetentionInDays": 90,
+    "tenantId": "503bbd0e-f33f-4ebe-b12e-f24a506978c9",
+    "vaultUri": "https://fiqueok-prj009-poc-kv.vault.azure.net/"
+  },
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "systemData": {
+    "createdAt": "2026-02-26T17:31:36.684000+00:00",
+    "createdBy": "paulo@fiqueok.com.br",
+    "createdByType": "User",
+    "lastModifiedAt": "2026-02-26T17:31:36.684000+00:00",
+    "lastModifiedBy": "paulo@fiqueok.com.br",
+    "lastModifiedByType": "User"
+  },
+  "tags": {
+    "Ambiente": "POC",
+    "Projeto": "PRJ009"
+  },
+  "type": "Microsoft.KeyVault/vaults"
+}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> $MSI_NAME="fiqueok-prj009-api-identity"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az identity create `
+>>   --name $MSI_NAME `
+>>   --resource-group "fiqueok-prj009-poc-rg" `
+>>   --location "brazilsouth" `
+>>   --tags "Projeto=PRJ009" "Ambiente=POC"
+Resource provider 'Microsoft.ManagedIdentity' used by this operation is not registered. We are registering for you.
+Registration succeeded.
+{
+  "clientId": "05195e48-c70c-413f-af09-47f2f7e58b9d",
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/fiqueok-prj009-api-identity",
+  "isolationScope": "None",
+  "location": "brazilsouth",
+  "name": "fiqueok-prj009-api-identity",
+  "principalId": "f2ff052f-0930-4d26-963d-f1edd4a1950c",
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "systemData": null,
+  "tags": {
+    "Ambiente": "POC",
+    "Projeto": "PRJ009"
+  },
+  "tenantId": "503bbd0e-f33f-4ebe-b12e-f24a506978c9",
+  "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+}
+PS C:\WINDOWS\system32> az identity show --name "fiqueok-prj009-api-identity" --resource-group "fiqueok-prj009-poc-rg"
+{
+  "clientId": "05195e48-c70c-413f-af09-47f2f7e58b9d",
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/fiqueok-prj009-api-identity",
+  "isolationScope": "None",
+  "location": "brazilsouth",
+  "name": "fiqueok-prj009-api-identity",
+  "principalId": "f2ff052f-0930-4d26-963d-f1edd4a1950c",
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "systemData": null,
+  "tags": {
+    "Ambiente": "POC",
+    "Projeto": "PRJ009"
+  },
+  "tenantId": "503bbd0e-f33f-4ebe-b12e-f24a506978c9",
+  "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+}
+PS C:\WINDOWS\system32> # 1. Definir as variáveis com base no que criamos
+PS C:\WINDOWS\system32> $MSI_PRINCIPAL_ID="f2ff052f-0930-4d26-963d-f1edd4a1950c"
+PS C:\WINDOWS\system32> $VAULT_NAME="fiqueok-prj009-poc-kv"
+PS C:\WINDOWS\system32> $RG="fiqueok-prj009-poc-rg"
+PS C:\WINDOWS\system32> $SUB_ID="8c8a1deb-2cbc-4c51-a177-87b874d44923"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Atribuir a função de Leitor de Segredos (Key Vault Secrets User)
+PS C:\WINDOWS\system32> az role assignment create `
+>>   --assignee $MSI_PRINCIPAL_ID `
+>>   --role "Key Vault Secrets User" `
+>>   --scope "/subscriptions/$SUB_ID/resourceGroups/$RG/providers/Microsoft.KeyVault/vaults/$VAULT_NAME"
+{
+  "condition": null,
+  "conditionVersion": null,
+  "createdBy": null,
+  "createdOn": "2026-02-26T17:37:18.598223+00:00",
+  "delegatedManagedIdentityResourceId": null,
+  "description": null,
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv/providers/Microsoft.Authorization/roleAssignments/f9280006-c48f-42f8-bc76-ea50ce105932",
+  "name": "f9280006-c48f-42f8-bc76-ea50ce105932",
+  "principalId": "f2ff052f-0930-4d26-963d-f1edd4a1950c",
+  "principalType": "ServicePrincipal",
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "roleDefinitionId": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/providers/Microsoft.Authorization/roleDefinitions/4633458b-17de-408a-b874-0445c86b69e6",
+  "scope": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv",
+  "type": "Microsoft.Authorization/roleAssignments",
+  "updatedBy": "6d559cb7-c1bb-428f-bc9d-ca1765831ff5",
+  "updatedOn": "2026-02-26T17:37:19.051221+00:00"
+}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az role assignment list --scope "/subscriptions/$SUB_ID/resourceGroups/$RG/providers/Microsoft.KeyVault/vaults/$VAULT_NAME" --output table
+Principal                             Role                    Scope
+------------------------------------  ----------------------  --------------------------------------------------------------------------------------------------------------------------------------------------
+05195e48-c70c-413f-af09-47f2f7e58b9d  Key Vault Secrets User  /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Definir o nome do segredo
+PS C:\WINDOWS\system32> $SECRET_NAME="db-password"
+PS C:\WINDOWS\system32> $DUMMY_VALUE="Poc@Azure2026!Identity"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Inserir o segredo no Vault
+PS C:\WINDOWS\system32> az keyvault secret set `
+>>   --vault-name "fiqueok-prj009-poc-kv" `
+>>   --name $SECRET_NAME `
+>>   --value $DUMMY_VALUE `
+>>   --description "Senha ficticia para validacao da POC PRJ009"
+(Forbidden) Caller is not authorized to perform action on resource.
+If role assignments, deny assignments or role definitions were changed recently, please observe propagation time.
+Caller: appid=04b07795-8ddb-461a-bbee-02f9e1bf7b46;oid=6d559cb7-c1bb-428f-bc9d-ca1765831ff5;iss=https://sts.windows.net/503bbd0e-f33f-4ebe-b12e-f24a506978c9/
+Action: 'Microsoft.KeyVault/vaults/secrets/setSecret/action'
+Resource: '/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/microsoft.keyvault/vaults/fiqueok-prj009-poc-kv/secrets/db-password'
+Assignment: (not found)
+DenyAssignmentId: null
+DecisionReason: null
+Vault: fiqueok-prj009-poc-kv;location=brazilsouth
+
+Code: Forbidden
+Message: Caller is not authorized to perform action on resource.
+If role assignments, deny assignments or role definitions were changed recently, please observe propagation time.
+Caller: appid=04b07795-8ddb-461a-bbee-02f9e1bf7b46;oid=6d559cb7-c1bb-428f-bc9d-ca1765831ff5;iss=https://sts.windows.net/503bbd0e-f33f-4ebe-b12e-f24a506978c9/
+Action: 'Microsoft.KeyVault/vaults/secrets/setSecret/action'
+Resource: '/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourcegroups/fiqueok-prj009-poc-rg/providers/microsoft.keyvault/vaults/fiqueok-prj009-poc-kv/secrets/db-password'
+Assignment: (not found)
+DenyAssignmentId: null
+DecisionReason: null
+Vault: fiqueok-prj009-poc-kv;location=brazilsouth
+
+Inner error: {
+    "code": "ForbiddenByRbac"
+}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+>>
+>>
+>> Este erro ForbiddenByRbac é um excelente momento de aprendizado prático em IAM (Identity and Access Management) e reflete exatamente a realidade corporativa que você busca simular.
+Identity : O termo 'Identity' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa operável.
+Verifique a grafia do nome ou, se um caminho tiver sido incluído, veja se o caminho está correto e tente novamente.
+No linha:4 caractere:81
++ ...  um excelente momento de aprendizado prático em IAM (Identity and Acc ...
++                                                          ~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Identity:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> Como você criou o Key Vault com o Azure RBAC ativado (--enable-rbac-authorization true), o Azure agora ignora quem é o "Dono" da assinatura para ações dentro do plano de dados (Data Plane). No modelo Zero Trust, sero administrador do recurso não significa que você pode ver ou criar os dados dentro dele. Você deu permissão para a Managed Identity ler, mas esqueceu de dar permissão para você escrever.
+No linha:1 caractere:57
++ Como você criou o Key Vault com o Azure RBAC ativado (--enable-rbac-a ...
++                                                         ~
+Expressão ausente após operador unário '--'.
+No linha:1 caractere:57
++ ... y Vault com o Azure RBAC ativado (--enable-rbac-authorization true),  ...
++                                         ~~~~~~~~~~~~~~~~~~~~~~~~~
+Token 'enable-rbac-authorization' inesperado na expressão ou instrução.
+No linha:1 caractere:57
++ Como você criou o Key Vault com o Azure RBAC ativado (--enable-rbac-a ...
++                                                         ~
+')' de fechamento ausente na expressão.
+No linha:1 caractere:87
++ ... t com o Azure RBAC ativado (--enable-rbac-authorization true), o Azur ...
++                                                                 ~
+Token ')' inesperado na expressão ou instrução.
+No linha:1 caractere:89
++ ...  com o Azure RBAC ativado (--enable-rbac-authorization true), o Azure ...
++                                                                  ~
+Expressão ausente após operador unário ','.
+No linha:1 caractere:90
++ ... om o Azure RBAC ativado (--enable-rbac-authorization true), o Azure a ...
++                                                                 ~
+Token 'o' inesperado na expressão ou instrução.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingExpressionAfterOperator
+
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> 🛠️ Passo de Correção: Concedendo acesso ao Auditor
+🛠️ : O termo '🛠️' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa operável. Verifique a
+grafia do nome ou, se um caminho tiver sido incluído, veja se o caminho está correto e tente novamente.
+No linha:1 caractere:1
++ 🛠️ Passo de Correção: Concedendo acesso ao Auditor
++ ~~~
+    + CategoryInfo          : ObjectNotFound: (🛠️:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\WINDOWS\system32> Para que você consiga criar o segredo, você precisa da função Key Vault Secrets Officer. Vamos atribuir essa permissão ao seu usuário pessoal (paulo@fiqueok.com.br).
+paulo@fiqueok.com.br : O termo 'paulo@fiqueok.com.br' não é reconhecido como nome de cmdlet, função, arquivo de script
+ou programa operável. Verifique a grafia do nome ou, se um caminho tiver sido incluído, veja se o caminho está correto
+e tente novamente.
+No linha:1 caractere:144
++ ... tribuir essa permissão ao seu usuário pessoal (paulo@fiqueok.com.br).
++                                                    ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (paulo@fiqueok.com.br:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> Execução no PowerShell:
+>>
+>>
+>>
+>>
+>> ^C
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Obter o seu próprio ID de usuário (Object ID)
+PS C:\WINDOWS\system32> $MY_OID=$(az ad signed-in-user show --query id -o tsv)
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Atribuir a si mesmo a função de "Key Vault Secrets Officer"
+PS C:\WINDOWS\system32> # Esta função permite Criar, Ler, Atualizar e Deletar segredos.
+PS C:\WINDOWS\system32> az role assignment create `
+>>   --assignee $MY_OID `
+>>   --role "Key Vault Secrets Officer" `
+>>   --scope "/subscriptions/$SUB_ID/resourceGroups/$RG/providers/Microsoft.KeyVault/vaults/$VAULT_NAME"
+{
+  "condition": null,
+  "conditionVersion": null,
+  "createdBy": null,
+  "createdOn": "2026-02-26T17:40:17.032535+00:00",
+  "delegatedManagedIdentityResourceId": null,
+  "description": null,
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv/providers/Microsoft.Authorization/roleAssignments/281a85a7-0c56-43a9-ad10-b0eedfcfeb20",
+  "name": "281a85a7-0c56-43a9-ad10-b0eedfcfeb20",
+  "principalId": "6d559cb7-c1bb-428f-bc9d-ca1765831ff5",
+  "principalType": "User",
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "roleDefinitionId": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/providers/Microsoft.Authorization/roleDefinitions/b86a8fe4-44ce-4948-aee5-eccb2c155cd7",
+  "scope": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv",
+  "type": "Microsoft.Authorization/roleAssignments",
+  "updatedBy": "6d559cb7-c1bb-428f-bc9d-ca1765831ff5",
+  "updatedOn": "2026-02-26T17:40:17.472537+00:00"
+}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az keyvault secret set `
+>>   --vault-name "fiqueok-prj009-poc-kv" `
+>>   --name "db-password" `
+>>   --value "Poc@Azure2026!Identity" `
+>>   --description "Senha ficticia para validacao da POC PRJ009"
+{
+  "attributes": {
+    "created": "2026-02-26T17:40:58+00:00",
+    "enabled": true,
+    "expires": null,
+    "notBefore": null,
+    "recoverableDays": 90,
+    "recoveryLevel": "Recoverable+Purgeable",
+    "updated": "2026-02-26T17:40:58+00:00"
+  },
+  "contentType": "Senha ficticia para validacao da POC PRJ009",
+  "id": "https://fiqueok-prj009-poc-kv.vault.azure.net/secrets/db-password/9ac188838db340c9896db014e1e41e98",
+  "kid": null,
+  "managed": null,
+  "name": "db-password",
+  "tags": {
+    "file-encoding": "utf-8"
+  },
+  "value": "Poc@Azure2026!Identity"
+}
+PS C:\WINDOWS\system32>

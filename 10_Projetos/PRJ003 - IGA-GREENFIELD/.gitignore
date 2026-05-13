@@ -1,0 +1,16 @@
+# Segredos
+.env
+
+# Banco de Dados Local (Volumes Docker)
+data/
+data/postgres/
+data/midpoint/
+
+# Scripts SQL brutos (Pois serao baixados via script)
+postgres.sql
+postgres-audit.sql
+postgres-quartz.sql
+
+# Arquivos de log e temporarios
+*.log
+tmp/

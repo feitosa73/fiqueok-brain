@@ -1,0 +1,54 @@
+<resource xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3"
+          xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3">
+    <name>Fiqueok Shadow API (OrangeHRM)</name>
+    <connectorRef type="c:ConnectorType">
+        <filter>
+            <q:equal xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3">
+                <q:path>connectorType</q:path>
+                <q:value>com.evolveum.polygon.connector.rest.RestConnector</q:value>
+            </q:equal>
+        </filter>
+    </connectorRef>
+    <connectorConfiguration>
+        <icfc:configurationProperties>
+            <icfc:baseUrl>http://xxx.xxx.xxx.xxx:8000</icfc:baseUrl>
+            <icfc:serviceAddress>/employees</icfc:serviceAddress>
+            <icfc:customHeaderName1>X-API-KEY</icfc:customHeaderName1>
+            <icfc:customHeaderValue1>
+                <clearValue>Fiqueok-Security-Token-2026</clearValue>
+            </icfc:customHeaderValue1>
+        </icfc:configurationProperties>
+    </connectorConfiguration>
+    <schemaHandling>
+        <objectType>
+            <kind>account</kind>
+            <intent>default</intent>
+            <displayName>Shadow API Employee</displayName>
+            <default>true</default>
+            <objectClass>ri:AccountObjectClass</objectClass>
+            <attribute>
+                <c:ref>ri:emp_number</c:ref>
+                <displayName>Internal Anchor (Immutable)</displayName>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+            </attribute>
+            <attribute>
+                <c:ref>ri:employee_id</c:ref>
+                <displayName>Business ID</displayName>
+            </attribute>
+            <attribute>
+                <c:ref>ri:first_name</c:ref>
+                <displayName>First Name</displayName>
+            </attribute>
+            <attribute>
+                <c:ref>ri:last_name</c:ref>
+                <displayName>Last Name</displayName>
+            </attribute>
+            <attribute>
+                <c:ref>ri:employment_status</c:ref>
+                <displayName>Employment Status</displayName>
+            </attribute>
+        </objectType>
+    </schemaHandling>
+</resource>

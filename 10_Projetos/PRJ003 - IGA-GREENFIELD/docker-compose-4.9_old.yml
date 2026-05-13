@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpoint
+      POSTGRES_PASSWORD: ${REPO_PASSWORD:-FiqueokPostgres2026}
+    volumes:
+      - /srv/prj003/data/postgres:/var/lib/postgresql/data
+    networks:
+      - midpoint-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpoint"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.9
+    container_name: midpoint
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Variáveis Nativas do Entrypoint 4.9
+      REPO_DATABASE_TYPE: postgresql
+      REPO_HOST: postgres
+      REPO_PORT: 5432
+      REPO_DATABASE: midpoint
+      REPO_USER: midpoint
+      REPO_PASSWORD: ${REPO_PASSWORD:-FiqueokPostgres2026}
+      REPO_MISSING_SCHEMA_ACTION: create
+      
+      # Configurações de Memória e Java
+      MP_MEM_MAX: 2048m
+      MP_MEM_INIT: 1024m
+      MP_KEYSTORE_PASSWORD: ${REPO_PASSWORD:-FiqueokPostgres2026}
+      
+      # Forçar UTF-8
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    volumes:
+      - /srv/prj003/data/midpoint/var:/opt/midpoint/var
+      - /srv/prj003/logs/midpoint:/opt/midpoint/var/log
+    ports:
+      - "8080:8080"
+    networks:
+      - midpoint-net
+
+networks:
+  midpoint-net:
+    driver: bridge

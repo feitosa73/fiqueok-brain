@@ -1,0 +1,101 @@
+First Name,Last Name,Employee Id,Sub Unit,Job Title,Work Email
+David,Vélez,FP001,Executive,CEO,david.velez@fiqueok.com.br
+André,Chaves,FP002,Executive,Chairman,andre.chaves@fiqueok.com.br
+Luisa,Sotero,FP003,Executive,COO,luisa.sotero@fiqueok.com.br
+Daniela,Binatti,FP004,Executive,CTO,daniela.binatti@fiqueok.com.br
+Ricardo,Guerra,FP005,Executive,CIO,ricardo.guerra@fiqueok.com.br
+Laszlo,Bock,FP006,Executive,CHRO,laszlo.bock@fiqueok.com.br
+Donner,Marcos,FP007,Executive,CSO,donner.marcos@fiqueok.com.br
+Lucas,Carvalho,FP008,Technology - Dev,Senior Software Engineer,lucas.carvalho@fiqueok.com.br
+Juliana,Lima,FP009,Technology - Dev,Software Engineer,juliana.lima@fiqueok.com.br
+Gabriel,Martins,FP010,Technology - Dev,Junior Developer,gabriel.martins@fiqueok.com.br
+Patrícia,Silva,FP011,Technology - Dev,Backend Engineer,patricia.silva@fiqueok.com.br
+Felipe,Barbosa,FP012,Technology - Dev,Frontend Developer,felipe.barbosa@fiqueok.com.br
+Renata,Azevedo,FP013,Technology - Dev,Mobile Developer,renata.azevedo@fiqueok.com.br
+André,Costa,FP014,Technology - Dev,Full Stack Developer,andre.costa@fiqueok.com.br
+Tatiane,Nunes,FP015,Technology - DevOps,DevOps Engineer,tatiane.nunes@fiqueok.com.br
+Eduardo,Ribeiro,FP016,Technology - DevOps,Cloud Engineer,eduardo.ribeiro@fiqueok.com.br
+Leonardo,Moreira,FP017,Technology - DevOps,Site Reliability Engineer,leonardo.moreira@fiqueok.com.br
+Aline,Teixeira,FP018,Technology - DevOps,Automation Specialist,aline.teixeira@fiqueok.com.br
+Diego,Pinto,FP019,Technology - Security,Security Engineer,diego.pinto@fiqueok.com.br
+Marcos,Gonçalves,FP020,Technology - Security,IAM Specialist,marcos.goncalves@fiqueok.com.br
+Beatriz,Ramos,FP021,Technology - Security,Information Security Analyst,beatriz.ramos@fiqueok.com.br
+Jonathan,Lopes,FP022,Technology - Security,Security Architect,jonathan.lopes@fiqueok.com.br
+Viviane,Machado,FP023,Technology - Data,Data Engineer,viviane.machado@fiqueok.com.br
+Gustavo,Castro,FP024,Technology - Data,Data Analyst,gustavo.castro@fiqueok.com.br
+Larissa,Campos,FP025,Technology - Data,Data Scientist,larissa.campos@fiqueok.com.br
+Ricardo,Moraes,FP026,Technology - Data,BI Developer,ricardo.moraes@fiqueok.com.br
+Jéssica,Cardoso,FP027,Technology - Data,ETL Specialist,jessica.cardoso@fiqueok.com.br
+Carlos,Rezende,FP028,Operations,Settlement Officer,carlos.rezende@fiqueok.com.br
+Amanda,Freitas,FP029,Operations,Settlement Analyst,amanda.freitas@fiqueok.com.br
+Thiago,Pereira,FP030,Operations,Chargeback Analyst,thiago.pereira@fiqueok.com.br
+Marcelo,Tavares,FP031,Operations,Settlement Coordinator,marcelo.tavares@fiqueok.com.br
+Daniela,Rocha,FP032,Operations,Chargeback Coordinator,daniela.rocha@fiqueok.com.br
+Rogério,Neves,FP033,Operations,Payment Operations Analyst,rogerio.neves@fiqueok.com.br
+Vanessa,Dias,FP034,Operations,Reconciliation Specialist,vanessa.dias@fiqueok.com.br
+Murilo,Barros,FP035,Operations,Settlement Assistant,murilo.barros@fiqueok.com.br
+Daniel,Coelho,FP036,Operations,Chargeback Specialist,daniel.coelho@fiqueok.com.br
+Helena,Ferreira,FP037,Operations,Payment Execution Lead,helena.ferreira@fiqueok.com.br
+Carla,Araújo,FP038,Fraud & Compliance,Fraud Analyst,carla.araujo@fiqueok.com.br
+Rodrigo,Monteiro,FP039,Fraud & Compliance,Senior Fraud Investigator,rodrigo.monteiro@fiqueok.com.br
+Priscila,Duarte,FP040,Fraud & Compliance,Compliance Analyst,priscila.duarte@fiqueok.com.br
+Sérgio,Amaral,FP041,Fraud & Compliance,KYC Specialist,sergio.amaral@fiqueok.com.br
+Letícia,Marques,FP042,Fraud & Compliance,AML Officer,leticia.marques@fiqueok.com.br
+João,Meireles,FP043,Fraud & Compliance,Fraud Detection Specialist,joao.meireles@fiqueok.com.br
+Lívia,Sales,FP044,Fraud & Compliance,Fraud Operations Analyst,livia.sales@fiqueok.com.br
+Henrique,Falcão,FP045,Fraud & Compliance,Risk and Control Officer,henrique.falcao@fiqueok.com.br
+Débora,Menezes,FP046,Fraud & Compliance,Compliance Coordinator,debora.menezes@fiqueok.com.br
+Rafaela,Viana,FP047,Fraud & Compliance,Cyber Risk Analyst,rafaela.viana@fiqueok.com.br
+Pedro,Queiroz,FP048,Commercial & CS,Customer Success Lead,pedro.queiroz@fiqueok.com.br
+Ana,Paula,FP049,Commercial & CS,Customer Success Analyst,ana.paula@fiqueok.com.br
+Carlos,Eduardo,FP050,Commercial & CS,Inside Sales Executive,carlos.eduardo@fiqueok.com.br
+Gabriela,Cruz,FP051,Commercial & CS,Sales Development Rep,gabriela.cruz@fiqueok.com.br
+Luciana,Ferraz,FP052,Commercial & CS,Account Manager,luciana.ferraz@fiqueok.com.br
+Renato,Silveira,FP053,Commercial & CS,Pre-Sales Engineer,renato.silveira@fiqueok.com.br
+Paulo,Henrique,FP054,Commercial & CS,Marketing Analyst,paulo.henrique@fiqueok.com.br
+Michele,Carneiro,FP055,Commercial & CS,Retention Specialist,michele.carneiro@fiqueok.com.br
+Tatiana,Castilho,FP056,Commercial & CS,Communication Coordinator,tatiana.castilho@fiqueok.com.br
+Vinícius,Fonseca,FP057,Commercial & CS,Sales Manager,vinicius.fonseca@fiqueok.com.br
+Sabrina,Mota,FP058,HR & Finance,HR Analyst,sabrina.mota@fiqueok.com.br
+Natália,Lacerda,FP059,HR & Finance,Finance Analyst,natalia.lacerda@fiqueok.com.br
+Anderson,Peixoto,FP060,HR & Finance,Payroll Specialist,anderson.peixoto@fiqueok.com.br
+Caroline,Mendes,FP061,HR & Finance,Accounting Coordinator,caroline.mendes@fiqueok.com.br
+Joana,Batista,FP062,HR & Finance,People Business Partner,joana.batista@fiqueok.com.br
+Samuel,Rocha,FP063,Technology - Dev,Front-End Developer,samuel.rocha@fiqueok.com.br
+Roberta,Vidal,FP064,Technology - Dev,Backend Developer,roberta.vidal@fiqueok.com.br
+Igor,Américo,FP065,Technology - DevOps,Cloud Administrator,igor.americo@fiqueok.com.br
+Danilo,Assis,FP066,Technology - Security,Security Analyst,danilo.assis@fiqueok.com.br
+Fábio,Correia,FP067,Technology - Data,DataOps Engineer,fabio.correia@fiqueok.com.br
+Karla,Vasconcelos,FP068,Operations,Settlement Associate,karla.vasconcelos@fiqueok.com.br
+Eduarda,Brandão,FP069,Fraud & Compliance,Fraud Prevention Analyst,eduarda.brandao@fiqueok.com.br
+Cássio,Borges,FP070,Commercial & CS,Account Executive,cassio.borges@fiqueok.com.br
+Patrícia,Macedo,FP071,HR & Finance,Recruiter,patricia.macedo@fiqueok.com.br
+Felipe,Lourenço,FP072,Technology - Dev,Software Engineer,felipe.lourenco@fiqueok.com.br
+Amanda,Prado,FP073,Technology - DevOps,DevOps Specialist,amanda.prado@fiqueok.com.br
+Gustavo,Franco,FP074,Technology - Security,Penetration Tester,gustavo.franco@fiqueok.com.br
+Carla,Ribeiro,FP075,Technology - Data,Machine Learning Engineer,carla.ribeiro@fiqueok.com.br
+Leandro,Rezende,FP076,Operations,Chargeback Analyst,leandro.rezende@fiqueok.com.br
+Sofia,Bueno,FP077,Fraud & Compliance,Compliance Auditor,sofia.bueno@fiqueok.com.br
+Arthur,Henrique,FP078,Commercial & CS,Customer Experience Designer,arthur.henrique@fiqueok.com.br
+Beatriz,Moreira,FP079,HR & Finance,Compensation Analyst,beatriz.moreira@fiqueok.com.br
+Lucas,Toscano,FP080,Technology - Dev,Software Architect,lucas.toscano@fiqueok.com.br
+Emanuel,Nogueira,FP081,Technology - DevOps,Infrastructure Engineer,emanuel.nogueira@fiqueok.com.br
+Cristina,Alvarenga,FP082,Technology - Security,Security Compliance Lead,cristina.alvarenga@fiqueok.com.br
+Raul,Andrade,FP083,Technology - Data,BI Analyst,raul.andrade@fiqueok.com.br
+Mariana,Quevedo,FP084,Operations,Operations Analyst,mariana.quevedo@fiqueok.com.br
+Thiago,Pazinato,FP085,Fraud & Compliance,Risk Data Analyst,thiago.pazinato@fiqueok.com.br
+Andreia,Abreu,FP086,Commercial & CS,Sales Operations Analyst,andreia.abreu@fiqueok.com.br
+Murilo,Vasques,FP087,HR & Finance,Financial Controller,murilo.vasques@fiqueok.com.br
+Helena,Santiago,FP088,Technology - Dev,QA Engineer,helena.santiago@fiqueok.com.br
+Julio,Oliveira,FP089,Technology - DevOps,Release Manager,julio.oliveira@fiqueok.com.br
+Tatiana,Pozzebon,FP090,Technology - Security,SOC Analyst,tatiana.pozzebon@fiqueok.com.br
+Rodrigo,Mendes,FP091,Technology - Data,Data Governance Specialist,rodrigo.mendes@fiqueok.com.br
+Camila,Freire,FP092,Operations,Settlement Officer,camila.freire@fiqueok.com.br
+Paula,Bernardes,FP093,Fraud & Compliance,Compliance Assistant,paula.bernardes@fiqueok.com.br
+Marcos,Teixeira,FP094,Commercial & CS,Channel Partner Manager,marcos.teixeira@fiqueok.com.br
+Rafaela,Costa,FP095,HR & Finance,HR Coordinator,rafaela.costa@fiqueok.com.br
+Guilherme,Lira,FP096,Technology - Dev,Backend Developer,guilherme.lira@fiqueok.com.br
+Elaine,Cardin,FP097,Technology - DevOps,Cloud Architect,elaine.cardin@fiqueok.com.br
+Ricardo,Ferraz,FP098,Technology - Data,Analytics Engineer,ricardo.ferraz@fiqueok.com.br
+Tainá,Lopes,FP099,Operations,Chargeback Assistant,taina.lopes@fiqueok.com.br
+Fernanda,Rossetti,FP100,Fraud & Compliance,Laundering Prevention Specialist,fernanda.rossetti@fiqueok.com.br

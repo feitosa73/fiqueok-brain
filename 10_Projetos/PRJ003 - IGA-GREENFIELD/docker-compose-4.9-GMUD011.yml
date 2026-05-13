@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: iga-postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpoint_user
+      POSTGRES_PASSWORD: 'P0stgr3sS3cur3#2026!'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - iga-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpoint_user -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.9
+    container_name: iga-midpoint
+    ports:
+      - "8080:8080"
+    environment:
+      # Bypass total de falhas anteriores: Credenciais na URL vencem o SCRAM
+      REPO_DATABASE_TYPE: postgresql
+      REPO_JDBC_URL: 'jdbc:postgresql://postgres:5432/midpoint?user=midpoint_user&password=P0stgr3sS3cur3#2026!'
+      
+      # Ajuste para os 1.5GB visiveis ao Kernel (Evita OOM Killer)
+      JAVA_OPTS: "-Xms512m -Xmx1024m -Dmidpoint.repository.database=postgresql -Dfile.encoding=UTF8"
+      
+      # Bootstrap de Seguranca
+      MP_KEYSTORE_PASSWORD: 'midpoint_keystore_2026'
+      MP_SET_midpoint_administrator_initialPassword: 'M1dP0!ntAdm!n#2026'
+    volumes:
+      - ./data/midpoint/var:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - iga-network
+
+networks:
+  iga-network:
+    driver: bridge

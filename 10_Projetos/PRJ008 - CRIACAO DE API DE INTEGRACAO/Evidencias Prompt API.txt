@@ -1,0 +1,185 @@
+PowerShell 7.5.5
+
+   A new PowerShell stable release is available: v7.6.0
+   Upgrade now, or check out the release page at:
+     https://aka.ms/PowerShell-Release?tag=v7.6.0
+
+PS C:\Users\fiqueok> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.8.0-106-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Fri Apr 10 07:45:14 PM UTC 2026
+
+  System load:  0.01              Processes:             118
+  Usage of /:   55.6% of 9.75GB   Users logged in:       1
+  Memory usage: 34%               IPv4 address for eth0: 172.24.192.30
+  Swap usage:   0%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+51 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Wed Mar 25 17:17:21 2026 from xxx.xxx.xxx.xxx
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault status
+WARNING! VAULT_ADDR and -address unset. Defaulting to https://127.0.0.1:8200.
+Error checking seal status: Get "https://127.0.0.1:8200/v1/sys/seal-status": http: server gave HTTP response to HTTPS client
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ export VAULT_ADDR='http://127.0.0.1:8200'
+export VAULT_SKIP_VERIFY=true
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault status
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  true
+Total Shares            5
+Threshold               3
+Unseal Progress         0/3
+Unseal Nonce            n/a
+Version                 1.21.3
+Build Date              2026-02-03T14:56:30Z
+Storage Type            raft
+Removed From Cluster    false
+HA Enabled              true
+paulo@vault-gf-01:~$ vault operator unseal
+Unseal Key (will be hidden):
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  true
+Total Shares            5
+Threshold               3
+Unseal Progress         1/3
+Unseal Nonce            bd455fe5-db94-41be-4881-c19380c6c413
+Version                 1.21.3
+Build Date              2026-02-03T14:56:30Z
+Storage Type            raft
+Removed From Cluster    false
+HA Enabled              true
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault operator unseal
+Unseal Key (will be hidden):
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  true
+Total Shares            5
+Threshold               3
+Unseal Progress         2/3
+Unseal Nonce            bd455fe5-db94-41be-4881-c19380c6c413
+Version                 1.21.3
+Build Date              2026-02-03T14:56:30Z
+Storage Type            raft
+Removed From Cluster    false
+HA Enabled              true
+paulo@vault-gf-01:~$ vault operator unseal
+Unseal Key (will be hidden):
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  false
+Total Shares            5
+Threshold               3
+Version                 1.21.3
+Build Date              2026-02-03T14:56:30Z
+Storage Type            raft
+Cluster Name            vault-cluster-163d0020
+Cluster ID              54d3873b-d4ff-233a-22b2-dbe231db4963
+Removed From Cluster    false
+HA Enabled              true
+HA Cluster              n/a
+HA Mode                 standby
+Active Node Address     <none>
+Raft Committed Index    165
+Raft Applied Index      165
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # 1. Autenticação (Use seu Root Token)
+vault login
+
+# 2. Leitura do segredo conforme sua documentação
+vault kv get secret/orangehrm/mysql^C
+paulo@vault-gf-01:~$ vault login
+Token (will be hidden):
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You do NOT need to run "vault login"
+again. Future Vault requests will automatically use this token.
+
+Key                  Value
+---                  -----
+token                hvs.jQ7AHVUkfNvEguKd7NApHKXz
+token_accessor       3nSH5cyZvYfHfLkPbHhmOx4I
+token_duration       ∞
+token_renewable      false
+token_policies       ["root"]
+identity_policies    []
+policies             ["root"]
+paulo@vault-gf-01:~$ # Verificar se o segredo está no caminho esperado
+vault kv get secret/orangehrm/mysql
+No value found at secret/data/orangehrm/mysql
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault kv list secret/
+Keys
+----
+prj012/
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault kv put secret/orangehrm/admin password="Rose**********" username="paulo" url="http://xxx.xxx.xxx.xxx:8085"
+======= Secret Path =======
+secret/data/orangehrm/admin
+
+======= Metadata =======
+Key                Value
+---                -----
+created_time       2026-04-10T20:05:47.254116008Z
+custom_metadata    <nil>
+deletion_time      n/a
+destroyed          false
+version            1
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault kv put secret/orangehrm/db_api \
+    username="svc_shadow_api" \
+    password="**********" \
+    db_name="orangehrm" \
+    db_host="xxx.xxx.xxx.xxx"
+======== Secret Path ========
+secret/data/orangehrm/db_api
+
+======= Metadata =======
+Key                Value
+---                -----
+created_time       2026-04-10T23:08:38.538811339Z
+custom_metadata    <nil>
+deletion_time      n/a
+destroyed          false
+version            1
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+

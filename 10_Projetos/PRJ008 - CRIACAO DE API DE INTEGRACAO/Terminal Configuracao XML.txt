@@ -1,0 +1,45 @@
+ subtypes                   | text[]                   |           |          |
+ fulltextinfo               | text                     |           |          |
+ ext                        | jsonb                    |           |          |
+ creatorreftargetoid        | uuid                     |           |          |
+ creatorreftargettype       | objecttype               |           |          |
+ creatorrefrelationid       | integer                  |           |          |
+ createchannelid            | integer                  |           |          |
+ createtimestamp            | timestamp with time zone |           |          |
+ modifierreftargetoid       | uuid                     |           |          |
+ modifierreftargettype      | objecttype               |           |          |
+ modifierrefrelationid      | integer                  |           |          |
+ modifychannelid            | integer                  |           |          |
+ modifytimestamp            | timestamp with time zone |           |          |
+ db_created                 | timestamp with time zone |           | not null | CURRENT_TIMESTAMP
+ db_modified                | timestamp with time zone |           | not null | CURRENT_TIMESTAMP
+ objecttype                 | objecttype               |           | not null | generated always as ('CONNECTOR'::objecttype) stored
+ connectorbundle            | text                     |           |          |
+ connectortype              | text                     |           | not null |
+ connectorversion           | text                     |           | not null |
+ frameworkid                | integer                  |           |          |
+ connectorhostreftargetoid  | uuid                     |           |          |
+ connectorhostreftargettype | objecttype               |           |          |
+ connectorhostrefrelationid | integer                  |           |          |
+ displaynameorig            | text                     |           |          |
+ displaynamenorm            | text                     |           |          |
+ targetsystemtypes          | integer[]                |           |          |
+ available                  | boolean                  |           |          |
+Indexes:
+    "m_connector_pkey" PRIMARY KEY, btree (oid)
+    "m_connector_createtimestamp_idx" btree (createtimestamp)
+    "m_connector_modifytimestamp_idx" btree (modifytimestamp)
+    "m_connector_namenorm_idx" btree (namenorm)
+    "m_connector_nameorig_idx" btree (nameorig)
+    "m_connector_policysituation_idx" gin (policysituations gin__int_ops)
+    "m_connector_subtypes_idx" gin (subtypes)
+    "m_connector_typeversion_key" UNIQUE, btree (connectortype, connectorversion) WHERE connectorhostreftargetoid IS NULL
+    "m_connector_typeversionhost_key" UNIQUE, btree (connectortype, connectorversion, connectorhostreftargetoid) WHERE connectorhostreftargetoid IS NOT NULL
+Check constraints:
+    "m_connector_objecttype_check" CHECK (objecttype = 'CONNECTOR'::objecttype)
+Foreign-key constraints:
+    "m_connector_connectorhostrefrelationid_fkey" FOREIGN KEY (connectorhostrefrelationid) REFERENCES m_uri(id)
+    "m_connector_frameworkid_fkey" FOREIGN KEY (frameworkid) REFERENCES m_uri(id)
+    "m_connector_oid_fkey" FOREIGN KEY (oid) REFERENCES m_object_oid(oid)
+Triggers:
+:

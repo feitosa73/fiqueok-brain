@@ -1,0 +1,262 @@
+Excelente pergunta. Vamos analisar todas as opções de cloud **100% gratuitas** que poderiam hospedar seu Vault, comparando prós, contras e riscos arquiteturais.
+
+---
+
+## **☁️ ANÁLISE DE CLOUDS COM FREE TIER PERMANENTE PARA VAULT**
+
+### **1. ORACLE CLOUD (OCI) – FREE TIER**
+**Recursos gratuitos permanentes:**
+- 4 VMs ARM (AMD64 também) com 24GB RAM total
+- 200GB de storage (bloco + object)
+- **OCI Vault Service**: 20 chaves HSM + 150 secrets gratuitos
+- Load Balancer (10Mbps)
+- Auto-scaling
+
+**Prós:**
+- ✅ Mais generoso do mercado
+- ✅ VM real com IP público
+- ✅ Auto-Unseal nativo gratuito (via OCI Vault)
+- ✅ Sem expiração (Always Free)
+
+**Contras:**
+- ⚠️ Você já mencionou instabilidade percebida
+- ⚠️ Conta pode ser suspensa se não usar por 30+ dias (política anti-fraud)
+
+**Custo:** **R$0,00 permanente**
+
+---
+
+### **2. GOOGLE CLOUD (GCP) – FREE TIER**
+**Recursos gratuitos:**
+- 1 VM e2-micro (1 vCPU, 1GB RAM) por mês
+- 30GB HDD
+- **Cloud KMS**: 10.000 operações/mês gratuitas
+- 1GB egress para América Latina/mês
+
+**Prós:**
+- ✅ Auto-Unseal via Cloud KMS (gratuito para seu uso)
+- ✅ Estabilidade excelente
+- ✅ Integração simples com Vault
+
+**Contras:**
+- ❌ VM muito fraca (1GB RAM pode limitar Vault+Raft)
+- ❌ Egress limitado (acessos externos podem gerar custo)
+- ⚠️ Free tier tem limites mensais (não é "Always Free" ilimitado)
+
+**Custo:** **R$0,00 dentro dos limites**
+
+---
+
+### **3. MICROSOFT AZURE – FREE TIER**
+**Recursos gratuitos por 12 meses:**
+- 750 horas de VM B1s (1 vCPU, 1GB RAM)
+- 64GB SSD Managed Disk
+- **Azure Key Vault**: 10.000 transações/mês
+
+**Após 12 meses:**
+- Apenas serviços "Always Free" continuam (não inclui VM)
+
+**Prós:**
+- ✅ Auto-Unseal via Azure Key Vault
+- ✅ Integração nativa com Active Directory (útil para seu lab)
+- ✅ 12 meses de VM grátis
+
+**Contras:**
+- ❌ Não é permanente (após 12 meses, VM tem custo)
+- ❌ VM limitada (1GB RAM)
+
+**Custo:** **R$0,00 por 12 meses**
+
+---
+
+### **4. ALIBABA CLOUD – FREE TRIAL**
+**Recursos gratuitos (apenas trial):**
+- US$300-500 de crédito por 3-6 meses
+- VMs básicas
+- **KMS Service** disponível (não sei se gratuito)
+
+**Prós:**
+- ✅ Crédito inicial generoso
+- ✅ Presença na América Latina
+
+**Contras:**
+- ❌ **Não é permanente** (após crédito, paga)
+- ❌ Documentação menos acessível
+- ⚠️ Política de free tier não clara
+
+**Custo:** **R$0,00 apenas durante trial**
+
+---
+
+### **5. HUAWEI CLOUD – FREE TIER**
+**Recursos gratuitos:**
+- Créditos iniciais (varia por região)
+- Algumas VMs básicas gratuitas
+- **KMS** disponível
+
+**Prós:**
+- ✅ Presença global
+- ✅ Alguns serviços Always Free
+
+**Contras:**
+- ❌ Política confusa de free tier
+- ❌ Suporte em português limitado
+- ⚠️ Incerteza sobre permanência
+
+**Custo:** **Misto (alguns serviços free, outros não)**
+
+---
+
+### **6. IBM CLOUD – LITE TIER**
+**Recursos gratuitos permanentes:**
+- 256MB RAM de runtime (não serve para Vault)
+- **IBM Hyper Protect Crypto Services**: Tier Lite gratuito
+- **Cloud Databases**: 1GB free
+
+**Prós:**
+- ✅ HSM gratuito via Hyper Protect (ideal para Auto-Unseal)
+- ✅ Permanente
+
+**Contras:**
+- ❌ Não tem VM gratuita
+- ❌ Precisa de infra em outro lugar
+
+**Custo:** **R$0,00 (para HSM apenas)**
+
+---
+
+## **⚡ SOLUÇÃO HÍBRIDA MAIS PRÁTICA: "Vault as a Service" Gratuito**
+
+### **OPÇÃO A: HashiCorp Cloud Platform (HCP) – Trial**
+- **Vault como SaaS** por 30 dias grátis
+- **Prós**: Zero operações, Auto-Unseal nativo, alta disponibilidade
+- **Contras**: Apenas 30 dias, depois ~US$0,05/hora (~R$40/mês)
+
+### **OPÇÃO B: Vault na Railway/Heroku (PaaS Free Tier)**
+- Railway: US$5 crédito mensal (suficiente para Vault básico)
+- Heroku: Free tier descontinuado (não recomendado)
+
+### **OPÇÃO C: Vault no Fly.io Free Tier**
+- 3 VMs shared-CPU gratuitas
+- 3GB RAM total, 3GB volume persistente
+- **Custo**: R$0,00 dentro dos limites
+- **Vantagem**: Rede privada entre apps, deploy simples
+
+---
+
+## **🎯 MINHA RECOMENDAÇÃO REALISTA**
+
+### **CENÁRIO 1: Se quiser SIMPLICIDADE TOTAL**
+**Use OCI Free Tier para TUDO:**
+1. Provisione VM ARM (4 vCPU, 24GB RAM) - Always Free
+2. Instale Vault na VM OCI
+3. Use OCI Vault Service (gratuito) para Auto-Unseal
+4. Conecte via Tailscale (Subnet Router)
+
+**Prós:**
+- Uma única tecnologia/fornecedor
+- Tudo gratuito e permanente
+- Auto-Unseal nativo
+
+**Contras:**
+- Vault na cloud (latência para seu AD local)
+- Dependência de internet
+
+---
+
+### **CENÁRIO 2: Se quiser BALANÇO ÓTIMO**
+**Use Hyper-V Gen1 (local) + IBM Cloud HSM (gratuito):**
+1. VM Gen1 local para Vault (controle, baixa latência)
+2. IBM Hyper Protect Crypto Services (Lite Tier) para Auto-Unseal
+   - HSM real gratuito
+   - Permanente
+   - Suportado nativamente pelo Vault
+
+**Prós:**
+- Vault local (performance para AD)
+- Auto-Unseal enterprise (HSM real)
+- Zero custo total
+- **Apenas 2 tecnologias** (Hyper-V + IBM Cloud)
+
+**Contras:**
+- Configuração mais complexa do Auto-Unseal
+
+---
+
+### **CENÁRIO 3: Se quiser MAXIMA SIMPLICIDADE**
+**Use Google Cloud:**
+1. VM e2-micro (free tier)
+2. Cloud KMS (free tier para Auto-Unseal)
+3. Tailscale para conectar ao seu lab
+
+**Prós:**
+- Estabilidade comprovada
+- Documentação excelente
+- Integração Vault+KMS madura
+
+**Contras:**
+- VM limitada (1GB RAM pode ser pouco para Raft)
+- Não é "Always Free" ilimitado
+
+---
+
+## **📊 TABELA COMPARATIVA FINAL**
+
+| Cloud | VM Grátis | Auto-Unseal Grátis | Permanente | Adequação para Vault |
+|-------|-----------|---------------------|------------|---------------------|
+| **Oracle (OCI)** | ✅ (4x ARM) | ✅ (HSM) | ✅ | ⭐⭐⭐⭐⭐ |
+| **Google Cloud** | ✅ (1x e2-micro) | ✅ (KMS) | ⚠️ (limites mensais) | ⭐⭐⭐⭐ |
+| **Microsoft Azure** | ✅ (12 meses) | ✅ (Key Vault) | ❌ (após 12 meses) | ⭐⭐⭐ |
+| **IBM Cloud** | ❌ | ✅ (HSM Lite) | ✅ | ⭐⭐⭐⭐ (para híbrido) |
+| **Fly.io** | ✅ (3x shared) | ❌ | ✅ (dentro limites) | ⭐⭐ |
+| **Alibaba/Huawei** | ⚠️ (trial/confuso) | ? | ❌/⚠️ | ⭐⭐ |
+
+---
+
+## **🚀 CONCLUSÃO E RECOMENDAÇÃO FINAL**
+
+### **Para seu contexto específico (lab GRC, zero custo, previsibilidade):**
+
+**Recomendo o CENÁRIO 2: Hyper-V Gen1 local + IBM Cloud HSM**
+
+**Por quê?**
+
+1. **Resolve o problema do WSL2 hoje** (Gen1 tem persistência real)
+2. **Auto-Unseal enterprise gratuito** (IBM HSM é nível profissional)
+3. **Vault fica local** (latência zero para AD DS, não depende de internet)
+4. **Apenas 2 tecnologias** (não 3 como na proposta original)
+5. **Totalmente gratuito e permanente**
+6. **Alinhado com GRC** (HSM é mais auditável que KMS software)
+
+---
+
+### **📋 Plano Simplificado (2 Tecnologias apenas)**
+
+**Tecnologia 1: Hyper-V Gen1**
+- VM Ubuntu 22.04
+- Vault com Raft Storage
+- Tailscale nativo
+
+**Tecnologia 2: IBM Cloud HSM**
+- Hyper Protect Crypto Services (Lite Tier)
+- Auto-Unseal do Vault configurado para usar HSM IBM
+
+---
+
+### **🔧 Quer que eu elabore o guia passo a passo para:**
+1. Criar conta IBM Cloud e provisionar HSM gratuito
+2. Configurar VM Gen1 no Hyper-V
+3. Configurar Vault com Auto-Unseal no HSM IBM
+4. Validar ciclo completo boot → unseal automático
+
+**Essa solução atende todos seus requisitos:**
+- ✅ Zero custo
+- ✅ Não reinstala Windows agora
+- ✅ Não depende de WSL2
+- ✅ Auto-Unseal automático
+- ✅ Vault estável e persistente
+- ✅ Apenas 2 tecnologias (simplificada)
+
+---
+
+**Qual cenário faz mais sentido para você?** Posso detalhar qualquer um deles com comandos e configurações exatas.

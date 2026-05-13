@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <midpoint>
+        <repository>
+            <type>native</type>
+            <jdbcUrl>jdbc:postgresql://postgres:5432/midpoint?user=midpoint_user&amp;password=P0stgr3sS3cur3#2026!</jdbcUrl>
+        </repository>
+        <keystore>
+            <keyStorePath>${midpoint.home}/keystore.jceks</keyStorePath>
+            <keyStorePassword>midpoint_keystore_2026</keyStorePassword>
+            <encryptionKeyAlias>default</encryptionKeyAlias>
+        </keystore>
+    </midpoint>
+</configuration>

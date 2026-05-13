@@ -1,0 +1,1535 @@
+O Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos os direitos reservados.
+
+Instale o PowerShell mais recente para obter novos recursos e aprimoramentos! https://aka.ms/PSWindows
+
+PS C:\Users\fiqueok> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-107-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Mon Apr 13 10:17:54 PM UTC 2026
+
+  System load:  0.0                Processes:             109
+  Usage of /:   36.5% of 16.88GB   Users logged in:       1
+  Memory usage: 30%                IPv4 address for eth0: 192.168.111.153
+  Swap usage:   0%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+12 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Mon Apr 13 21:33:52 2026 from xxx.xxx.xxx.xxx
+paulo@iga-gf-02:~$ # 1. Estado zero ABSOLUTO (crítico!)
+cd ~/
+docker compose down -v --remove-orphans 2>/dev/null || true
+docker system prune -a --volumes -f
+sudo rm -rf midpoint* data pgdata var opt/midpoint
+docker volume prune -f
+docker network prune -f
+
+# 2. Diretório limpo
+mkdir -p ~/midpoint-deploy/{data/{postgres,midpoint}}
+cd ~/midpoint-deploy
+
+# 3. docker-compose.yml EXATO (copie tudo)
+cat > docker-compose.yml << 'EOF'
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpointuser
+      POSTGRES_PASSWORD: P0stgr3sS3cur32026!
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpointuser -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.9
+    container_name: midpoint
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/midpoint:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      REPODATABASETYPE: postgresql
+      REPOJDBCURL: jdbc:postgresql://postgres:5432/midpoint?user=midpointuser&password=P0stgr3sS3cur32026!
+      JAVA_OPTS: -Xms512m -Xmx1024m -Dfile.encoding=UTF-8
+      MPKEYSTOREPASSWORD: midpointkeystore2026
+# Deve retornar 200l -w "%{http_code}" http://localhost:8080/midpointt -c "SELECT COUNT(*) FROM inf
+Total reclaimed space: 0B
+[sudo] password for paulo:
+Sorry, try again.
+[sudo] password for paulo:
+Total reclaimed space: 0B
+[+] up 16/16
+ ✔ Image postgres:16-alpine        Pulled                                                     11.3s
+ ✔ Network midpoint-deploy_default Created                                                     0.0s
+ ✔ Container postgres              Started                                                     0.2s
+Tabelas:      0
+[+] up 7/7
+ ✔ Image evolveum/midpoint:4.9 Pulled                                                         14.3s
+ ✔ Container postgres          Healthy                                                         0.6s
+ ✔ Container midpoint          Started                                                         0.7s
+000paulo@iga-gf-02:~/midpoint-deplo# 1. Validar estado atualual
+cd ~/midpoint-deploy
+docker compose ps          # Deve mostrar 2/2 Up (healthy)
+docker exec postgres psql -U midpointuser -d midpoint -c "SELECT COUNT(*) FROM information_schema.tables;"  # Retorna 0 ou 5?
+
+# 2. Se "Tabelas: 0", injetar schema manualmente
+wget https://raw.githubusercontent.com/Evolveum/midpoint/master/infra/schema/db/postgresql/4.9/schema-midpoint-4.9.sql
+docker exec -i postgres psql -U midpointuser -d midpoint < schema-midpoint-4.9.sql
+
+# 3. Validar schema criado
+docker exec postgres psql -U midpointuser -d midpoint -c "SELECT COUNT(*) FROM m_global_metadata;"
+
+# 4. Validar HTTP endpoint
+curl -w "%{http_code}" -o /dev/null http://localhost:8080/midpoint
+
+# 5. Validar admin login (senha padrão ou MPSETmidpointadministratorinitialPassword)
+NAME       IMAGE                COMMAND                  SERVICE    CREATED          STATUS            PORTS
+postgres   postgres:16-alpine   "docker-entrypoint.s…"   postgres   31 minutes ago   Up 31 minutes(healthy)   5432/tcp
+ count
+-------
+   209
+(1 row)
+
+--2026-04-13 22:50:16--  https://raw.githubusercontent.com/Evolveum/midpoint/master/infra/schema/db/postgresql/4.9/schema-midpoint-4.9.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2026-04-13 22:50:16 ERROR 404: Not Found.
+
+-bash: schema-midpoint-4.9.sql: No such file or directory
+ERROR:  relation "m_global_metadata" does not exist
+LINE 1: SELECT COUNT(*) FROM m_global_metadata;
+                             ^
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (7) Failed to connect to localhost port 8080 after 0 ms: Couldn't connect to server
+000paulo@iga-gf-02:~/midpoint-deploy$ #!/bin/bash
+# ROLLBACK-GMUD-012 - Limpeza Nuclear midPoint 4.9 + Checkpoint VM
+# Data: 13/Abr/2026 - Pré-nova tentativa limpa
+
+echo "🚀 === ROLLBACK NUCLEAR - PRJ003 IGA Greenfield ==="
+echo "📅 $(date)"
+echo "👤 $(whoami)"
+echo "🏠 $(pwd)"
+
+# 1. CHECKPOINT VM (antes da limpeza)
+echo "📸 CRIANDO CHECKPOINT VM..."
+sudo virsh snapshot-create-as --domain iga-gf-01 \
+  --name "PRE-GMUD-012-CLEAN-20260413-$(date +%H%M)" \
+  --description "Estado limpo pré-nova tentativa midPoint 4.9" \
+  --disk-only --atomic --quiesce
+
+echo "✅ Checkpoint criado. Revertível se necessário"
+
+# 2. IDENTIFICAR RECURSOS LOCAIS
+echo "🔍 Mapeando recursos Docker..."
+docker compose down 2>/dev/null || true
+docker ps -a --format "table {{.Names}}\t{{.Status}}" | grep -E "(midpoint|postgres)" || true
+docker volume ls --format "table {{.Name}}" | grep -E "(midpoint|postgres|iga)" || true
+docker image ls --format "table {{.Repository}}:{{.Tag}}\t{{.ID}}" | grep -E "(midpoint|postgres)"|| true
+
+# 3. PARAR TODOS CONTAINERS
+echo "🛑 Parando todos containers..."
+docker stop $(docker ps -q --filter ancestor=evolveum/midpoint --filter ancestor=postgres) 2>/dev/null || true
+docker rm -f $(docker ps -aq --filter ancestor=evolveum/midpoint --filter ancestor=postgres) 2>/dev/null || true
+
+# 4. LIMPEZA NUCLEAR - Volumes + Diretórios locais
+echo "💣 Limpando volumes e diretórios locais..."
+sudo rm -rf ./pgdata ./var .data .datapostgres .datamidpointvar 2>/dev/null || true
+sudo rm -rf srv*/data srv*/pgdata srviga-project/data 2>/dev/null || true
+sudo docker volume prune -f 2>/dev/null || true
+
+# 5. Remover imagens específicas (cache limpo)
+echo "🗑️  Limpando imagens..."
+docker rmi -f evolveum/midpoint:4.9 postgres:16 $(docker images -q --filter "reference=evolveum/midpoint*" --filter "reference=postgres:16") 2>/dev/null || true
+
+# 6. PRUNE TOTAL (limpa dangling + unused)
+echo "🔥 Docker system prune completo..."
+echo "📍 Próximo passo: docker compose up postgres → schema manual → midPoint"""a"iduo"
+🚀 === ROLLBACK NUCLEAR - PRJ003 IGA Greenfield ===
+📅 Mon Apr 13 10:54:09 PM UTC 2026
+👤 paulo
+🏠 /home/paulo/midpoint-deploy
+📸 CRIANDO CHECKPOINT VM...
+[sudo] password for paulo:
+Sorry, try again.
+[sudo] password for paulo:
+sudo: virsh: command not found
+✅ Checkpoint criado. Revertível se necessário
+🔍 Mapeando recursos Docker...
+postgres:16-alpine      20edbde7749f
+evolveum/midpoint:4.9   3d5c0a9f66a4
+🛑 Parando todos containers...
+💣 Limpando volumes e diretórios locais...
+Total reclaimed space: 0B
+🗑️  Limpando imagens...
+Untagged: evolveum/midpoint:4.9
+Deleted: sha256:3d5c0a9f66a4c33bb76e5d787f58ce12642839b4c828c9d09c798cf8a2759bbb
+🔥 Docker system prune completo...
+Deleted Images:
+untagged: postgres:16-alpine
+deleted: sha256:20edbde7749f822887a1a022ad526fde0a47d6b2be9a8364433605cf65099416
+deleted: sha256:60b180625695e90b6e450405d5f0bcb74bc8c52c65d1cd11aeb3da46cac06dd8
+deleted: sha256:19420411bc2b75747c7dc91cd11439fd637a4a7a1d587fa549be7abb23263508
+
+Total reclaimed space: 110.6MB
+✅ VERIFICAÇÃO DE ESTADO GREENFIELD...
+Containers ativos:
+✅ Nenhum container residuo
+Volumes residuais:
+✅ Nenhum volume residuo
+Imagens residuais:
+WARNING: This output is designed for human readability. For machine-readable output, please use --format.
+✅ Nenhum imagem residua
+Diretórios locais:
+drwxrwxr-x 4 paulo paulo 4096 Apr 13 22:18 {data
+drwxr-xr-x 4 root  root  4096 Apr 13 22:35 data
+📌 CHECKPOINT FINAL CRIADO COM SUCESSO
+🔄 Para REVERTER ao estado atual (caso algo dê errado):
+   sudo virsh snapshot-revert iga-gf-01 PRE-GMUD-012-CLEAN-20260413-XXXX
+Command 'virsh' not found, but can be installed with:
+sudo apt install libvirt-clients
+🎉 AMBIENTE GREENFIELD RESTAURADO!
+✅ Pronto para GMUD-013 com lições aprendidas
+📍 Próximo passo: docker compose up postgres → schema manual → midPoint
+paulo@iga-gf-02:~/midpoint-deploy$
+paulo@iga-gf-02:~/midpoint-deploy$
+paulo@iga-gf-02:~/midpoint-deploy$
+paulo@iga-gf-02:~/midpoint-deploy$ Checkpoint-VM -Name IGA-GF-02
+Checkpoint-VM: command not found
+paulo@iga-gf-02:~/midpoint-deploy$ exit
+logout
+Connection to xxx.xxx.xxx.xxx closed.
+PS C:\Users\fiqueok> Checkpoint-VM -Name IGA-GF-02
+Checkpoint-VM : Falha na operação do ponto de verificação.
+Pontos de verificação foram desabilitados.
+Falha na operação de ponto de verificação em 'IGA-GF-02'. (ID da máquina virtual
+CFB5C5B2-6FBD-4D82-A3E3-A83ED75FB7BF)
+Pontos de verificação foram desabilitados para 'IGA-GF-02'. (ID da máquina virtual
+CFB5C5B2-6FBD-4D82-A3E3-A83ED75FB7BF).
+No linha:1 caractere:1
++ Checkpoint-VM -Name IGA-GF-02
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Checkpoint-VM], VirtualizationException
+    + FullyQualifiedErrorId : NotSupported,Microsoft.HyperV.PowerShell.Commands.CheckpointVM
+
+PS C:\Users\fiqueok> # Habilitar checkpoints explicitamente
+PS C:\Users\fiqueok> Set-VM -Name "IGA-GF-02" -CheckpointType Enabled
+Set-VM : Não é possível associar o parâmetro 'CheckpointType'. Não é possível converter o valor
+"Enabled" para o tipo "Microsoft.HyperV.PowerShell.CheckpointType". Erro: "Não é possível
+corresponder o nome do identificador Enabled a um nome de enumerador válido. Especifique um dos
+seguintes nomes de enumerador e tente novamente:
+Disabled, Production, ProductionOnly, Standard"
+No linha:1 caractere:42
++ Set-VM -Name "IGA-GF-02" -CheckpointType Enabled
++                                          ~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Set-VM], ParameterBindingException
+    + FullyQualifiedErrorId : CannotConvertArgumentNoMessage,Microsoft.HyperV.PowerShell.Commands
+   .SetVM
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Verificar configuração atual
+PS C:\Users\fiqueok> Get-VM "IGA-GF-02" | Select Name, State, CheckpointType
+
+Name        State CheckpointType
+----        ----- --------------
+IGA-GF-02 Running       Disabled
+
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Confirmar pasta de checkpoints tem permissões corretas
+PS C:\Users\fiqueok> Get-VMHost | Select EnableEnhancedSessionMode, DefaultExternalDataRoot
+
+EnableEnhancedSessionMode DefaultExternalDataRoot
+------------------------- -----------------------
+                     True
+
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Listar todos checkpoints da VM
+PS C:\Users\fiqueok> Get-VMSnapshot -VMName "IGA-GF-02"
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Remover TODOS os checkpoints existentes
+PS C:\Users\fiqueok> Get-VMSnapshot -VMName "IGA-GF-02" | Remove-VMSnapshot -Confirm:$false
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # OU via Hyper-V Manager: VM → Delete Checkpoint → Delete all child checkpoints
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Verificar onde estão os AVHDX
+PS C:\Users\fiqueok> Get-VMHardDiskDrive -VMName "IGA-GF-02" | Select Path, ControllerNumber
+
+Path                                         ControllerNumber
+----                                         ----------------
+C:\Hyper-V\VMs\IGA-GF-02\IGA-GF-02-BOOT.vhdx                0
+
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Garantir permissões FULL para Hyper-V no diretório pai
+PS C:\Users\fiqueok> icacls "C:\Path\To\VM\Snapshots" /grant "NT VIRTUAL MACHINE\Virtual Machines":(OI)(CI)F
+OI : O termo 'OI' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa
+operável. Verifique a grafia do nome ou, se um caminho tiver sido incluído, veja se o caminho
+está correto e tente novamente.
+No linha:1 caractere:80
++ ... \VM\Snapshots" /grant "NT VIRTUAL MACHINE\Virtual Machines":(OI)(CI)F
++                                                                  ~~
+    + CategoryInfo          : ObjectNotFound: (OI:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Criar checkpoint de teste
+PS C:\Users\fiqueok> Checkpoint-VM -Name "IGA-GF-02" -CheckpointName "TEST-POST-FIX"
+Checkpoint-VM : Falha na operação do ponto de verificação.
+Pontos de verificação foram desabilitados.
+Falha na operação de ponto de verificação em 'IGA-GF-02'. (ID da máquina virtual
+CFB5C5B2-6FBD-4D82-A3E3-A83ED75FB7BF)
+Pontos de verificação foram desabilitados para 'IGA-GF-02'. (ID da máquina virtual
+CFB5C5B2-6FBD-4D82-A3E3-A83ED75FB7BF).
+No linha:1 caractere:1
++ Checkpoint-VM -Name "IGA-GF-02" -CheckpointName "TEST-POST-FIX"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Checkpoint-VM], VirtualizationException
+    + FullyQualifiedErrorId : NotSupported,Microsoft.HyperV.PowerShell.Commands.CheckpointVM
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Validar criação
+PS C:\Users\fiqueok> Get-VMSnapshot -VMName "IGA-GF-02"
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> # Remover teste
+PS C:\Users\fiqueok> Remove-VMSnapshot -VMName "IGA-GF-02" -Name "TEST-POST-FIX" -Confirm:$false
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> Set-VM -Name "IGA-GF-02" -CheckpointType Production
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> Get-VM "IGA-GF-02" | Select Name, State, CheckpointType
+
+Name        State CheckpointType
+----        ----- --------------
+IGA-GF-02 Running     Production
+
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> Checkpoint-VM -Name "IGA-GF-02" -CheckpointName "PRE-GMUD-009-FIXED"
+PS C:\Users\fiqueok> Get-VMSnapshot -VMName "IGA-GF-02"
+
+VMName    Name               SnapshotType CreationTime        ParentSnapshotName
+------    ----               ------------ ------------        ------------------
+IGA-GF-02 PRE-GMUD-009-FIXED Standard     13/04/2026 20:00:30
+
+
+PS C:\Users\fiqueok> # Sua pasta é C:\Hyper-V\VMs\ (pai do VHDX)
+PS C:\Users\fiqueok> icacls "C:\Hyper-V\VMs" /grant "NT VIRTUAL MACHINE\Virtual Machines":(OI)(CI)F /T
+OI : O termo 'OI' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa
+operável. Verifique a grafia do nome ou, se um caminho tiver sido incluído, veja se o caminho
+está correto e tente novamente.
+No linha:1 caractere:71
++ ... Hyper-V\VMs" /grant "NT VIRTUAL MACHINE\Virtual Machines":(OI)(CI)F / ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (OI:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\fiqueok> icacls "C:\Hyper-V\VMs\IGA-GF-02" /grant "NT VIRTUAL MACHINE\Virtual Machines":(OI)(CI)F /T
+OI : O termo 'OI' não é reconhecido como nome de cmdlet, função, arquivo de script ou programa
+operável. Verifique a grafia do nome ou, se um caminho tiver sido incluído, veja se o caminho
+está correto e tente novamente.
+No linha:1 caractere:81
++ ... s\IGA-GF-02" /grant "NT VIRTUAL MACHINE\Virtual Machines":(OI)(CI)F / ...
++                                                                ~~
+    + CategoryInfo          : ObjectNotFound: (OI:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> icacls "C:\Hyper-V\VMs" /grant "NT VIRTUAL MACHINE\Virtual Machines:(OI)(CI)F" /T
+C:\Hyper-V\VMs: Acesso negado.
+Processados com sucesso 0 arquivos; falha no processamento de 1 arquivos
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> $Path = "C:\Hyper-V\VMs"
+PS C:\Users\fiqueok> $Account = New-Object System.Security.Principal.SecurityIdentifier("S-1-5-83-0")
+PS C:\Users\fiqueok> $Acl = Get-Acl $Path
+PS C:\Users\fiqueok> $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($Account,"FullControl","ContainerInherit,ObjectInherit","None","Allow")
+PS C:\Users\fiqueok> $Acl.SetAccessRule($AccessRule)
+PS C:\Users\fiqueok> Set-Acl $Path $Acl
+Set-Acl : Tentativa de execução de uma operação não autorizada.
+No linha:1 caractere:1
++ Set-Acl $Path $Acl
++ ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Hyper-V\VMs:String) [Set-Acl], UnauthorizedAc
+   cessException
+    + FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.PowerShell.Commands.Se
+   tAclCommand
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> ping xxx.xxx.xxx.xxx
+
+Disparando xxx.xxx.xxx.xxx com 32 bytes de dados:
+Resposta de xxx.xxx.xxx.xxx: bytes=32 tempo=73ms TTL=64
+Resposta de xxx.xxx.xxx.xxx: bytes=32 tempo=1ms TTL=64
+
+Estatísticas do Ping para xxx.xxx.xxx.xxx:
+    Pacotes: Enviados = 2, Recebidos = 2, Perdidos = 0 (0% de
+             perda),
+Aproximar um número redondo de vezes em milissegundos:
+    Mínimo = 1ms, Máximo = 73ms, Média = 37ms
+Control-C
+PS C:\Users\fiqueok> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Permission denied, please try again.
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-107-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Mon Apr 13 11:03:44 PM UTC 2026
+
+  System load:  0.0                Processes:             113
+  Usage of /:   36.7% of 16.88GB   Users logged in:       1
+  Memory usage: 27%                IPv4 address for eth0: 192.168.111.153
+  Swap usage:   0%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+12 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Mon Apr 13 22:17:54 2026 from xxx.xxx.xxx.xxx
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$ # 1. Confirma containers (deve retornar tabela vazia)
+docker ps -a
+
+# 2. Confirma volumes (deve estar vazio ou só system volumes)
+docker volume ls
+
+# 3. Confirma redes (só as default)
+docker network ls
+
+# 4. Verifica diretórios do projeto anterior
+ls -la ~/ | grep -E "(iga|midpoint|postgres)"
+
+# 5. Verifica imagens Docker (cache OK, containers limpos)
+docker images
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+DRIVER    VOLUME NAME
+NETWORK ID     NAME      DRIVER    SCOPE
+b0acb0bb4a67   bridge    bridge    local
+8e2d48f3f2ae   host      host      local
+7a584be836ad   none      null      local
+drwxrwxr-x  4 paulo paulo     4096 Apr 13 22:35 midpoint-deploy
+                                                                               i Info →   U  In Use
+IMAGE   ID             DISK USAGE   CONTENT SIZE   EXTRA
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$ # 1. Recriar estrutura limpa
+cd ~
+rm -rf midpoint-deploy
+mkdir -p midpoint-deploy/data/{postgres,midpoint}
+cd midpoint-deploy
+
+# 2. Docker Compose GMUD-011 (nomes do DeepSeek + config do POP)
+cat > docker-compose.yml << 'EOF'
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpointuser
+      POSTGRES_PASSWORD: P0stgr3sS3cur32026!
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpointuser -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.9
+    container_name: midpoint
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/midpoint:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      REPODATABASETYPE: postgresql
+      REPOJDBCURL: jdbc:postgresql://postgres:5432/midpoint?user=midpointuser&password=P0stgr3sS3cur32026!
+      JAVAOPTS: -Xms512m -Xmx1024m -Dmidpoint.repository.database=postgresql -Dfile.encoding=UTF-8
+      MPKEYSTOREPASSWORD: midpointkeystore2026
+      MPSETmidpointadministratorinitialPassword: M1dP0!ntAdm!n2026
+EOF
+
+# 3. Baixar SQLs (caminhos confirmados DeepSeek)
+wget -O schema.sql https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native/postgres.sql
+wget -O audit.sql https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native/postgrdocker compose ps==="-w "%{http_code}" http://localhost:8080/midpointcat started|Started MidPointSp
+rm: cannot remove 'midpoint-deploy/data/midpoint/icf-connectors': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/tmp': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/import': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/log/midpoint.pid': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/log/midpoint-profile.log': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/log/midpoint.log': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/trace': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/schema': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/idm-legacy': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/config.xml': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/export': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/connid-connectors': Permission denied
+rm: cannot remove 'midpoint-deploy/data/midpoint/lib': Permission denied
+rm: cannot remove 'midpoint-deploy/data/postgres': Permission denied
+--2026-04-13 23:07:45--  https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native/postgres.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 116190 (113K) [text/plain]
+Saving to: ‘schema.sql’
+
+schema.sql               100%[=================================>] 113.47K  --.-KB/s    in 0.01s
+
+2026-04-13 23:07:45 (8.20 MB/s) - ‘schema.sql’ saved [116190/116190]
+
+--2026-04-13 23:07:45--  https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native/postgres-audit.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 15695 (15K) [text/plain]
+Saving to: ‘audit.sql’
+
+audit.sql                100%[=================================>]  15.33K  --.-KB/s    in 0.001s
+
+2026-04-13 23:07:45 (13.9 MB/s) - ‘audit.sql’ saved [15695/15695]
+
+--2026-04-13 23:07:45--  https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native/postgres-quartz.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6960 (6.8K) [text/plain]
+Saving to: ‘quartz.sql’
+
+quartz.sql               100%[=================================>]   6.80K  --.-KB/s    in 0s
+
+2026-04-13 23:07:45 (57.8 MB/s) - ‘quartz.sql’ saved [6960/6960]
+
+=== A) POSTGRES ===
+[+] up 19/19
+ ✔ Image postgres:16               Pulled                                                     13.1s
+ ✔ Network midpoint-deploy_default Created                                                     0.0s
+ ✔ Container postgres              Started                                                     0.2s
+Aguardando PG...
+Aguardando PG...
+✅ PostgreSQL healthy
+=== B) SCHEMA (101 tabelas esperadas) ===
+NOTICE:  schema "public" already exists, skipping
+CREATE SCHEMA
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+NOTICE:  gen_random_uuid already exists, skipping create EXTENSION pgcrypto
+DO
+CREATE TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+CREATE TABLE
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+DO
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+DO
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+SELECT 0
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE PROCEDURE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+NOTICE:  table "m_shadow_partition_def" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE VIEW
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  merging column "containertype" with inherited definition
+CREATE TABLE
+ALTER TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+ALTER TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TYPE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TABLE
+CREATE TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+CREATE INDEX
+CREATE PROCEDURE
+NOTICE:  Change #50 executed!
+CALL
+NOTICE:  schema "public" already exists, skipping
+CREATE SCHEMA
+DO
+NOTICE:  Main repo custom types already exist, OK...
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+DO
+NOTICE:  relation "m_global_metadata" already exists, skipping
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE PROCEDURE
+DO
+CREATE PROCEDURE
+NOTICE:  Audit change #8 executed!
+CALL
+DROP TABLE
+DROP TABLE
+NOTICE:  table "qrtz_fired_triggers" does not exist, skipping
+NOTICE:  table "qrtz_paused_trigger_grps" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_scheduler_state" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_locks" does not exist, skipping
+NOTICE:  table "qrtz_simple_triggers" does not exist, skipping
+DROP TABLE
+DROP TABLE
+NOTICE:  table "qrtz_cron_triggers" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_simprop_triggers" does not exist, skipping
+NOTICE:  table "qrtz_blob_triggers" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_triggers" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_job_details" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_calendars" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+Tabelas criadas:    101
+✅ Schema OK
+=== C) MIDPOINT (120s espera) ===
+[+] up 7/7
+ ✔ Image evolveum/midpoint:4.9 Pulled                                                         14.0s
+ ✔ Container postgres          Healthy                                                         0.6s
+ ✔ Container midpoint          Started                                                         0.7s
+=== LOGS ===
+=== HTTP ===
+000=== STATUS ===
+NAME       IMAGE         COMMAND                  SERVICE    CREATED         STATUS   PORTS
+postgres   postgres:16   "docker-entrypoint.s…"   postgres   2 minutes ago   Up 2 minutes (healthy)   5432/tcp
+paulo@iga-gf-02:~/midpoint-deploy$ # 1. Verificar logs detalhados do midPoint
+cd ~/midpoint-deploy
+docker compose logs midpoint --tail=100
+
+# 2. Status dos containers
+docker compose ps
+
+# 3. Testar conectividade HTTP (pode estar inicializando)
+curl -w "%{http_code}\n" -o /dev/null http://localhost:8080/midpoint || echo "Ainda inicializando..."
+
+# 4. Se HTTP 200 OK aparecer, validar login admin
+# Usuário: administrator
+# Senha: M1dP0!ntAdm!n2026 (definida no compose)
+
+# 5. Se falhar após 5min, reiniciar apenas midPoint
+docker compose restart midpoint
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+midpoint  |     at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+midpoint  |     at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+midpoint  |     ... 35 common frames omitted
+midpoint  | Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cacheRepositoryService': Unsatisfied dependency expressed through field 'repositoryService': Error creating bean with name 'repositoryService' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Unsatisfied dependency expressed through method 'repositoryService' parameter 0: Error creating bean with name 'baseHelper' defined in URL [jar:nested:/opt/midpoint/lib/midpoint.jar/!BOOT-INF/lib/repo-sql-impl-4.9.jar!/com/evolveum/midpoint/repo/sql/helpers/BaseHelper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'sqlRepositoryConfiguration' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Failed to instantiate [com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threw exception with message: Unsupported database type: h2
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788)
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+midpoint  |     at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+midpoint  |     at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+midpoint  |     at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+midpoint  |     ... 49 common frames omitted
+midpoint  | Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'repositoryService' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Unsatisfied dependency expressed through method 'repositoryService' parameter 0: Error creating bean with name 'baseHelper' defined in URL [jar:nested:/opt/midpoint/lib/midpoint.jar/!BOOT-INF/lib/repo-sql-impl-4.9.jar!/com/evolveum/midpoint/repo/sql/helpers/BaseHelper.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'sqlRepositoryConfiguration' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Failed to instantiate [com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threw exception with message: Unsupported database type: h2
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+midpoint  |     at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+midpoint  |     at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+midpoint  |     at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+midpoint  |     ... 63 common frames omitted
+midpoint  | Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'baseHelper' defined in URL [jar:nested:/opt/midpoint/lib/midpoint.jar/!BOOT-INF/lib/repo-sql-impl-4.9.jar!/com/evolveum/midpoint/repo/sql/helpers/BaseHelper.class]: Unsatisfieddependency expressed through constructor parameter 0: Error creating bean with name 'sqlRepositoryConfiguration' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Failed to instantiate [com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threw exception with message: Unsupported database type: h2
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+midpoint  |     at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+midpoint  |     at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+midpoint  |     ... 76 common frames omitted
+midpoint  | Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlRepositoryConfiguration' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Failed to instantiate [com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threw exception with message: Unsupported database type: h2
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+midpoint  |     at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+midpoint  |     at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+midpoint  |     at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+midpoint  |     at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+midpoint  |     at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+midpoint  |     ... 90 common frames omitted
+midpoint  | Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate[com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threw exception with message: Unsupported database type: h2
+midpoint  |     at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+midpoint  |     at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+midpoint  |     ... 104 common frames omitted
+midpoint  | Caused by: java.lang.IllegalArgumentException: Unsupported database type: h2
+midpoint  |     at com.evolveum.midpoint.repo.sql.Database.findDatabase(Database.java:54)
+midpoint  |     at com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration.<init>(SqlRepositoryConfiguration.java:290)
+midpoint  |     at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig.sqlRepositoryConfiguration(SqlRepositoryBeanConfig.java:75)
+midpoint  |     at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig$$SpringCGLIB$$0.CGLIB$sqlRepositoryConfiguration$1(<generated>)
+midpoint  |     at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+midpoint  |     at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+midpoint  |     at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+midpoint  |     at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig$$SpringCGLIB$$0.sqlRepositoryConfiguration(<generated>)
+midpoint  |     at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+midpoint  |     at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+midpoint  |     at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+midpoint  |     ... 105 common frames omitted
+midpoint  | ERROR initializing midPoint: org.springframework.context.ApplicationContextException: Unable to start web server
+midpoint  | ROOT cause: java.lang.IllegalArgumentException: Unsupported database type: h2
+midpoint  | See midpoint.log for more details.
+NAME       IMAGE         COMMAND                  SERVICE    CREATED          STATUS     PORTS
+postgres   postgres:16   "docker-entrypoint.s…"   postgres   11 minutes ago   Up 11 minutes (healthy)   5432/tcp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (7) Failed to connect to localhost port 8080 after 0 ms: Couldn't connect to server
+000
+Ainda inicializando...
+[+] restart 0/1
+ ⠋ Container midpoint Restarting                                                               0.1s
+paulo@iga-gf-02:~/midpoint-deploy$
+paulo@iga-gf-02:~/midpoint-deploy$
+paulo@iga-gf-02:~/midpoint-deploy$
+

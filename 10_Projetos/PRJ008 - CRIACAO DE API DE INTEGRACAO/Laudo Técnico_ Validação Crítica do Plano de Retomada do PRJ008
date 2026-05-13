@@ -1,0 +1,85 @@
+# Laudo Técnico: Validação Crítica do Plano de Retomada do PRJ008
+
+**Autor:** Manus AI
+
+**Data:** 16 de abril de 2026
+
+## 1. Introdução
+
+Este laudo técnico tem como objetivo realizar uma validação crítica do plano de retomada do projeto PRJ008, que se encontra bloqueado devido a problemas de compatibilidade do conector REST com o ambiente midPoint 4.10 (Java 21). A análise focará na coerência do plano de build customizado, potenciais pontos equivocados e a existência de alternativas nativas.
+
+## 2. Análise do Problema Core
+
+O problema central reside na incompatibilidade do conector REST legado (`ScriptedREST v1.1.1.e2`) com o runtime Groovy do Java 21, manifestado pelo erro `GPathResult`. O midPoint 4.10, que é o ambiente alvo, suporta oficialmente Java 21 [1]. A Shadow API REST (FastAPI) está operacional, indicando que o problema não está na API externa, mas sim na forma como o midPoint tenta se conectar a ela.
+
+É crucial entender que o midPoint não possui um conector REST 
+nativo "out-of-the-box" que utilize Java puro para consumo de APIs REST, como o proposto pelo cliente. O `ScriptedRESTConnector` é explicitamente marcado como `abandoned` e `unsupported` pela Evolveum, com a recomendação de não utilizá-lo [2].
+
+## 3. Diagnóstico do Grok (Ponto de Partida)
+
+O diagnóstico inicial do Grok está alinhado com as informações pesquisadas:
+
+*   **Inexistência de JAR standalone:** Não há um JAR `connector-rest` pré-compilado e oficialmente suportado para midPoint 4.10/Java 21 que atenda aos requisitos de um conector REST genérico em Java puro. As versões disponíveis no Nexus da Evolveum (e.g., `1.5.2.0`, `1.5.3.0-M3`) são componentes do projeto `polygon` e não conectores completos standalone [3].
+*   **Erro de `GPathResult`:** A incompatibilidade do `ScriptedREST (v1.1.1.e2)` com o runtime Groovy do Java 21 é um problema conhecido. A Evolveum desaconselha o uso do `ScriptedRESTConnector` devido à sua natureza legada, falta de versionamento de scripts, ausência de verificação de tipo e problemas de gerenciamento de dependências, especialmente com `http-builder` [2].
+*   **Build Customizado:** A sugestão de build customizado via Maven é coerente, dada a ausência de uma solução nativa ou oficialmente suportada para o cenário específico de um conector REST genérico em Java puro para midPoint 4.10/Java 21.
+
+## 4. Análise da Hipótese de Solução e Plano de Ação
+
+### 4.1. Coerência do Plano de Build Customizado (Windows para Docker Linux)
+
+O plano de realizar o build em um ambiente Windows (Host) com JDK 21 + Maven 3.9.x e injetar o JAR resultante em um container Docker Linux (midPoint 4.10) é **coerente e tecnicamente viável**, desde que algumas premissas sejam rigorosamente seguidas:
+
+*   **JARs independentes de OS:** O processo de build Maven para um conector ConnId em Java gera um JAR que é independente do sistema operacional. O JAR compilado no Windows será executável no ambiente Linux do Docker, pois ambos rodam a mesma JVM (Java 21).
+*   **Dependências empacotadas:** É fundamental que o JAR customizado empacote todas as suas dependências (HttpClient, Jackson, etc.) e não dependa de bibliotecas presentes no classpath do midPoint que possam gerar conflitos. O uso de `maven-shade-plugin` ou `maven-assembly-plugin` para criar um "fat JAR" ou "uber JAR" é uma prática comum para garantir a portabilidade.
+*   **Isolamento:** A injeção do JAR customizado no Docker deve ser feita de forma a isolar suas dependências das dependências internas do midPoint, minimizando o risco de conflitos de Classpath, como o ocorrido com `GPathResult`.
+
+### 4.2. Potenciais Pontos Equivocados no `pom.xml` ou Versão do ConnId
+
+#### 4.2.1. Versão do ConnId
+
+O midPoint 4.10 suporta `ConnId 1.6.0.0-RC1` [1]. A sugestão de ajustar o `pom.xml` para compilar contra `ConnId 1.6.0.0` é **correta e crítica**. A versão `1.5.3.0-M3` do projeto `polygon` (que inclui o `connector-rest` como módulo) já utiliza `ConnId 1.6.0.0-RC1` [4]. Portanto, a compatibilidade com a versão do ConnId do midPoint 4.10 está garantida ao usar as versões mais recentes do `polygon`.
+
+#### 4.2.2. Dependência `connector-rest v1.5.x`
+
+A dependência `connector-rest v1.5.x` (especificamente `1.5.3.0-M3` ou superior, se disponível) é a versão mais recente do módulo `connector-rest` dentro do projeto `polygon` da Evolveum. Esta versão utiliza `HttpClient 5.3.1` [5], que é uma biblioteca moderna para requisições HTTP, e não possui dependência direta com Groovy, o que resolve o problema do `GPathResult`. O uso de Java puro (`HttpClient + Jackson`) para parsing é a abordagem recomendada pela Evolveum como alternativa ao `ScriptedRESTConnector` [2].
+
+#### 4.2.3. Configuração do `pom.xml`
+
+Os pontos críticos no `pom.xml` do `connector-rest-example` (ou do seu projeto customizado) a serem verificados são:
+
+*   **`parent` POM:** O `connector-rest-example` utiliza o `polygon` como POM pai. É importante que a versão do `polygon` seja compatível com o JDK 21 e ConnId 1.6.0.0-RC1. A versão `1.5.3.0-M3` do `polygon` já define `project.source.version` como `17` e `connId.version` como `1.6.0.0-RC1` [4]. Para Java 21, o `project.source.version` no `pom.xml` do conector customizado deve ser ajustado para `21`.
+*   **Dependências:** As dependências para `net.tirasa.connid:connector-framework` e `org.apache.httpcomponents.client5:httpclient5` devem estar corretamente configuradas. A inclusão de uma biblioteca de parsing JSON como Jackson (`com.fasterxml.jackson.core:jackson-databind`) será necessária se o parsing for feito em Java puro, como sugerido.
+*   **Plugins de Build:** O `maven-compiler-plugin` deve ser configurado para usar `source` e `target` `21` para compilar com JDK 21. Além disso, plugins como `maven-shade-plugin` ou `maven-assembly-plugin` são recomendados para criar um JAR único com todas as dependências, evitando conflitos de classpath no ambiente do midPoint.
+
+### 4.3. Alternativa Superior: Imagem Docker 'Community' ou 'Extended'
+
+Após pesquisa nas tags do Docker Hub da Evolveum e na documentação oficial, **não foi encontrada nenhuma imagem Docker oficial 'Community' ou 'Extended' do midPoint 4.10 que já venha com um conector REST genérico nativo ou pré-configurado** [6]. As imagens oficiais (`evolveum/midpoint`) contêm o core do midPoint e alguns conectores básicos (como LDAP), mas não um conector REST genérico que eliminaria a necessidade de build customizado [7].
+
+O `midpoint-docker` repositório no GitHub mostra como as imagens são construídas, e não há indicação de um conector REST genérico sendo incluído por padrão [8]. A Evolveum foca na `REST Connector Superclass` como a abordagem recomendada para desenvolver conectores REST, o que implica que a implementação específica é responsabilidade do usuário [2].
+
+## 5. Veredito
+
+Com base na análise técnica, o plano de ação proposto é **aprovado** para o início do setup do Maven no Windows, com as seguintes considerações e recomendações críticas:
+
+1.  **Coerência:** O plano é coerente. O build em Windows e injeção em Docker Linux é viável para JARs Java, desde que as dependências sejam corretamente empacotadas no JAR final.
+2.  **Versões:** A utilização de `ConnId 1.6.0.0` e `connector-rest v1.5.x` (especificamente `1.5.3.0-M3` ou superior) é a abordagem correta para compatibilidade com midPoint 4.10 e Java 21. Certifique-se de que o `project.source.version` no `pom.xml` do conector customizado seja `21`.
+3.  **Injeção de JAR:** O método de injeção do JAR no container Docker deve ser cuidadosamente planejado para evitar conflitos de classpath. Recomenda-se criar um "fat JAR" com todas as dependências do conector (HttpClient, Jackson) para garantir o isolamento.
+4.  **Java Puro:** A decisão de usar Java puro (HttpClient + Jackson) para o parsing é a abordagem correta e alinhada com as recomendações da Evolveum, evitando os problemas do `ScriptedREST` com Groovy e Java 21.
+5.  **Alternativas:** Não há alternativas nativas ou imagens Docker pré-configuradas que eliminem a necessidade de um build customizado para um conector REST genérico neste cenário.
+
+**Recomendações Adicionais:**
+
+*   **Testes Rigorosos:** Após o build e injeção, realize testes rigorosos no ambiente Docker para validar a funcionalidade e estabilidade do conector customizado.
+*   **Documentação:** Documente detalhadamente o processo de build, as configurações do `pom.xml` e o método de injeção do JAR no Docker para futuras manutenções e auditorias.
+*   **Monitoramento:** Monitore o log do midPoint e do conector para identificar quaisquer erros ou avisos relacionados ao classpath ou execução do conector.
+
+## 6. Referências
+
+[1] Evolveum Docs. *MidPoint 4.10*. Disponível em: [https://docs.evolveum.com/midpoint/release/4.10/](https://docs.evolveum.com/midpoint/release/4.10/)
+[2] Evolveum Docs. *Legacy Scripted REST Connector*. Disponível em: [https://docs.evolveum.com/connectors/connectors/org.forgerock.openicf.connectors.scriptedrest.ScriptedRESTConnector/](https://docs.evolveum.com/connectors/connectors/org.forgerock.openicf.connectors.scriptedrest.ScriptedRESTConnector/)
+[3] MVNRepository. *com.evolveum.polygon:connector-rest*. Disponível em: [https://mvnrepository.com/artifact/com.evolveum.polygon/connector-rest](https://mvnrepository.com/artifact/com.evolveum.polygon/connector-rest)
+[4] Evolveum GitHub. *polygon/pom.xml at 1.5.3.0-M3*. Disponível em: [https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/polygon/1.5.3.0-M3/polygon-1.5.3.0-M3.pom](https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/polygon/1.5.3.0-M3/polygon-1.5.3.0-M3.pom)
+[5] Evolveum Nexus. *connector-rest-1.5.3.0-M3.pom*. Disponível em: [https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-rest/1.5.3.0-M3/connector-rest-1.5.3.0-M3.pom](https://nexus.evolveum.com/nexus/repository/releases/com/evolveum/polygon/connector-rest/1.5.3.0-M3/connector-rest-1.5.3.0-M3.pom)
+[6] Docker Hub. *evolveum/midpoint Tags*. Disponível em: [https://hub.docker.com/r/evolveum/midpoint/tags?name=4.10](https://hub.docker.com/r/evolveum/midpoint/tags?name=4.10)
+[7] Docker Hub. *evolveum/midpoint Overview*. Disponível em: [https://hub.docker.com/r/evolveum/midpoint/](https://hub.docker.com/r/evolveum/midpoint/)
+[8] Evolveum GitHub. *midpoint-docker*. Disponível em: [https://github.com/Evolveum/midpoint-docker](https://github.com/Evolveum/midpoint-docker)

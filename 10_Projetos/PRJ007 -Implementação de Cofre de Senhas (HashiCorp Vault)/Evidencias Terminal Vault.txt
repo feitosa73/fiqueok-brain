@@ -1,0 +1,1443 @@
+PowerShell 7.5.5
+
+   A new PowerShell stable release is available: v7.6.0
+   Upgrade now, or check out the release page at:
+     https://aka.ms/PowerShell-Release?tag=v7.6.0
+
+PS C:\Users\win> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.8.0-107-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Fri Apr 17 06:56:06 PM UTC 2026
+
+  System load:  0.0               Processes:             117
+  Usage of /:   58.2% of 9.75GB   Users logged in:       1
+  Memory usage: 30%               IPv4 address for eth0: 172.25.25.41
+  Swap usage:   1%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+76 updates can be applied immediately.
+13 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Tue Apr 14 13:58:11 2026 from xxx.xxx.xxx.xxx
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ ss -tulpen | grep 8200
+tcp   LISTEN 0      4096                       0.0.0.0:8200       0.0.0.0:*    uid:999 ino:7879 sk:8 cgroup:/system.slice/vault.service <->
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ ps aux | grep vault
+vault        888  0.7  5.9 211311360 59172 ?     Ssl  Apr14  39:46 /usr/bin/vault server -config=/etc/vault.d/vault.hcl
+paulo      13833  0.0  0.2   6544  2328 pts/0    S+   18:56   0:00 grep --color=auto vault
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault status
+WARNING! VAULT_ADDR and -address unset. Defaulting to https://127.0.0.1:8200.
+Error checking seal status: Get "https://127.0.0.1:8200/v1/sys/seal-status": http: server gave HTTP response to HTTPS client
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ export VAULT_ADDR='http://127.0.0.1:8200'
+export VAULT_SKIP_VERIFY=true
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault status
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  false
+Total Shares            5
+Threshold               3
+Version                 1.21.3
+Build Date              2026-02-03T14:56:30Z
+Storage Type            raft
+Cluster Name            vault-cluster-163d0020
+Cluster ID              54d3873b-d4ff-233a-22b2-dbe231db4963
+Removed From Cluster    false
+HA Enabled              true
+HA Cluster              https://127.0.0.1:8201
+HA Mode                 active
+Active Since            2026-04-11T19:08:46.578369192Z
+Raft Committed Index    245
+Raft Applied Index      245
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # 1. Verifique o conteúdo do arquivo de integração do Vault
+cat ~/prj008-shadow-api/app/vault.py
+cat: /home/paulo/prj008-shadow-api/app/vault.py: No such file or directory
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ pwd
+/home/paulo
+paulo@vault-gf-01:~$ ls
+ 600                    hvs.CAESINLtw0ByJ1L8VCG7Z_O2yC4wF_goktJsPlbt0RDwIbegGh4KHGh2cy56M1RjWVZNU0JlZ0xsMlRSNEZrZm1WZVE
+ api-proxy-policy.hcl   role-prj009.json
+ chmod                  sudo
+ colaborador-ssh.hcl   ':USERPROFILE\.ssh\id_rsa_vault'
+ echo                  ':USERPROFILE\.ssh\id_rsa_vault.pub'
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # Gere o token com a política correta e nome de serviço
+vault token create \
+  -policy="api-proxy-policy" \
+  -display-name="svc-shadow-api" \
+  -ttl="720h"
+Key                  Value
+---                  -----
+token                hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ
+token_accessor       h9LEIdhrKf2enoUbFMAh42XA
+token_duration       720h
+token_renewable      true
+token_policies       ["api-proxy-policy" "default"]
+identity_policies    []
+policies             ["api-proxy-policy" "default"]
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # Atualiza o arquivo com o token de 30 dias
+echo "hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ" | sudo tee /var/lib/shadow-api/vault_token
+
+# Garante a permissão restrita
+sudo chmod 600 /var/lib/shadow-api/vault_token
+
+# Valida o token
+VAULT_TOKEN="hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ" vault token lookup
+[sudo] password for paulo:
+hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ
+Key                 Value
+---                 -----
+accessor            h9LEIdhrKf2enoUbFMAh42XA
+creation_time       1776453086
+creation_ttl        720h
+display_name        token-svc-shadow-api
+entity_id           n/a
+expire_time         2026-05-17T19:11:26.520313197Z
+explicit_max_ttl    0s
+id                  hvs.CAESIC4jI05BmixXPwbYTpbVCgW09m2DU15wNjwl3qrPfwI2Gh4KHGh2cy5CNUNWVHJKUDA3aXZPSGt2NEhtUzVnSmQ
+issue_time          2026-04-17T19:11:26.520314955Z
+meta                <nil>
+num_uses            0
+orphan              false
+path                auth/token/create
+policies            [api-proxy-policy default]
+renewable           true
+ttl                 714h23m45s
+type                service
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ client_loop: send disconnect: Connection reset
+PS C:\Users\win>
+PS C:\Users\win>
+PS C:\Users\win>
+PS C:\Users\win>
+PS C:\Users\win> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.8.0-107-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Apr 18 03:54:11 PM UTC 2026
+
+  System load:  0.0               Processes:             117
+  Usage of /:   57.2% of 9.75GB   Users logged in:       1
+  Memory usage: 34%               IPv4 address for eth0: 172.25.25.41
+  Swap usage:   2%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+64 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+*** System restart required ***
+Last login: Fri Apr 17 18:56:06 2026 from xxx.xxx.xxx.xxx
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # Add cloudflare gpg key
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null
+
+# Add this repo to your apt repositories
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
+# install cloudflared
+sudo apt-get update && sudo apt-get install cloudflared
+[sudo] password for paulo:
+deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main
+Get:1 https://apt.releases.hashicorp.com noble InRelease [12.9 kB]
+Get:2 https://pkgs.tailscale.com/stable/ubuntu noble InRelease
+Get:3 https://pkg.cloudflare.com/cloudflared any InRelease [5,039 B]
+Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu noble InRelease
+Get:6 https://pkg.cloudflare.com/cloudflared any/main amd64 Packages [377 B]
+Hit:7 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:8 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Fetched 24.9 kB in 1s (22.5 kB/s)
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  cloudflared
+0 upgraded, 1 newly installed, 0 to remove and 64 not upgraded.
+Need to get 19.3 MB of archives.
+After this operation, 39.7 MB of additional disk space will be used.
+Get:1 https://pkg.cloudflare.com/cloudflared any/main amd64 cloudflared amd64 2026.3.0 [19.3 MB]
+Fetched 19.3 MB in 1s (23.1 MB/s)
+Selecting previously unselected package cloudflared.
+(Reading database ... 125829 files and directories currently installed.)
+Preparing to unpack .../cloudflared_2026.3.0_amd64.deb ...
+Unpacking cloudflared (2026.3.0) ...
+Setting up cloudflared (2026.3.0) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning linux images...
+
+Pending kernel upgrade!
+Running kernel version:
+  6.8.0-107-generic
+Diagnostics:
+  The currently running kernel version is not the expected kernel version 6.8.0-110-generic.
+
+Restarting the system to load the new kernel will not be handled automatically, so you should consider rebooting.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ sudo cloudflared service install eyJhIjoiZmVmY2QyZWJkZGIyYWYzMTA3MTgxOGEzNjg1MWJjNzQiLCJ0IjoiZTg3NzkxZTItZTBlNi00MGRhLTk3NzUtOGUzZWFkNjljM2I3IiwicyI6Ik1qTTBNR014TURFdFltUTROaTAwWlRKaExXRm1PREV0TlRVNFpESTVaRGM1WmpZMyJ9
+2026-04-18T15:54:46Z INF Using Systemd
+2026-04-18T15:54:46Z INF Linux service for cloudflared installed successfully
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault auth list
+WARNING! VAULT_ADDR and -address unset. Defaulting to https://127.0.0.1:8200.
+Error listing enabled authentications: Get "https://127.0.0.1:8200/v1/sys/auth": http: server gave HTTP response to HTTPS client
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ export VAULT_ADDR='http://127.0.0.1:8200'
+vault auth list
+Path         Type        Accessor                  Description                Version
+----         ----        --------                  -----------                -------
+token/       token       auth_token_20a7a3c7       token based credentials    n/a
+userpass/    userpass    auth_userpass_3022ff22    n/a                        n/a
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault policy list
+admin-policy
+api-proxy-policy
+default
+policy-colaborador-prj009
+root
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault policy read policy-colaborador-prj009
+path "ssh-client-signer/sign/role-colaborador-prj009" {
+  capabilities = ["create", "update"]
+}
+
+path "secret/data/projeto009/*" {
+  capabilities = ["read"]
+}
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # 1. Criação do arquivo de definição da política
+cat <<EOF > reader-policy.hcl
+# Permite listar e ler todos os segredos do motor 'secret'
+path "secret/data/*" {
+  capabilities = ["read", "list"]
+}
+
+# Permite ler metadados (necessário para navegação na UI)
+path "secret/metadata/*" {
+  capabilities = ["list", "read"]
+}
+
+# Permite visualizar as engines montadas para facilitar o uso da UI
+path "sys/mounts" {
+  capabilities = ["read"]
+}
+EOF
+
+# 2. Gravação da política no Vault
+vault policy write reader-policy reader-policy.hcl
+Success! Uploaded policy: reader-policy
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault list auth/userpass/users
+Keys
+----
+paulo
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # Criar usuário Daniel
+vault write auth/userpass/users/daniel \
+    password="senha_temporaria_daniel" \
+    policies="reader-policy"
+
+# Criar usuário Rose
+vault write auth/userpass/users/rose \
+    password="senha_temporaria_rose" \
+    policies="reader-policy"
+Success! Data written to: auth/userpass/users/daniel
+Success! Data written to: auth/userpass/users/rose
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault list auth/userpass/users
+Keys
+----
+daniel
+paulo
+rose
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # Cria o diretório de logs (se não existir)
+sudo mkdir -p /var/log/vault
+
+# Cria o arquivo de log vazio
+sudo touch /var/log/vault/audit.log
+
+# Ajusta as permissões para o usuário que roda o Vault (geralmente 'vault')
+# Se você rodar como seu usuário 'paulo', ajuste o chown conforme necessário
+sudo chown vault:vault /var/log/vault/audit.log
+sudo chmod 640 /var/log/vault/audit.log
+[sudo] password for paulo:
+paulo@vault-gf-01:~$ # Certifique-se de que a VAULT_ADDR está definida
+export VAULT_ADDR='http://127.0.0.1:8200'
+
+# Ativa o log de auditoria do tipo 'file'
+vault audit enable file file_path=/var/log/vault/audit.log
+Error enabling audit device: Error making API request.
+
+URL: PUT http://127.0.0.1:8200/v1/sys/audit/file
+Code: 400. Errors:
+
+* path already in use: invalid configuration
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault audit list
+Path     Type    Description
+----     ----    -----------
+file/    file    n/a
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault audit list -detailed
+Path     Type    Description    Replication    Options
+----     ----    -----------    -----------    -------
+file/    file    n/a            replicated     file_path=/opt/vault/logs/vault_audit.log
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ sudo tail -f /opt/vault/logs/vault_audit.log | jq
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      ]
+    },
+    "id": "d57deb04-997e-7463-4e88-b7ebd2ce1a9a",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/config/state/sanitized",
+    "remote_address": "127.0.0.1",
+    "remote_port": 32946
+  },
+  "time": "2026-04-18T16:22:29.331216535Z",
+  "type": "request"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      ]
+    },
+    "id": "d57deb04-997e-7463-4e88-b7ebd2ce1a9a",
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/config/state/sanitized",
+    "remote_address": "127.0.0.1",
+    "remote_port": 32946
+  },
+  "response": {
+    "data": {
+      "administrative_namespace_path": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "allow_audit_log_prefixing": false,
+      "api_addr": "hmac-sha256:f53fed0523c6f496dc2fd29d38a7d87ae252b5a10899f876bf0dd561f12f2861",
+      "cache_size": 0,
+      "cluster_addr": "hmac-sha256:dad3c5eb60fcb478a1b88db79bcbd20fcc3bbe5011a62ffb0c759c1bc0be88b4",
+      "cluster_cipher_suites": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "cluster_name": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "default_lease_ttl": 0,
+      "default_max_request_duration": 0,
+      "detect_deadlocks": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "disable_cache": false,
+      "disable_clustering": false,
+      "disable_indexing": false,
+      "disable_mlock": true,
+      "disable_performance_standby": false,
+      "disable_printable_check": false,
+      "disable_sealwrap": false,
+      "disable_sentinel_trace": false,
+      "enable_post_unseal_trace": false,
+      "enable_response_header_hostname": false,
+      "enable_response_header_raft_node_id": false,
+      "enable_ui": true,
+      "experiments": null,
+      "imprecise_lease_role_tracking": false,
+      "introspection_endpoint": false,
+      "listeners": [
+        {
+          "config": {
+            "address": "hmac-sha256:59398bfdaf58b345f87f5c65bba756bd479b6d1100805b51aab6b167cc5ae633",
+            "tls_disable": "hmac-sha256:26f4825affc0d0c28543717475761c00f4989ba52f3133168245180a2d3b242a"
+          },
+          "type": "hmac-sha256:ff38bfcea0b19bcfc5d266822d785ca7553bc2f818f2b4a272e96488ab47fd0d"
+        }
+      ],
+      "log_format": "hmac-sha256:116b416f5ec8a271923cda08a36b0bf74a751031cedaf19e1d387d0d8322bb63",
+      "log_level": "hmac-sha256:c235bbc0a35f2fd9eea4c4156e2a066ba6e8b644498f5d53a92e682ac8006965",
+      "log_requests_level": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "max_lease_ttl": 0,
+      "pid_file": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "plugin_directory": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "plugin_file_permissions": 0,
+      "plugin_file_uid": 0,
+      "plugin_tmpdir": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "post_unseal_trace_directory": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "raw_storage_endpoint": false,
+      "remove_irrevocable_lease_after": 0,
+      "seals": [
+        {
+          "disabled": false,
+          "name": "hmac-sha256:669f97320729a2ef32614ec2fe043ceca23b6ace83177bdce414462609398219",
+          "priority": 1,
+          "type": "hmac-sha256:669f97320729a2ef32614ec2fe043ceca23b6ace83177bdce414462609398219"
+        }
+      ],
+      "storage": {
+        "cluster_addr": "hmac-sha256:dad3c5eb60fcb478a1b88db79bcbd20fcc3bbe5011a62ffb0c759c1bc0be88b4",
+        "disable_clustering": false,
+        "raft": {
+          "max_entry_size": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "node_id": "hmac-sha256:f3a796b99f6a2ac25a45a46c1a7457cc66e249b29fb4bfb1c796305615e71f64",
+          "path": "hmac-sha256:c07a41bb5970d7cadb0803a415dbb70fc89f20de7ba89d23e23d3d3c6cbb3b3d"
+        },
+        "redirect_addr": "hmac-sha256:f53fed0523c6f496dc2fd29d38a7d87ae252b5a10899f876bf0dd561f12f2861",
+        "type": "hmac-sha256:8d6cf70778d55124af17ca0152024800a310c0893ec6c4a999dfc7dd78170976"
+      }
+    },
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_plugin_version": "v1.21.3+builtin.vault",
+    "mount_type": "system"
+  },
+  "time": "2026-04-18T16:22:29.331408193Z",
+  "type": "response"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      ]
+    },
+    "id": "6f18c277-08d9-3ef0-1e1a-e18cf72f8e4b",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/internal/ui/mounts",
+    "remote_address": "127.0.0.1",
+    "remote_port": 32946
+  },
+  "time": "2026-04-18T16:22:29.332199583Z",
+  "type": "request"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+      ]
+    },
+    "id": "6f18c277-08d9-3ef0-1e1a-e18cf72f8e4b",
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/internal/ui/mounts",
+    "remote_address": "127.0.0.1",
+    "remote_port": 32946
+  },
+  "response": {
+    "data": {
+      "auth": {
+        "token/": {
+          "accessor": "hmac-sha256:71b0274d62527a73bac61b3c2c27d6259b2c1ecb74189d93339afa1485d1e23a",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800,
+            "token_type": "hmac-sha256:b9b905120772fc7f9235ea018662ba8113c013084300e4f0ea933a064171b255"
+          },
+          "description": "hmac-sha256:7198080114aa0d82a6067a770a0bbd0022acff600f4012396f4c1393bbdc3b6c",
+          "external_entropy_access": false,
+          "local": false,
+          "options": null,
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:bc116d9137c652070271d3e6847a402f695083f6de0bc32013643f5a93bcb6d1",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": false,
+          "type": "hmac-sha256:5c383ab6505d9ff66b04ef418066affadc9fd5ed8656ad80140cd3348eec8326",
+          "uuid": "hmac-sha256:ddfa963aba7b72eaada42cff3682e55ac94d72844151246704fff84691c6985a"
+        },
+        "userpass/": {
+          "accessor": "hmac-sha256:5d9d91b79961b026af4f45bfe7074d9a35301a8c7f9b60c8815b383fedab36a7",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800,
+            "token_type": "hmac-sha256:b9b905120772fc7f9235ea018662ba8113c013084300e4f0ea933a064171b255"
+          },
+          "deprecation_status": "hmac-sha256:f46b7ae651bdcccb86bfe229f88b238297928ecc4c7a0d8a0dc8877a1d315085",
+          "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "external_entropy_access": false,
+          "local": false,
+          "options": null,
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:bc116d9137c652070271d3e6847a402f695083f6de0bc32013643f5a93bcb6d1",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": false,
+          "type": "hmac-sha256:b9da95e892967efa1c7bbf4dffc11cbc13be5729235e1d757098be2bef18adb3",
+          "uuid": "hmac-sha256:da61d37ab8d38e90bb322206bd7a4ff5ceedb1598def06b2b1350a7e931f1282"
+        }
+      },
+      "secret": {
+        "cubbyhole/": {
+          "accessor": "hmac-sha256:a06dc858e5814c631123233d441daf38d216548f73d5e36f53238358e3f727da",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800
+          },
+          "description": "hmac-sha256:ba5f790135da5ed304dc1ee2e2c0aab089868fc3adcc2d2f394dd831d666621f",
+          "external_entropy_access": false,
+          "local": true,
+          "options": null,
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:bc116d9137c652070271d3e6847a402f695083f6de0bc32013643f5a93bcb6d1",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": false,
+          "type": "hmac-sha256:8d9eec2bde67f34e176da8810e36d599fd863a2a1cc15c37d9b1052278e61306",
+          "uuid": "hmac-sha256:47a502c436d9332e4de146c7ac7fd529dfa359023b1d1b7cad859d3f9bdf80c4"
+        },
+        "identity/": {
+          "accessor": "hmac-sha256:c492eb273f536d6086d305ca3e9d70bd53c482e15287222470ee8e677b89da7e",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800,
+            "passthrough_request_headers": [
+              "hmac-sha256:d9550d3585eef69bb9e6e6bf1901724af1da01950c5f63c71b8ef1e2500bf3cd"
+            ]
+          },
+          "description": "hmac-sha256:b187f505bf109217e14e71c89fbe03cbfb34bd59bd2a374ce0cbaff9bed46a8b",
+          "external_entropy_access": false,
+          "local": false,
+          "options": null,
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:bc116d9137c652070271d3e6847a402f695083f6de0bc32013643f5a93bcb6d1",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": false,
+          "type": "hmac-sha256:f922a5f8562ef964b2cc87905eaf1bda422f8cf39ef250ff73d2a0907f479da6",
+          "uuid": "hmac-sha256:22e0fa5e83fe71857ebe64d9bd142a0e0c48d6aa4e885acac6f7696507f3ae32"
+        },
+        "secret/": {
+          "accessor": "hmac-sha256:cd53e8208e519949defb5ccba6ec4613ef014108907935706e4ecd7e3b0327c0",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800
+          },
+          "deprecation_status": "hmac-sha256:f46b7ae651bdcccb86bfe229f88b238297928ecc4c7a0d8a0dc8877a1d315085",
+          "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "external_entropy_access": false,
+          "local": false,
+          "options": {
+            "version": "hmac-sha256:9c80e06b49433f4c9c1e22a0d18fb346d8304566b699730890906fae67ff5ce2"
+          },
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:3e498752b39d2139effaa36cbde0854686f1d32f5e51b9edf2bc9194cb426ef7",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": false,
+          "type": "hmac-sha256:b1685d580b0ad50551e88a6ffe640be1e2ecef2159d938d94bd2e58b2ec9db77",
+          "uuid": "hmac-sha256:61d0734c2908820fbeed038c2afdcdda9356d54d2ee0dde67c0d145372681892"
+        },
+        "ssh-client-signer/": {
+          "accessor": "hmac-sha256:2c1754932397b2b55b87382b4c053ca92e2beac9bf2808fec7925c6a482d11d9",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800
+          },
+          "deprecation_status": "hmac-sha256:f46b7ae651bdcccb86bfe229f88b238297928ecc4c7a0d8a0dc8877a1d315085",
+          "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "external_entropy_access": false,
+          "local": false,
+          "options": null,
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:bc116d9137c652070271d3e6847a402f695083f6de0bc32013643f5a93bcb6d1",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": false,
+          "type": "hmac-sha256:dc7d32426f99f03d36f699aeec050a7a4a065be84ab0e9d31599a8b93d5fd11c",
+          "uuid": "hmac-sha256:068e6b5780feae2df24bf8972ffb5e3cd4f5d6807a43836c9d0fe92a92ac1337"
+        },
+        "sys/": {
+          "accessor": "hmac-sha256:90b96e0b136575eb3d92da4c287f9280a7ac7afbbc0378360e5fa3627e3bd38e",
+          "config": {
+            "default_lease_ttl": 2764800,
+            "force_no_cache": false,
+            "max_lease_ttl": 2764800,
+            "passthrough_request_headers": [
+              "hmac-sha256:39391eb649c74dc21e4e1feb511057bf98a16427fcc9e531d738dd8465fa3aa7"
+            ]
+          },
+          "description": "hmac-sha256:e82056ad3394680314939a77ab35239d571b54a7a060910945fb61425d9427a7",
+          "external_entropy_access": false,
+          "local": false,
+          "options": null,
+          "plugin_version": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "running_plugin_version": "hmac-sha256:bc116d9137c652070271d3e6847a402f695083f6de0bc32013643f5a93bcb6d1",
+          "running_sha256": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+          "seal_wrap": true,
+          "type": "hmac-sha256:64d54791711673e2a7409f422c36d16797bb9dd44b5485b898784f17388393ee",
+          "uuid": "hmac-sha256:e30d35501e4573642f514e2e846af60a4f14b0326fc921b2386e4ef0b74a45c3"
+        }
+      }
+    },
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_plugin_version": "v1.21.3+builtin.vault",
+    "mount_type": "system"
+  },
+  "time": "2026-04-18T16:22:29.332508024Z",
+  "type": "response"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "data": {
+      "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "local": false,
+      "options": {
+        "file_path": "hmac-sha256:330fbfa6f4a856cf51f0c12c5fae7de3be09f61a83970dbd10d9de832bdbcf34"
+      },
+      "type": "hmac-sha256:f3f4fac48ebda925526b9cd7a5b706a7327aedf4e744cf220461962e3c4408b3"
+    },
+    "headers": {
+      "user-agent": [
+        "Go-http-client/1.1"
+      ]
+    },
+    "id": "0f7b2c79-0cdc-694a-61bd-a2b76560a0fc",
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "update",
+    "path": "sys/audit/file",
+    "remote_address": "127.0.0.1",
+    "remote_port": 48148
+  },
+  "time": "2026-04-18T16:23:22.241160564Z",
+  "type": "request"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "error": "1 error occurred:\n\t* invalid request\n\n",
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "data": {
+      "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+      "local": false,
+      "options": {
+        "file_path": "hmac-sha256:330fbfa6f4a856cf51f0c12c5fae7de3be09f61a83970dbd10d9de832bdbcf34"
+      },
+      "type": "hmac-sha256:f3f4fac48ebda925526b9cd7a5b706a7327aedf4e744cf220461962e3c4408b3"
+    },
+    "headers": {
+      "user-agent": [
+        "Go-http-client/1.1"
+      ]
+    },
+    "id": "0f7b2c79-0cdc-694a-61bd-a2b76560a0fc",
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "update",
+    "path": "sys/audit/file",
+    "remote_address": "127.0.0.1",
+    "remote_port": 48148
+  },
+  "response": {
+    "data": {
+      "error": "hmac-sha256:79ee37b21d0a9f9a72628eece0088a739338319657c3caddbfe11bfd8ca0fa6f"
+    },
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_plugin_version": "v1.21.3+builtin.vault",
+    "mount_type": "system"
+  },
+  "time": "2026-04-18T16:23:22.241895201Z",
+  "type": "response"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Go-http-client/1.1"
+      ]
+    },
+    "id": "70075d07-f1bd-34ae-047d-c0e7d04ec363",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/audit",
+    "remote_address": "127.0.0.1",
+    "remote_port": 35588
+  },
+  "time": "2026-04-18T16:24:01.390679277Z",
+  "type": "request"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Go-http-client/1.1"
+      ]
+    },
+    "id": "70075d07-f1bd-34ae-047d-c0e7d04ec363",
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/audit",
+    "remote_address": "127.0.0.1",
+    "remote_port": 35588
+  },
+  "response": {
+    "data": {
+      "file/": {
+        "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+        "local": false,
+        "options": {
+          "file_path": "hmac-sha256:5fbe7951320c76cf1d0c05bbe978bab3d4a53c51bb462878c7969158808bfc63"
+        },
+        "path": "hmac-sha256:ca8f1cfc6c71fd212ee9850ed396155f3fa537e140f9c45900a473db191a7b86",
+        "type": "hmac-sha256:f3f4fac48ebda925526b9cd7a5b706a7327aedf4e744cf220461962e3c4408b3"
+      }
+    },
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_plugin_version": "v1.21.3+builtin.vault",
+    "mount_type": "system"
+  },
+  "time": "2026-04-18T16:24:01.390818924Z",
+  "type": "response"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Go-http-client/1.1"
+      ]
+    },
+    "id": "bf96db92-46ab-4c1d-3c0e-d7d56957755f",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/audit",
+    "remote_address": "127.0.0.1",
+    "remote_port": 46426
+  },
+  "time": "2026-04-18T16:24:30.624245202Z",
+  "type": "request"
+}
+{
+  "auth": {
+    "accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "display_name": "root",
+    "policies": [
+      "root"
+    ],
+    "policy_results": {
+      "allowed": true,
+      "granting_policies": [
+        {
+          "type": ""
+        },
+        {
+          "name": "root",
+          "namespace_id": "root",
+          "type": "acl"
+        }
+      ]
+    },
+    "token_policies": [
+      "root"
+    ],
+    "token_issue_time": "2026-02-10T18:39:16Z",
+    "token_type": "service"
+  },
+  "request": {
+    "client_id": "0DHqvq2D77kL2/JTPSZkTMJbkFVmUu0TzMi0jiXcFy8=",
+    "client_token": "hmac-sha256:04decce5aa9e873869fd240c52371bdeeb6f3c21aba41ab153c921baa72ef58a",
+    "client_token_accessor": "hmac-sha256:75ac29bd41214e32818c9be89ab6968fda65e6857368c0d4953a6173f7b2f5da",
+    "headers": {
+      "user-agent": [
+        "Go-http-client/1.1"
+      ]
+    },
+    "id": "bf96db92-46ab-4c1d-3c0e-d7d56957755f",
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_version": "v1.21.3+builtin.vault",
+    "mount_type": "system",
+    "namespace": {
+      "id": "root"
+    },
+    "operation": "read",
+    "path": "sys/audit",
+    "remote_address": "127.0.0.1",
+    "remote_port": 46426
+  },
+  "response": {
+    "data": {
+      "file/": {
+        "description": "hmac-sha256:0342a61591463784d65e3dd4613a20f7bba410811a1ba3dff9ad09b2f4e009a5",
+        "local": false,
+        "options": {
+          "file_path": "hmac-sha256:5fbe7951320c76cf1d0c05bbe978bab3d4a53c51bb462878c7969158808bfc63"
+        },
+        "path": "hmac-sha256:ca8f1cfc6c71fd212ee9850ed396155f3fa537e140f9c45900a473db191a7b86",
+        "type": "hmac-sha256:f3f4fac48ebda925526b9cd7a5b706a7327aedf4e744cf220461962e3c4408b3"
+      }
+    },
+    "mount_accessor": "system_fa238049",
+    "mount_class": "secret",
+    "mount_point": "sys/",
+    "mount_running_plugin_version": "v1.21.3+builtin.vault",
+    "mount_type": "system"
+  },
+  "time": "2026-04-18T16:24:30.624401055Z",
+  "type": "response"
+}
+
+
+^C
+paulo@vault-gf-01:~$ vault read auth/userpass/users/paulo
+Key                        Value
+---                        -----
+alias_metadata             map[]
+policies                   [admin-policy]
+token_bound_cidrs          []
+token_explicit_max_ttl     0s
+token_max_ttl              0s
+token_no_default_policy    false
+token_num_uses             0
+token_period               0s
+token_policies             [admin-policy]
+token_ttl                  0s
+token_type                 default
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault policy read admin-policy
+path "*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+paulo@vault-gf-01:~$ ls -lh /opt/vault/logs/vault_audit.log
+-rw------- 1 vault vault 1.7M Apr 18 19:10 /opt/vault/logs/vault_audit.log
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ df -h /
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.7G  3.7G  61% /
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ uname -a
+cat /etc/os-release
+systemd-detect-virt
+Linux vault-gf-01 6.8.0-107-generic #107-Ubuntu SMP PREEMPT_DYNAMIC Fri Mar 13 19:51:50 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 24.04.3 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.3 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+microsoft
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ docker ps 2>/dev/null | grep vault
+which vault && vault version
+/usr/bin/vault
+Vault v1.21.3 (f4f0f4eb7f467bbc99ec89121e1d1ad9c3d78558), built 2026-02-03T14:56:30Z
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ cat /etc/vault.d/vault.hcl 2>/dev/null || \
+cat ~/vault-greenfield/vault-config/vault.hcl 2>/dev/null || \
+find / -name "vault.hcl" 2>/dev/null
+storage "raft" {
+  path    = "/opt/vault/data"
+  node_id = "fiqueok-gen1-node"
+}
+
+listener "tcp" {
+  # Ouvir em todas as interfaces para permitir acesso via Tailscale
+  address     = "0.0.0.0:8200"
+  tls_disable = "true"
+}
+
+# Configurações de API e Cluster baseadas no IP da Tailnet
+api_addr     = "http://xxx.xxx.xxx.xxx:8200"
+cluster_addr = "https://127.0.0.1:8201"
+
+# Habilitar Interface Gráfica (UI)
+ui = true
+
+# Logs e Hardening
+disable_mlock = true
+log_level     = "info"
+log_format    = "json"
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault status
+Key                     Value
+---                     -----
+Seal Type               shamir
+Initialized             true
+Sealed                  false
+Total Shares            5
+Threshold               3
+Version                 1.21.3
+Build Date              2026-02-03T14:56:30Z
+Storage Type            raft
+Cluster Name            vault-cluster-163d0020
+Cluster ID              54d3873b-d4ff-233a-22b2-dbe231db4963
+Removed From Cluster    false
+HA Enabled              true
+HA Cluster              https://127.0.0.1:8201
+HA Mode                 active
+Active Since            2026-04-11T19:08:46.578369192Z
+Raft Committed Index    267
+Raft Applied Index      267
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ systemctl status vault 2>/dev/null
+systemctl status docker 2>/dev/null
+● vault.service - "HashiCorp Vault - A tool for managing secrets"
+     Loaded: loaded (/usr/lib/systemd/system/vault.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2026-04-11 14:28:37 UTC; 1 week 0 days ago
+       Docs: https://www.vaultproject.io/docs/
+   Main PID: 888 (vault)
+      Tasks: 8 (limit: 2185)
+     Memory: 83.9M (peak: 199.9M swap: 3.7M swap peak: 4.7M)
+        CPU: 45min 31.626s
+     CGroup: /system.slice/vault.service
+             └─888 /usr/bin/vault server -config=/etc/vault.d/vault.hcl
+
+Apr 18 20:42:02 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T20:42:02.433637Z"}
+Apr 18 20:47:12 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T20:47:12.434757Z"}
+Apr 18 20:52:22 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T20:52:22.435976Z"}
+Apr 18 20:57:32 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T20:57:32.436981Z"}
+Apr 18 21:02:42 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T21:02:42.437317Z"}
+Apr 18 21:07:52 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T21:07:52.438993Z"}
+Apr 18 21:13:02 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T21:13:02.439920Z"}
+Apr 18 21:18:12 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T21:18:12.440439Z"}
+Apr 18 21:23:22 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T21:23:22.441436Z"}
+Apr 18 21:28:32 vault-gf-01 vault[888]: {"@level":"warn","@message":"skipping new raft TLS config creation, keys are pending","@module":"core.raft","@timestamp":"2026-04-18T21:28:32.442036Z"}
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault version
+Vault v1.21.3 (f4f0f4eb7f467bbc99ec89121e1d1ad9c3d78558), built 2026-02-03T14:56:30Z
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ ss -tlnp | grep 8200
+LISTEN 0      4096                       0.0.0.0:8200       0.0.0.0:*
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ systemctl status cloudflared 2>/dev/null
+which cloudflared && cloudflared --version
+● cloudflared.service - cloudflared
+     Loaded: loaded (/etc/systemd/system/cloudflared.service; enabled; preset: enabled)
+     Active: active (running) since Sat 2026-04-18 15:54:46 UTC; 5h 34min ago
+   Main PID: 26783 (cloudflared)
+      Tasks: 8 (limit: 2185)
+     Memory: 17.2M (peak: 19.8M)
+        CPU: 45.992s
+     CGroup: /system.slice/cloudflared.service
+             └─26783 /usr/bin/cloudflared --no-autoupdate tunnel run --token eyJhIjoiZmVmY2QyZWJkZGIyYWYzMTA3MTgxOGEzNjg1MWJjNzQiLCJ0IjoiZTg3NzkxZTItZTBlNi00MGRhLTk3NzUtOGUzZWFkNjljM2I3IiwicyI6Ik1qTTBNR014TURFdFltUTROaTAwWlRKaExXRm1PREV0TlRVNFpESTVaRGM1WmpZMyJ9
+
+Apr 18 18:59:32 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:32Z ERR Connection terminated error="datagram manager encountered a failure while serving" connIndex=2
+Apr 18 18:59:33 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:33Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.13
+Apr 18 18:59:33 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:33Z ERR Connection terminated error="accept stream listener encountered a failure while serving" connIndex=1
+Apr 18 18:59:33 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:33Z INF Registered tunnel connection connIndex=0 connection=32ac3af6-bb14-4f79-b0f5-046d7c98899a event=0 ip=198.41.200.13 location=gru19 protocol=quic
+Apr 18 18:59:49 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:49Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.192.7
+Apr 18 18:59:49 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:49Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.200.53
+Apr 18 18:59:49 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:49Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.192.227
+Apr 18 18:59:50 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:50Z INF Registered tunnel connection connIndex=2 connection=399e7ceb-ac04-4e55-b40e-80c6eda183f2 event=0 ip=198.41.200.53 location=gru19 protocol=quic
+Apr 18 18:59:50 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:50Z INF Registered tunnel connection connIndex=3 connection=f16bc83f-9aed-463e-90b1-2f329743dc4b event=0 ip=198.41.192.227 location=gru14 protocol=quic
+Apr 18 18:59:50 vault-gf-01 cloudflared[26783]: 2026-04-18T18:59:50Z INF Registered tunnel connection connIndex=1 connection=e561758e-46b5-4220-986e-a0e3050ffacd event=0 ip=198.41.192.7 location=gru14 protocol=quic
+/usr/local/bin/cloudflared
+cloudflared version 2026.3.0 (built 2026-03-09-14:08 UTC)
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ tailscale ip -4
+tailscale status | head -20
+xxx.xxx.xxx.xxx
+xxx.xxx.xxx.xxx     vault-gf-01                feitosa.lima@   linux    -                                                  
+xxx.xxx.xxx.xxx    alk-c02gf8bu-1             feitosa.lima@   macOS    offline, last seen 45d ago                         
+xxx.xxx.xxx.xxx    alk-c02gf8bu               feitosa.lima@   macOS    offline, last seen 48d ago                         
+xxx.xxx.xxx.xxx  api-gf-01                  tagged-devices  linux    -                                                  
+xxx.xxx.xxx.xxx     desktop-o87tpqi            feitosa.lima@   windows  active; direct 192.168.15.5:41641, tx 8892896 rx 1023024
+xxx.xxx.xxx.xxx   fok-ldap-01                feitosa.lima@   linux    offline, last seen 21d ago                         
+xxx.xxx.xxx.xxx    iga-gf-02                  feitosa.lima@   linux    -                                                  
+xxx.xxx.xxx.xxx     linuxlite-virtual-machine  tagged-devices  linux    -                                                  
+xxx.xxx.xxx.xxx     rh-gf-01                   feitosa.lima@   linux    -                                                  
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault auth list
+Path         Type        Accessor                  Description                Version
+----         ----        --------                  -----------                -------
+token/       token       auth_token_20a7a3c7       token based credentials    n/a
+userpass/    userpass    auth_userpass_3022ff22    n/a                        n/a
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault list auth/userpass/users
+Keys
+----
+daniel
+paulo
+rose
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault policy list
+admin-policy
+api-proxy-policy
+default
+policy-colaborador-prj009
+reader-policy
+root
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault policy read admin-policy
+vault policy read reader-policy
+path "*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+# Permite listar e ler todos os segredos do motor 'secret'
+path "secret/data/*" {
+  capabilities = ["read", "list"]
+}
+
+# Permite ler metadados (necessário para navegação na UI)
+path "secret/metadata/*" {
+  capabilities = ["list", "read"]
+}
+
+# Permite visualizar as engines montadas para facilitar o uso da UI
+path "sys/mounts" {
+  capabilities = ["read"]
+}
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ vault audit list -detailed
+Path     Type    Description    Replication    Options
+----     ----    -----------    -----------    -------
+file/    file    n/a            replicated     file_path=/opt/vault/logs/vault_audit.log
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ ls -lh /opt/vault/logs/ 2>/dev/null
+ls -lh ~/vault-greenfield/vault-logs/ 2>/dev/null
+total 1.7M
+-rw------- 1 vault vault 1.7M Apr 18 21:30 vault_audit.log
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ du -sh /opt/vault/logs/vault_audit.log 2>/dev/null
+du -sh ~/vault-greenfield/vault-logs/audit.log 2>/dev/null
+1.7M    /opt/vault/logs/vault_audit.log
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ cat /etc/logrotate.d/vault 2>/dev/null
+ls /etc/logrotate.d/ | grep vault
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # 18. Uso atual de disco
+df -h
+
+# 19. Recursos da VM
+free -h
+nproc
+Filesystem                         Size  Used Avail Use% Mounted on
+tmpfs                              191M  1.1M  190M   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.7G  3.7G  61% /
+tmpfs                              952M     0  952M   0% /dev/shm
+tmpfs                              5.0M     0  5.0M   0% /run/lock
+/dev/sda2                          1.8G  200M  1.5G  13% /boot
+tmpfs                              191M   12K  191M   1% /run/user/1000
+               total        used        free      shared  buff/cache   available
+Mem:           1.1Gi       509Mi        97Mi       3.3Mi       715Mi       571Mi
+Swap:          1.9Gi        39Mi       1.8Gi
+2
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$ # 20. Confirmar geração e nome da VM onde o Vault roda
+Get-VM | Select-Object Name, Generation, State, MemoryAssigned | Format-Table
+
+# 21. Confirmar checkpoints existentes da VM do Vault
+Get-VMSnapshot -VMName "*vault*" | Select-Object Name, CreationTime
+Format-Table: command not found
+Get-VM: command not found
+Select-Object: command not found
+Select-Object: command not found
+Get-VMSnapshot: command not found
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$
+paulo@vault-gf-01:~$

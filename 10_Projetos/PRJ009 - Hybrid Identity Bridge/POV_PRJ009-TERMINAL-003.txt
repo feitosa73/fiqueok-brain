@@ -1,0 +1,279 @@
+O Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos os direitos reservados.
+
+Instale o PowerShell mais recente para obter novos recursos e aprimoramentos! https://aka.ms/PSWindows
+
+PS C:\WINDOWS\system32> # Variáveis de Contexto
+PS C:\WINDOWS\system32> $RG="fiqueok-prj009-poc-rg"
+PS C:\WINDOWS\system32> $NSG_NAME="fiqueok-prj009-gtw-canada-nsg"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # Alterar a regra padrão de SSH para negar tráfego vindo da Internet
+PS C:\WINDOWS\system32> az network nsg rule update `
+>>   --resource-group $RG `
+>>   --nsg-name $NSG_NAME `
+>>   --name "default-allow-ssh" `
+>>   --access Deny `
+>>   --priority 1000
+(ResourceNotFound) The Resource 'Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-canada-nsg' under resource group 'fiqueok-prj009-poc-rg' was not found. For more details please go to https://aka.ms/ARMResourceNotFoundFix
+Code: ResourceNotFound
+Message: The Resource 'Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-canada-nsg' under resource group 'fiqueok-prj009-poc-rg' was not found. For more details please go to https://aka.ms/ARMResourceNotFoundFix
+PS C:\WINDOWS\system32> # 1. Listar todos os NSGs dentro do seu Resource Group
+PS C:\WINDOWS\system32> az network nsg list --resource-group $RG --query "[].name" -o table
+Result
+----------------------------
+fiqueok-prj009-gtw-spotNSG
+fiqueok-prj009-gtw-canadaNSG
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Identificar qual NSG está associado especificamente à sua placa de rede (NIC)
+PS C:\WINDOWS\system32> az vm show -g $RG -n "fiqueok-prj009-gtw-canada" --query "networkProfile.networkInterfaces[0].id" -o tsv | ForEach-Object { $nicId = $_; az network nic show --id $nicId --query "networkSecurityGroup.id" -o tsv }
+/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-canadaNSG
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Atualizar a variável com o nome correto descoberto
+PS C:\WINDOWS\system32> $NSG_NAME_REAL = "fiqueok-prj009-gtw-canadaNSG"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Listar as regras para confirmar o nome (deve ser "default-allow-ssh")
+PS C:\WINDOWS\system32> az network nsg rule list --resource-group $RG --nsg-name $NSG_NAME_REAL --query "[].name" -o table
+Result
+-----------------
+default-allow-ssh
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 3. Bloquear o SSH vindo da Internet
+PS C:\WINDOWS\system32> az network nsg rule update `
+>>   --resource-group $RG `
+>>   --nsg-name $NSG_NAME_REAL `
+>>   --name "default-allow-ssh" `
+>>   --access Deny `
+>>   --priority 1000
+{
+  "access": "Deny",
+  "destinationAddressPrefix": "*",
+  "destinationAddressPrefixes": [],
+  "destinationPortRange": "22",
+  "destinationPortRanges": [],
+  "direction": "Inbound",
+  "etag": "W/\"f7142724-8258-4c64-bbcd-1bd8f37a309d\"",
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-canadaNSG/securityRules/default-allow-ssh",
+  "name": "default-allow-ssh",
+  "priority": 1000,
+  "protocol": "Tcp",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "sourceAddressPrefix": "*",
+  "sourceAddressPrefixes": [],
+  "sourcePortRange": "*",
+  "sourcePortRanges": [],
+  "type": "Microsoft.Network/networkSecurityGroups/securityRules"
+}
+PS C:\WINDOWS\system32>
+>>
+>>
+>>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> ssh fiqueok@20.220.226.22
+ssh: connect to host 20.220.226.22 port 22: Connection timed out
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> ssh fiqueok@10.0.0.4
+The authenticity of host '10.0.0.4 (10.0.0.4)' can't be established.
+ED25519 key fingerprint is SHA256:LkT7SxdjDQXkRY60TOAqcEdV6/YBOEvu6SRXufxo4Ck.
+This host key is known by the following other names/addresses:
+    C:\Users\fiqueok/.ssh/known_hosts:23: 20.220.226.22
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.0.0.4' (ED25519) to the list of known hosts.
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1044-azure x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Thu Feb 26 19:27:56 UTC 2026
+
+  System load:  0.0               Processes:             115
+  Usage of /:   6.8% of 28.89GB   Users logged in:       1
+  Memory usage: 40%               IPv4 address for eth0: 10.0.0.4
+  Swap usage:   0%
+
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+New release '24.04.4 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+*** System restart required ***
+Last login: Thu Feb 26 19:05:53 2026 from 179.93.133.235
+fiqueok@fiqueok-prj009-gtw-canada:~$ exit
+logout
+Connection to 10.0.0.4 closed.
+PS C:\WINDOWS\system32> # Variáveis
+PS C:\WINDOWS\system32> $KV_NAME="fiqueok-prj009-poc-kv"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # Criar o segredo
+PS C:\WINDOWS\system32> az keyvault secret set --vault-name $KV_NAME --name "teste-identidade" --value "Acesso_Auditado_Com_Sucesso"
+{
+  "attributes": {
+    "created": "2026-02-26T19:29:32+00:00",
+    "enabled": true,
+    "expires": null,
+    "notBefore": null,
+    "recoverableDays": 90,
+    "recoveryLevel": "Recoverable+Purgeable",
+    "updated": "2026-02-26T19:29:32+00:00"
+  },
+  "contentType": null,
+  "id": "https://fiqueok-prj009-poc-kv.vault.azure.net/secrets/teste-identidade/8be87a20b5c146cd83924ba66b739f1b",
+  "kid": null,
+  "managed": null,
+  "name": "teste-identidade",
+  "tags": {
+    "file-encoding": "utf-8"
+  },
+  "value": "Acesso_Auditado_Com_Sucesso"
+}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Obter o Principal ID da sua Managed Identity
+PS C:\WINDOWS\system32> $MSI_PRINCIPAL_ID=$(az identity show `
+>>   --resource-group "fiqueok-prj009-poc-rg" `
+>>   --name "fiqueok-prj009-api-identity" `
+>>   --query "principalId" -o tsv)
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Atribuir a permissão de "Key Vault Secrets User" no escopo do seu Key Vault
+PS C:\WINDOWS\system32> az role assignment create `
+>>   --role "Key Vault Secrets User" `
+>>   --assignee-object-id $MSI_PRINCIPAL_ID `
+>>   --scope "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv"
+RBAC service might reject creating role assignment without --assignee-principal-type in the future. Better to specify --assignee-principal-type manually.
+{
+  "condition": null,
+  "conditionVersion": null,
+  "createdBy": "6d559cb7-c1bb-428f-bc9d-ca1765831ff5",
+  "createdOn": "2026-02-26T17:37:19.051221+00:00",
+  "delegatedManagedIdentityResourceId": null,
+  "description": null,
+  "id": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv/providers/Microsoft.Authorization/roleAssignments/f9280006-c48f-42f8-bc76-ea50ce105932",
+  "name": "f9280006-c48f-42f8-bc76-ea50ce105932",
+  "principalId": "f2ff052f-0930-4d26-963d-f1edd4a1950c",
+  "principalName": "05195e48-c70c-413f-af09-47f2f7e58b9d",
+  "principalType": "ServicePrincipal",
+  "resourceGroup": "fiqueok-prj009-poc-rg",
+  "roleDefinitionId": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/providers/Microsoft.Authorization/roleDefinitions/4633458b-17de-408a-b874-0445c86b69e6",
+  "roleDefinitionName": "Key Vault Secrets User",
+  "scope": "/subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.KeyVault/vaults/fiqueok-prj009-poc-kv",
+  "type": "Microsoft.Authorization/roleAssignments",
+  "updatedBy": "6d559cb7-c1bb-428f-bc9d-ca1765831ff5",
+  "updatedOn": "2026-02-26T17:37:19.051221+00:00"
+}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Identificar recursos vinculados à VM Spot em East US 2
+PS C:\WINDOWS\system32> az resource list --resource-group "fiqueok-prj009-poc-rg" --location "eastus2" --query "[?contains(name, 'spot')].{Name:name, Type:type}" -o table
+Name                                                               Type
+-----------------------------------------------------------------  ---------------------------------------
+fiqueok-prj009-gtw-spotNSG                                         Microsoft.Network/networkSecurityGroups
+fiqueok-prj009-gtw-spotPublicIP                                    Microsoft.Network/publicIPAddresses
+fiqueok-prj009-gtw-spotVNET                                        Microsoft.Network/virtualNetworks
+fiqueok-prj009-gtw-spotVMNic                                       Microsoft.Network/networkInterfaces
+fiqueok-prj009-gtw-spot                                            Microsoft.Compute/virtualMachines
+fiqueok-prj009-gtw-spot_OsDisk_1_b8bf4310c95f4d7c8a3f20b82b11a125  Microsoft.Compute/disks
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Deletar a VM, o Disco e a Placa de Rede
+PS C:\WINDOWS\system32> az vm delete --resource-group $RG --name $VM_SPOT --yes --delete-disks
+argument -n/--name: expected one argument
+
+Examples from AI knowledge base:
+az vm delete --resource-group MyResourceGroup --name MyVm --yes
+Delete a VM without a prompt for confirmation.
+
+az vm delete --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Compute/virtualMachines/{VirtualMachineName}
+Delete a VM. (autogenerated)
+
+https://docs.microsoft.com/en-US/cli/azure/vm#az_vm_delete
+Read more about the command in reference docs
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Deletar os recursos de rede órfãos (IP, NSG e VNET)
+PS C:\WINDOWS\system32> az network public-ip delete --resource-group $RG --name "fiqueok-prj009-gtw-spotPublicIP"
+(PublicIPAddressCannotBeDeleted) Public IP address /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/publicIPAddresses/fiqueok-prj009-gtw-spotPublicIP can not be deleted since it is still allocated to resource /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkInterfaces/fiqueok-prj009-gtw-spotVMNic/ipConfigurations/ipconfigfiqueok-prj009-gtw-spot. In order to delete the public IP, disassociate/detach the Public IP address from the resource.  To learn howto do this, see aka.ms/deletepublicip.
+Code: PublicIPAddressCannotBeDeleted
+Message: Public IP address /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/publicIPAddresses/fiqueok-prj009-gtw-spotPublicIP can not be deleted since it is still allocated to resource /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkInterfaces/fiqueok-prj009-gtw-spotVMNic/ipConfigurations/ipconfigfiqueok-prj009-gtw-spot. In order to delete the public IP, disassociate/detach the Public IP address from the resource.  To learn how to do this, see aka.ms/deletepublicip.
+PS C:\WINDOWS\system32> az network nsg delete --resource-group $RG --name "fiqueok-prj009-gtw-spotNSG"
+(InUseNetworkSecurityGroupCannotBeDeleted) Network security group /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-spotNSG cannot be deleted because it is in use by the following resources: /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC. In order to delete the Network security group, remove the association with the resource(s). To learn how to do this, see aka.ms/deletensg.
+Code: InUseNetworkSecurityGroupCannotBeDeleted
+Message: Network security group /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-spotNSG cannot be deleted because it is in use bythe following resources: /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC. In order to delete the Network security group, remove the association with the resource(s). To learn how to do this, see aka.ms/deletensg.
+PS C:\WINDOWS\system32> az network vnet delete --resource-group $RG --name "fiqueok-prj009-gtw-spotVNET"
+(InUseSubnetCannotBeDeleted) Subnet fiqueok-prj009-gtw-spotSubnet is in use by /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC/ipConfigurations/IPCONFIGFIQUEOK-PRJ009-GTW-SPOT and cannot be deleted. In order to delete the subnet, delete all the resources within the subnet. See aka.ms/deletesubnet.
+Code: InUseSubnetCannotBeDeleted
+Message: Subnet fiqueok-prj009-gtw-spotSubnet is in use by /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC/ipConfigurations/IPCONFIGFIQUEOK-PRJ009-GTW-SPOT and cannot be deleted. In order to delete the subnet, delete all the resources within the subnet. See aka.ms/deletesubnet.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 1. Garantir as variáveis no contexto atual
+PS C:\WINDOWS\system32> $RG="fiqueok-prj009-poc-rg"
+PS C:\WINDOWS\system32> $VM_SPOT="fiqueok-prj009-gtw-spot"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 2. Deletar a VM e o Disco (Isso destrava a NIC e o IP)
+PS C:\WINDOWS\system32> az vm delete --resource-group $RG --name $VM_SPOT --yes --delete-disks
+unrecognized arguments: --delete-disks
+
+Examples from AI knowledge base:
+az vm delete --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Compute/virtualMachines/{VirtualMachineName}
+Delete a VM. (autogenerated)
+
+az vm delete --resource-group MyResourceGroup --name MyVm --yes
+Delete a VM without a prompt for confirmation.
+
+https://docs.microsoft.com/en-US/cli/azure/vm#az_vm_delete
+Read more about the command in reference docs
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 3. Deletar a Placa de Rede (Isso destrava o NSG e a VNET)
+PS C:\WINDOWS\system32> az network nic delete --resource-group $RG --name "fiqueok-prj009-gtw-spotVMNic"
+(NicInUse) Network Interface /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkInterfaces/fiqueok-prj009-gtw-spotVMNic is used by existing resource /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Compute/virtualMachines/fiqueok-prj009-gtw-spot. In order to delete the network interface, it must be dissociated from the resource. To learn more, see aka.ms/deletenic.
+Code: NicInUse
+Message: Network Interface /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkInterfaces/fiqueok-prj009-gtw-spotVMNic is used by existing resource /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Compute/virtualMachines/fiqueok-prj009-gtw-spot. In order to delete the network interface, it must be dissociated from the resource. To learn more, see aka.ms/deletenic.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> # 4. Agora sim, deletar os recursos órfãos
+PS C:\WINDOWS\system32> az network public-ip delete --resource-group $RG --name "fiqueok-prj009-gtw-spotPublicIP"
+(PublicIPAddressCannotBeDeleted) Public IP address /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/publicIPAddresses/fiqueok-prj009-gtw-spotPublicIP can not be deleted since it is still allocated to resource /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkInterfaces/fiqueok-prj009-gtw-spotVMNic/ipConfigurations/ipconfigfiqueok-prj009-gtw-spot. In order to delete the public IP, disassociate/detach the Public IP address from the resource.  To learn howto do this, see aka.ms/deletepublicip.
+Code: PublicIPAddressCannotBeDeleted
+Message: Public IP address /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/publicIPAddresses/fiqueok-prj009-gtw-spotPublicIP can not be deleted since it is still allocated to resource /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkInterfaces/fiqueok-prj009-gtw-spotVMNic/ipConfigurations/ipconfigfiqueok-prj009-gtw-spot. In order to delete the public IP, disassociate/detach the Public IP address from the resource.  To learn how to do this, see aka.ms/deletepublicip.
+PS C:\WINDOWS\system32> az network nsg delete --resource-group $RG --name "fiqueok-prj009-gtw-spotNSG"
+(InUseNetworkSecurityGroupCannotBeDeleted) Network security group /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-spotNSG cannot be deleted because it is in use by the following resources: /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC. In order to delete the Network security group, remove the association with the resource(s). To learn how to do this, see aka.ms/deletensg.
+Code: InUseNetworkSecurityGroupCannotBeDeleted
+Message: Network security group /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/fiqueok-prj009-poc-rg/providers/Microsoft.Network/networkSecurityGroups/fiqueok-prj009-gtw-spotNSG cannot be deleted because it is in use bythe following resources: /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC. In order to delete the Network security group, remove the association with the resource(s). To learn how to do this, see aka.ms/deletensg.
+PS C:\WINDOWS\system32> az network vnet delete --resource-group $RG --name "fiqueok-prj009-gtw-spotVNET"
+(InUseSubnetCannotBeDeleted) Subnet fiqueok-prj009-gtw-spotSubnet is in use by /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC/ipConfigurations/IPCONFIGFIQUEOK-PRJ009-GTW-SPOT and cannot be deleted. In order to delete the subnet, delete all the resources within the subnet. See aka.ms/deletesubnet.
+Code: InUseSubnetCannotBeDeleted
+Message: Subnet fiqueok-prj009-gtw-spotSubnet is in use by /subscriptions/8c8a1deb-2cbc-4c51-a177-87b874d44923/resourceGroups/FIQUEOK-PRJ009-POC-RG/providers/Microsoft.Network/networkInterfaces/FIQUEOK-PRJ009-GTW-SPOTVMNIC/ipConfigurations/IPCONFIGFIQUEOK-PRJ009-GTW-SPOT and cannot be deleted. In order to delete the subnet, delete all the resources within the subnet. See aka.ms/deletesubnet.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> az vm delete --resource-group "fiqueok-prj009-poc-rg" --name "fiqueok-prj009-gtw-spot" --yes
+PS C:\WINDOWS\system32> az disk delete --resource-group "fiqueok-prj009-poc-rg" --name "fiqueok-prj009-gtw-spot_OsDisk_1_b8bf4310c95f4d7c8a3f20b82b11a125" --yes
+PS C:\WINDOWS\system32> az network nic delete --resource-group "fiqueok-prj009-poc-rg" --name "fiqueok-prj009-gtw-spotVMNic"
+PS C:\WINDOWS\system32> az network public-ip delete --resource-group "fiqueok-prj009-poc-rg" --name "fiqueok-prj009-gtw-spotPublicIP"
+PS C:\WINDOWS\system32> az network nsg delete --resource-group "fiqueok-prj009-poc-rg" --name "fiqueok-prj009-gtw-spotNSG"
+PS C:\WINDOWS\system32> az network vnet delete --resource-group "fiqueok-prj009-poc-rg" --name "fiqueok-prj009-gtw-spotVNET"
+PS C:\WINDOWS\system32>

@@ -1,0 +1,1365 @@
+O Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos os direitos reservados.
+
+Instale o PowerShell mais recente para obter novos recursos e aprimoramentos! https://aka.ms/PSWindows
+
+PS C:\Users\fiqueok> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Permission denied, please try again.
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-107-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Tue Apr 14 12:01:36 AM UTC 2026
+
+  System load:  0.0                Processes:             115
+  Usage of /:   36.8% of 16.88GB   Users logged in:       0
+  Memory usage: 6%                 IPv4 address for eth0: 192.168.111.153
+  Swap usage:   0%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+12 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Mon Apr 13 22:17:54 2026 from xxx.xxx.xxx.xxx
+paulo@iga-gf-02:~$ sudo mkdir -p /srv/iga-project/data/{postgres,midpoint}
+cd /srv/iga-project
+[sudo] password for paulo:
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ ls
+data
+paulo@iga-gf-02:/srv/iga-project$ nano docker-compose.yml
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ ls -la
+total 12
+drwxr-xr-x 3 root root 4096 Apr 14 00:02 .
+drwxr-xr-x 3 root root 4096 Apr 14 00:02 ..
+drwxr-xr-x 4 root root 4096 Apr 14 00:02 data
+paulo@iga-gf-02:/srv/iga-project$ cd /srv/iga-project
+
+# Cria o arquivo docker-compose.yml usando heredoc (com sudo)
+sudo cat > docker-compose.yml << 'EOF'
+services:
+  postgres:
+    image: postgres:16
+    container_name: iga-postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpoint_user
+      POSTGRES_PASSWORD: 'P0stgr3sS3cur3#2026!'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpoint_user -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.10
+    container_name: iga-midpoint
+    ports:
+      - "8080:8080"
+    environment:
+      MP_SET_midpoint_repository_jdbcUrl: 'jdbc:postgresql://postgres:5432/midpoint?user=midpoint_user&password=P0stgr3sS3cur3#2026!'
+      MP_SET_midpoint_repository_type: native
+      MP_SET_midpoint_repository_database: postgresql
+      MP_SET_midpoint_repository_missingSchemaAction: create
+      MP_SET_midpoint_administrator_initialPassword: 'M1dP0!ntAdm!n#2026'
+      MP_KEYSTORE_PASSWORD: 'midpoint_keystore_2026'
+      JAVA_OPTS: "-Xms512m -Xmx1024m -Dfile.encoding=UTF-8"
+    volumes:
+      - ./data/midpoint:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+EOF
+
+# Verifica se o arquivo foi criado
+ls -la docker-compose.yml
+cat docker-compose.yml
+-bash: docker-compose.yml: Permission denied
+ls: cannot access 'docker-compose.yml': No such file or directory
+cat: docker-compose.yml: No such file or directory
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ ls
+data
+paulo@iga-gf-02:/srv/iga-project$ cd /srv/iga-project
+
+sudo tee docker-compose.yml > /dev/null << 'EOF'
+services:
+  postgres:
+    image: postgres:16
+    container_name: iga-postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpoint_user
+      POSTGRES_PASSWORD: 'P0stgr3sS3cur3#2026!'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpoint_user -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.10
+    container_name: iga-midpoint
+    ports:
+      - "8080:8080"
+    environment:
+      MP_SET_midpoint_repository_jdbcUrl: 'jdbc:postgresql://postgres:5432/midpoint?user=midpoint_user&password=P0stgr3sS3cur3#2026!'
+      MP_SET_midpoint_repository_type: native
+      MP_SET_midpoint_repository_database: postgresql
+      MP_SET_midpoint_repository_missingSchemaAction: create
+      MP_SET_midpoint_administrator_initialPassword: 'M1dP0!ntAdm!n#2026'
+      MP_KEYSTORE_PASSWORD: 'midpoint_keystore_2026'
+      JAVA_OPTS: "-Xms512m -Xmx1024m -Dfile.encoding=UTF-8"
+    volumes:
+      - ./data/midpoint:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+EOF
+
+# Agora verifique
+ls -la docker-compose.yml
+cat docker-compose.yml
+-rw-r--r-- 1 root root 1140 Apr 14 00:04 docker-compose.yml
+services:
+  postgres:
+    image: postgres:16
+    container_name: iga-postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpoint_user
+      POSTGRES_PASSWORD: 'P0stgr3sS3cur3#2026!'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpoint_user -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.10
+    container_name: iga-midpoint
+    ports:
+      - "8080:8080"
+    environment:
+      MP_SET_midpoint_repository_jdbcUrl: 'jdbc:postgresql://postgres:5432/midpoint?user=midpoint_user&password=P0stgr3sS3cur3#2026!'
+      MP_SET_midpoint_repository_type: native
+      MP_SET_midpoint_repository_database: postgresql
+      MP_SET_midpoint_repository_missingSchemaAction: create
+      MP_SET_midpoint_administrator_initialPassword: 'M1dP0!ntAdm!n#2026'
+      MP_KEYSTORE_PASSWORD: 'midpoint_keystore_2026'
+      JAVA_OPTS: "-Xms512m -Xmx1024m -Dfile.encoding=UTF-8"
+    volumes:
+      - ./data/midpoint:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ ls -la docker-compose.yml
+cat docker-compose.yml
+-rw-r--r-- 1 root root 1140 Apr 14 00:04 docker-compose.yml
+services:
+  postgres:
+    image: postgres:16
+    container_name: iga-postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpoint_user
+      POSTGRES_PASSWORD: 'P0stgr3sS3cur3#2026!'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpoint_user -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  midpoint:
+    image: evolveum/midpoint:4.10
+    container_name: iga-midpoint
+    ports:
+      - "8080:8080"
+    environment:
+      MP_SET_midpoint_repository_jdbcUrl: 'jdbc:postgresql://postgres:5432/midpoint?user=midpoint_user&password=P0stgr3sS3cur3#2026!'
+      MP_SET_midpoint_repository_type: native
+      MP_SET_midpoint_repository_database: postgresql
+      MP_SET_midpoint_repository_missingSchemaAction: create
+      MP_SET_midpoint_administrator_initialPassword: 'M1dP0!ntAdm!n#2026'
+      MP_KEYSTORE_PASSWORD: 'midpoint_keystore_2026'
+      JAVA_OPTS: "-Xms512m -Xmx1024m -Dfile.encoding=UTF-8"
+    volumes:
+      - ./data/midpoint:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ sudo docker compose up -d postgres
+[+] up 19/19
+ ✔ Image postgres:16           Pulled                                                         12.8s
+ ✔ Network iga-project_default Created                                                         0.0s
+ ✔ Container iga-postgres      Started                                                         0.3s
+paulo@iga-gf-02:/srv/iga-project$ sleep 25
+sudo docker ps   # Deve mostrar "iga-postgres" com status "healthy"
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                    PORTS      NAMES
+24832103b379   postgres:16   "docker-entrypoint.s…"   29 seconds ago   Up 28 seconds (healthy)   5432/tcp   iga-postgres
+paulo@iga-gf-02:/srv/iga-project$ sudo wget -O schema.sql https://raw.githubusercontent.com/Evolveum/midpoint/v4.10/config/sql/native/postgres.sql
+sudo wget -O audit.sql https://raw.githubusercontent.com/Evolveum/midpoint/v4.10/config/sql/native/postgres-audit.sql
+sudo wget -O quartz.sql https://raw.githubusercontent.com/Evolveum/midpoint/v4.10/config/sql/native/postgres-quartz.sql
+--2026-04-14 00:05:37--  https://raw.githubusercontent.com/Evolveum/midpoint/v4.10/config/sql/native/postgres.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.108.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 116328 (114K) [text/plain]
+Saving to: ‘schema.sql’
+
+schema.sql               100%[=================================>] 113.60K  --.-KB/s    in 0.01s
+
+2026-04-14 00:05:37 (7.73 MB/s) - ‘schema.sql’ saved [116328/116328]
+
+--2026-04-14 00:05:37--  https://raw.githubusercontent.com/Evolveum/midpoint/v4.10/config/sql/native/postgres-audit.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 15855 (15K) [text/plain]
+Saving to: ‘audit.sql’
+
+audit.sql                100%[=================================>]  15.48K  --.-KB/s    in 0.001s
+
+2026-04-14 00:05:37 (14.5 MB/s) - ‘audit.sql’ saved [15855/15855]
+
+--2026-04-14 00:05:37--  https://raw.githubusercontent.com/Evolveum/midpoint/v4.10/config/sql/native/postgres-quartz.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.108.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6769 (6.6K) [text/plain]
+Saving to: ‘quartz.sql’
+
+quartz.sql               100%[=================================>]   6.61K  --.-KB/s    in 0s
+
+2026-04-14 00:05:37 (39.2 MB/s) - ‘quartz.sql’ saved [6769/6769]
+
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ sudo docker exec -i iga-postgres psql -U midpoint_user -d midpoint < schema.sql
+sudo docker exec -i iga-postgres psql -U midpoint_user -d midpoint < audit.sql
+sudo docker exec -i iga-postgres psql -U midpoint_user -d midpoint < quartz.sql
+CREATE SCHEMA
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE EXTENSION
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+DO
+NOTICE:  gen_random_uuid already exists, skipping create EXTENSION pgcrypto
+CREATE TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+INSERT 0 1
+CREATE TABLE
+DO
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+DO
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+SELECT 0
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE PROCEDURE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+DROP TABLE
+NOTICE:  table "m_shadow_partition_def" does not exist, skipping
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE VIEW
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TRIGGER
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE INDEX
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  merging column "containertype" with inherited definition
+CREATE TABLE
+ALTER TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+ALTER TABLE
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "referencetype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+NOTICE:  merging column "owneroid" with inherited definition
+NOTICE:  moving and merging column "containertype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TYPE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE TRIGGER
+CREATE TABLE
+CREATE TABLE
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+NOTICE:  merging column "oid" with inherited definition
+NOTICE:  moving and merging column "objecttype" with inherited definition
+DETAIL:  User-specified column moved to the position of the inherited column.
+CREATE TABLE
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TRIGGER
+CREATE TABLE
+CREATE INDEX
+CREATE PROCEDURE
+NOTICE:  Change #51 executed!
+CALL
+NOTICE:  schema "midpoint_user" already exists, skipping
+CREATE SCHEMA
+NOTICE:  Main repo custom types already exist, OK...
+DO
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+CREATE TYPE
+DO
+NOTICE:  relation "m_global_metadata" already exists, skipping
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE PROCEDURE
+DO
+CREATE PROCEDURE
+NOTICE:  Audit change #10 executed!
+CALL
+DROP TABLE
+DROP TABLE
+NOTICE:  table "qrtz_fired_triggers" does not exist, skipping
+NOTICE:  table "qrtz_paused_trigger_grps" does not exist, skipping
+NOTICE:  table "qrtz_scheduler_state" does not exist, skipping
+DROP TABLE
+DROP TABLE
+NOTICE:  table "qrtz_locks" does not exist, skipping
+DROP TABLE
+DROP TABLE
+NOTICE:  table "qrtz_simple_triggers" does not exist, skipping
+NOTICE:  table "qrtz_cron_triggers" does not exist, skipping
+NOTICE:  table "qrtz_simprop_triggers" does not exist, skipping
+DROP TABLE
+DROP TABLE
+DROP TABLE
+NOTICE:  table "qrtz_blob_triggers" does not exist, skipping
+NOTICE:  table "qrtz_triggers" does not exist, skipping
+NOTICE:  table "qrtz_job_details" does not exist, skipping
+DROP TABLE
+NOTICE:  table "qrtz_calendars" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ sudo docker exec iga-postgres psql -U midpoint_user -d midpoint -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public';"
+ count
+-------
+     0
+(1 row)
+
+paulo@iga-gf-02:/srv/iga-project$ sudo docker compose up -d midpoint
+[+] up 7/7
+ ✔ Image evolveum/midpoint:4.10 Pulled                                                        14.1s
+ ✔ Container iga-postgres       Healthy                                                        0.6s
+ ✔ Container iga-midpoint       Started                                                        0.7s
+paulo@iga-gf-02:/srv/iga-project$ sudo docker logs iga-midpoint --tail 60
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.springframework.security.web.DefaultSecurityFilterChain] to OFF
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] to OFF
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.engine.jdbc.batch.internal.BatchingBatch] to OFF
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl] to WARN
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.sun.xml.xsom.parser.JAXPParser] to OFF
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [PROFILING] to INFO
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.evolveum.midpoint] to INFO
+00:06:25,357 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.evolveum.midpoint.web.util.MidPointProfilingServletFilter] to TRACE
+00:06:25,357 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [MIDPOINT_PROFILE_LOG] to Logger[com.evolveum.midpoint.web.util.MidPointProfilingServletFilter]
+00:06:25,358 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to WARN
+00:06:25,358 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [MIDPOINT_LOG] to Logger[ROOT]
+00:06:25,358 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ALT_LOG] to Logger[ROOT]
+00:06:25,358 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@40844aab - End of configuration.
+00:06:25,358 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@1f6c9cd8 - Registering current configuration as safe fallback point
+00:06:25,358 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4535b6d5 - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 450 milliseconds. ExecutionStatus=DO_NOT_INVOKE_NEXT_IF_ANY
+
+ClassPath: /opt/midpoint/lib/midpoint.jar
+2026-04-14 00:06:25,548 [] [main] INFO (com.evolveum.midpoint.web.boot.MidPointJarSignatureChecker): JAR signature verification succeeded for /opt/midpoint/lib/midpoint.jar
+00:06:25,969 |-WARN in ch.qos.logback.core.model.processor.conditional.IfModelHandler - The 'condition' attribute in <if> element is deprecated and slated for removal. Use <condition> element instead.
+00:06:25,969 |-WARN in ch.qos.logback.core.model.processor.conditional.IfModelHandler - See also https://logback.qos.ch/codes.html#conditionAttributeDeprecation
+00:06:25,977 |-WARN in ch.qos.logback.core.model.processor.conditional.IfModelHandler - The 'condition' attribute in <if> element is deprecated and slated for removal. Use <condition> element instead.
+00:06:25,977 |-WARN in ch.qos.logback.core.model.processor.conditional.IfModelHandler - See also https://logback.qos.ch/codes.html#conditionAttributeDeprecation
+00:06:25,979 |-WARN in ch.qos.logback.core.model.processor.conditional.IfModelHandler - The 'condition' attribute in <if> element is deprecated and slated for removal. Use <condition> element instead.
+00:06:25,979 |-WARN in ch.qos.logback.core.model.processor.conditional.IfModelHandler - See also https://logback.qos.ch/codes.html#conditionAttributeDeprecation
+00:06:25,981 |-WARN in ch.qos.logback.core.ConsoleAppender[ALT_LOG] - This appender no longer admits a layout as a sub-component, set an encoder instead.
+00:06:25,981 |-WARN in ch.qos.logback.core.ConsoleAppender[ALT_LOG] - To ensure compatibility, wrapping your layout in LayoutWrappingEncoder.
+00:06:25,981 |-WARN in ch.qos.logback.core.ConsoleAppender[ALT_LOG] - See also https://logback.qos.ch/codes.html#layoutInsteadOfEncoder for details
+2026-04-14 00:06:26,023 [] [main] INFO (org.springframework.boot.SpringApplication):
+                   _ _____              _
+             _    | |  _  \     _     _| |_
+   ___ ____ (_) __| | |_) |___ (_)___|_   _|
+  |  _ ` _ `| |/ _  |  __/  _ \| |  _` | |
+  | | | | | | | (_| | |  | (_) | | | | | |_
+  |_| |_| |_|_|\____|_|  \____/|_|_| |_|\__|  by Evolveum and partners
+
+  Licensed under the EUPL-1.2 or later.
+  Version: 4.10
+  Sources: https://github.com/Evolveum/midpoint, branch: master, build: v4.10
+  Bug reporting system: https://support.evolveum.com/
+  Product information: https://midpoint.evolveum.com
+
+
+2026-04-14 00:06:26,096 [] [main] INFO (com.evolveum.midpoint.web.boot.MidPointSpringApplication):Starting MidPointSpringApplication using Java 21.0.8 with PID 165 (/opt/midpoint/lib/midpoint.jar started by root in /)
+2026-04-14 00:06:26,097 [] [main] INFO (com.evolveum.midpoint.web.boot.MidPointSpringApplication):No active profile set, falling back to 1 default profile: "default"
+2026-04-14 00:06:28,458 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): midpoint.home = /opt/midpoint/var
+midpoint.home = /opt/midpoint/var
+2026-04-14 00:06:28,458 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/icf-connectors'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/connid-connectors'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/idm-legacy'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/schema'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/import'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/export'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/tmp'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/lib'. Creating.
+2026-04-14 00:06:28,459 [] [main] INFO (com.evolveum.midpoint.init.ApplicationHomeSetup): Missing midPoint home directory '/opt/midpoint/var/trace'. Creating.
+Loading midPoint configuration from file /opt/midpoint/var/config.xml
+2026-04-14 00:06:28,460 [] [main] INFO (com.evolveum.midpoint.init.StartupConfiguration): Loading midPoint configuration from file /opt/midpoint/var/config.xml
+2026-04-14 00:06:28,460 [] [main] INFO (com.evolveum.midpoint.init.StartupConfiguration): Configuration file /opt/midpoint/var/config.xml does not exist, the default one will be extracted.
+2026-04-14 00:06:29,089 [] [main] WARN (org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker): Bean 'noBeans' of type [java.util.ArrayList] is not eligiblefor getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator#0]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2026-04-14 00:06:29,324 [] [main] INFO (com.evolveum.midpoint.init.ConfigurablePrismContextFactory): Loading extension schemas from folder '/opt/midpoint/var/schema'.
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ curl -I http://localhost:8080/midpoint
+curl: (56) Recv failure: Connection reset by peer
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ sudo docker logs iga-midpoint --tail 60
+2026-04-14 00:06:47,785 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 830-suspicious.xml.
+2026-04-14 00:06:47,814 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created mark:00000000-0000-0000-0000-000000000830(Suspicious) as part of initial import
+2026-04-14 00:06:47,818 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 899-dashboard-compliance.xml.
+2026-04-14 00:06:47,847 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created dashboard:f941f3fc-dcef-4415-9e79-ae56b185a501(compliance-dashboard) as part of initial import
+2026-04-14 00:06:47,848 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 910-task-recompute-all-users.xml.
+2026-04-14 00:06:47,894 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created task:3e8b389e-7cc4-11ef-9295-4f3d13b4c390(Recompute all users) as part of initial import
+2026-04-14 00:06:47,896 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Initial object import finished (171 objects imported, 0 errors, 0 skipped)
+2026-04-14 00:06:47,896 [] [main] INFO (com.evolveum.midpoint.init.ModelInitialSetup): Model post initialization.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalObjectCache): Global object cache was already initialized -- ignoring this request.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalVersionCache): Global version cache was already initialized -- ignoring this request.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalQueryCache): Global query cache was already initialized -- ignoring this request.
+2026-04-14 00:06:48,039 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:20f08b13-5ba3-414b-bfb9-0842e290c7e1(ConnId com.evolveum.polygon.connector.ldap.ad.AdLdapConnector v3.9.2)
+2026-04-14 00:06:48,047 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:50a3ab9f-87b0-4537-a31a-22d072d88b68(ConnId org.identityconnectors.databasetable.DatabaseTableConnector v1.5.3.0)
+2026-04-14 00:06:48,054 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:06e12075-0bfa-44d3-8899-a152964863e4(ConnId com.evolveum.polygon.connector.ldap.LdapConnector v3.9.2)
+2026-04-14 00:06:48,060 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:ea8bf51d-2133-4c42-a82e-df30020948d1(ConnId com.evolveum.polygon.connector.csv.CsvConnector v2.9)
+2026-04-14 00:06:49,030 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:0364efd0-8e5d-449e-8c2c-6c30d6886d6e(Built-in ManualConnector v1.0.0)
+2026-04-14 00:06:49,037 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:7cf50c97-ea74-452d-8c44-c2a264fa4cb7(Built-in AsyncUpdateConnector v1.0.0)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:98ef8115-7823-44f5-8a05-180d59e37c64(Built-in AsyncProvisioningConnector v1.0.0)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId org.identityconnectors.databasetable.DatabaseTableConnector v1.5.3.0 (OID:50a3ab9f-87b0-4537-a31a-22d072d88b68)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in AsyncProvisioningConnector v1.0.0 (OID:98ef8115-7823-44f5-8a05-180d59e37c64)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.ldap.LdapConnector v3.9.2 (OID:06e12075-0bfa-44d3-8899-a152964863e4)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.ldap.ad.AdLdapConnector v3.9.2 (OID:20f08b13-5ba3-414b-bfb9-0842e290c7e1)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in AsyncUpdateConnector v1.0.0 (OID:7cf50c97-ea74-452d-8c44-c2a264fa4cb7)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in ManualConnector v1.0.0 (OID:0364efd0-8e5d-449e-8c2c-6c30d6886d6e)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.csv.CsvConnector v2.9 (OID:ea8bf51d-2133-4c42-a82e-df30020948d1)
+2026-04-14 00:06:49,045 [] [main] INFO (com.evolveum.midpoint.init.ModelInitialSetup): Model post initialization finished successfully.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Starting initial object import (if necessary).
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Directory /opt/midpoint/var/ exists. Using it.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Directory /opt/midpoint/var/post-initial-objects does not exist. Creating.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Post-initial object import finished (0 objects imported, 0 scripts executed)
+2026-04-14 00:06:49,435 [] [main] INFO (org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver): Exposing 6 endpoints beneath base path '/actuator'
+2026-04-14 00:06:49,560 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/model/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/report']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/js/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/css/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/img/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/fonts/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/static/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/static-web/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/less/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/wicket/resource/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,631 [] [main] INFO (org.apache.coyote.http11.Http11NioProtocol): Starting ProtocolHandler ["http-nio-8080"]
+2026-04-14 00:06:49,653 [] [main] INFO (org.springframework.boot.web.embedded.tomcat.TomcatWebServer): Tomcat started on port 8080 (http) with context path '/midpoint'
+2026-04-14 00:06:49,666 [] [main] INFO (com.evolveum.midpoint.web.boot.MidPointSpringApplication):Started MidPointSpringApplication in 24.039 seconds (process running for 25.243)
+2026-04-14 00:06:49,679 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.ClusterManager): Registering the node as started
+2026-04-14 00:06:49,682 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.NodeRegistrar): Found Tomcat JMX object 'Tomcat:type=Connector,port=8080': scheme = 'http', port = '8080'
+2026-04-14 00:06:49,683 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.NodeRegistrar): Changing node URL from null to http://5e5e98622dc4:8080/midpoint
+2026-04-14 00:06:49,707 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.quartz.LocalScheduler): Starting the Quartz scheduler
+2026-04-14 00:06:49,707 [] [ClusterManagerThread] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.ClusterManager): ClusterManager thread starting.
+2026-04-14 00:06:49,709 [] [main] INFO (org.quartz.core.QuartzScheduler): Scheduler midPointScheduler_$_DefaultNode started.
+2026-04-14 00:06:49,783 [] [http-nio-8080-exec-1] INFO (org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/midpoint]): Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-14 00:06:49,784 [] [http-nio-8080-exec-1] INFO (org.springframework.web.servlet.DispatcherServlet): Initializing Servlet 'dispatcherServlet'
+2026-04-14 00:06:49,789 [] [http-nio-8080-exec-1] INFO (org.springframework.web.servlet.DispatcherServlet): Completed initialization in 4 ms
+2026-04-14 00:06:50,167 [] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.repo.sqale.audit.SqaleAuditService): Audit cleanup, deleting records older than 2026-01-14T00:06:50.166Z.
+2026-04-14 00:06:50,168 [] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.repo.sqale.audit.SqaleAuditService): Audit cleanup based on age finished; deleted 0 entries in 0 seconds.
+2026-04-14 00:06:50,168 [REPOSITORY] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.model.impl.cleanup.CleanupPartialActivityRun): Audit records cleanup: Finished
+2026-04-14 00:06:50,246 [TASK_MANAGER] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.task.quartzimpl.tasks.TaskCleaner): Starting cleanup for closed tasks deleting up to 2026-03-14T00:06:50.246Z (duration 'P1M').
+2026-04-14 00:06:50,247 [TASK_MANAGER] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.task.quartzimpl.tasks.TaskCleaner): Task cleanup procedure finished. Successfully deleted 0 tasks; there were problems with deleting 0 tasks.
+2026-04-14 00:06:50,248 [REPOSITORY] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.model.impl.cleanup.CleanupPartialActivityRun): Closed tasks: Finished
+paulo@iga-gf-02:/srv/iga-project$ sudo docker logs iga-midpoint --tail 60
+2026-04-14 00:06:47,785 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 830-suspicious.xml.
+2026-04-14 00:06:47,814 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created mark:00000000-0000-0000-0000-000000000830(Suspicious) as part of initial import
+2026-04-14 00:06:47,818 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 899-dashboard-compliance.xml.
+2026-04-14 00:06:47,847 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created dashboard:f941f3fc-dcef-4415-9e79-ae56b185a501(compliance-dashboard) as part of initial import
+2026-04-14 00:06:47,848 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 910-task-recompute-all-users.xml.
+2026-04-14 00:06:47,894 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created task:3e8b389e-7cc4-11ef-9295-4f3d13b4c390(Recompute all users) as part of initial import
+2026-04-14 00:06:47,896 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Initial object import finished (171 objects imported, 0 errors, 0 skipped)
+2026-04-14 00:06:47,896 [] [main] INFO (com.evolveum.midpoint.init.ModelInitialSetup): Model post initialization.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalObjectCache): Global object cache was already initialized -- ignoring this request.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalVersionCache): Global version cache was already initialized -- ignoring this request.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalQueryCache): Global query cache was already initialized -- ignoring this request.
+2026-04-14 00:06:48,039 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:20f08b13-5ba3-414b-bfb9-0842e290c7e1(ConnId com.evolveum.polygon.connector.ldap.ad.AdLdapConnector v3.9.2)
+2026-04-14 00:06:48,047 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:50a3ab9f-87b0-4537-a31a-22d072d88b68(ConnId org.identityconnectors.databasetable.DatabaseTableConnector v1.5.3.0)
+2026-04-14 00:06:48,054 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:06e12075-0bfa-44d3-8899-a152964863e4(ConnId com.evolveum.polygon.connector.ldap.LdapConnector v3.9.2)
+2026-04-14 00:06:48,060 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:ea8bf51d-2133-4c42-a82e-df30020948d1(ConnId com.evolveum.polygon.connector.csv.CsvConnector v2.9)
+2026-04-14 00:06:49,030 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:0364efd0-8e5d-449e-8c2c-6c30d6886d6e(Built-in ManualConnector v1.0.0)
+2026-04-14 00:06:49,037 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:7cf50c97-ea74-452d-8c44-c2a264fa4cb7(Built-in AsyncUpdateConnector v1.0.0)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:98ef8115-7823-44f5-8a05-180d59e37c64(Built-in AsyncProvisioningConnector v1.0.0)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId org.identityconnectors.databasetable.DatabaseTableConnector v1.5.3.0 (OID:50a3ab9f-87b0-4537-a31a-22d072d88b68)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in AsyncProvisioningConnector v1.0.0 (OID:98ef8115-7823-44f5-8a05-180d59e37c64)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.ldap.LdapConnector v3.9.2 (OID:06e12075-0bfa-44d3-8899-a152964863e4)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.ldap.ad.AdLdapConnector v3.9.2 (OID:20f08b13-5ba3-414b-bfb9-0842e290c7e1)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in AsyncUpdateConnector v1.0.0 (OID:7cf50c97-ea74-452d-8c44-c2a264fa4cb7)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in ManualConnector v1.0.0 (OID:0364efd0-8e5d-449e-8c2c-6c30d6886d6e)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.csv.CsvConnector v2.9 (OID:ea8bf51d-2133-4c42-a82e-df30020948d1)
+2026-04-14 00:06:49,045 [] [main] INFO (com.evolveum.midpoint.init.ModelInitialSetup): Model post initialization finished successfully.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Starting initial object import (if necessary).
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Directory /opt/midpoint/var/ exists. Using it.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Directory /opt/midpoint/var/post-initial-objects does not exist. Creating.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Post-initial object import finished (0 objects imported, 0 scripts executed)
+2026-04-14 00:06:49,435 [] [main] INFO (org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver): Exposing 6 endpoints beneath base path '/actuator'
+2026-04-14 00:06:49,560 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/model/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/report']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/js/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/css/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/img/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/fonts/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/static/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/static-web/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/less/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/wicket/resource/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,631 [] [main] INFO (org.apache.coyote.http11.Http11NioProtocol): Starting ProtocolHandler ["http-nio-8080"]
+2026-04-14 00:06:49,653 [] [main] INFO (org.springframework.boot.web.embedded.tomcat.TomcatWebServer): Tomcat started on port 8080 (http) with context path '/midpoint'
+2026-04-14 00:06:49,666 [] [main] INFO (com.evolveum.midpoint.web.boot.MidPointSpringApplication):Started MidPointSpringApplication in 24.039 seconds (process running for 25.243)
+2026-04-14 00:06:49,679 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.ClusterManager): Registering the node as started
+2026-04-14 00:06:49,682 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.NodeRegistrar): Found Tomcat JMX object 'Tomcat:type=Connector,port=8080': scheme = 'http', port = '8080'
+2026-04-14 00:06:49,683 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.NodeRegistrar): Changing node URL from null to http://5e5e98622dc4:8080/midpoint
+2026-04-14 00:06:49,707 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.quartz.LocalScheduler): Starting the Quartz scheduler
+2026-04-14 00:06:49,707 [] [ClusterManagerThread] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.ClusterManager): ClusterManager thread starting.
+2026-04-14 00:06:49,709 [] [main] INFO (org.quartz.core.QuartzScheduler): Scheduler midPointScheduler_$_DefaultNode started.
+2026-04-14 00:06:49,783 [] [http-nio-8080-exec-1] INFO (org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/midpoint]): Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-14 00:06:49,784 [] [http-nio-8080-exec-1] INFO (org.springframework.web.servlet.DispatcherServlet): Initializing Servlet 'dispatcherServlet'
+2026-04-14 00:06:49,789 [] [http-nio-8080-exec-1] INFO (org.springframework.web.servlet.DispatcherServlet): Completed initialization in 4 ms
+2026-04-14 00:06:50,167 [] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.repo.sqale.audit.SqaleAuditService): Audit cleanup, deleting records older than 2026-01-14T00:06:50.166Z.
+2026-04-14 00:06:50,168 [] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.repo.sqale.audit.SqaleAuditService): Audit cleanup based on age finished; deleted 0 entries in 0 seconds.
+2026-04-14 00:06:50,168 [REPOSITORY] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.model.impl.cleanup.CleanupPartialActivityRun): Audit records cleanup: Finished
+2026-04-14 00:06:50,246 [TASK_MANAGER] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.task.quartzimpl.tasks.TaskCleaner): Starting cleanup for closed tasks deleting up to 2026-03-14T00:06:50.246Z (duration 'P1M').
+2026-04-14 00:06:50,247 [TASK_MANAGER] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.task.quartzimpl.tasks.TaskCleaner): Task cleanup procedure finished. Successfully deleted 0 tasks; there were problems with deleting 0 tasks.
+2026-04-14 00:06:50,248 [REPOSITORY] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.model.impl.cleanup.CleanupPartialActivityRun): Closed tasks: Finished
+paulo@iga-gf-02:/srv/iga-project$ sudo docker logs iga-midpoint --tail 60
+2026-04-14 00:06:47,785 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 830-suspicious.xml.
+2026-04-14 00:06:47,814 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created mark:00000000-0000-0000-0000-000000000830(Suspicious) as part of initial import
+2026-04-14 00:06:47,818 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 899-dashboard-compliance.xml.
+2026-04-14 00:06:47,847 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created dashboard:f941f3fc-dcef-4415-9e79-ae56b185a501(compliance-dashboard) as part of initial import
+2026-04-14 00:06:47,848 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Starting initial import of file 910-task-recompute-all-users.xml.
+2026-04-14 00:06:47,894 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Created task:3e8b389e-7cc4-11ef-9295-4f3d13b4c390(Recompute all users) as part of initial import
+2026-04-14 00:06:47,896 [] [main] INFO (com.evolveum.midpoint.init.InitialDataImport): Initial object import finished (171 objects imported, 0 errors, 0 skipped)
+2026-04-14 00:06:47,896 [] [main] INFO (com.evolveum.midpoint.init.ModelInitialSetup): Model post initialization.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalObjectCache): Global object cache was already initialized -- ignoring this request.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalVersionCache): Global version cache was already initialized -- ignoring this request.
+2026-04-14 00:06:47,901 [MODEL] [main] WARN (com.evolveum.midpoint.repo.cache.global.GlobalQueryCache): Global query cache was already initialized -- ignoring this request.
+2026-04-14 00:06:48,039 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:20f08b13-5ba3-414b-bfb9-0842e290c7e1(ConnId com.evolveum.polygon.connector.ldap.ad.AdLdapConnector v3.9.2)
+2026-04-14 00:06:48,047 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:50a3ab9f-87b0-4537-a31a-22d072d88b68(ConnId org.identityconnectors.databasetable.DatabaseTableConnector v1.5.3.0)
+2026-04-14 00:06:48,054 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:06e12075-0bfa-44d3-8899-a152964863e4(ConnId com.evolveum.polygon.connector.ldap.LdapConnector v3.9.2)
+2026-04-14 00:06:48,060 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:ea8bf51d-2133-4c42-a82e-df30020948d1(ConnId com.evolveum.polygon.connector.csv.CsvConnector v2.9)
+2026-04-14 00:06:49,030 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:0364efd0-8e5d-449e-8c2c-6c30d6886d6e(Built-in ManualConnector v1.0.0)
+2026-04-14 00:06:49,037 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:7cf50c97-ea74-452d-8c44-c2a264fa4cb7(Built-in AsyncUpdateConnector v1.0.0)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.resources.ConnectorManager): Discovered new connector connector:98ef8115-7823-44f5-8a05-180d59e37c64(Built-in AsyncProvisioningConnector v1.0.0)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId org.identityconnectors.databasetable.DatabaseTableConnector v1.5.3.0 (OID:50a3ab9f-87b0-4537-a31a-22d072d88b68)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in AsyncProvisioningConnector v1.0.0 (OID:98ef8115-7823-44f5-8a05-180d59e37c64)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.ldap.LdapConnector v3.9.2 (OID:06e12075-0bfa-44d3-8899-a152964863e4)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.ldap.ad.AdLdapConnector v3.9.2 (OID:20f08b13-5ba3-414b-bfb9-0842e290c7e1)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in AsyncUpdateConnector v1.0.0 (OID:7cf50c97-ea74-452d-8c44-c2a264fa4cb7)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: Built-in ManualConnector v1.0.0 (OID:0364efd0-8e5d-449e-8c2c-6c30d6886d6e)
+2026-04-14 00:06:49,045 [PROVISIONING] [main] INFO (com.evolveum.midpoint.provisioning.impl.ProvisioningServiceImpl): Discovered local connector connector: ConnId com.evolveum.polygon.connector.csv.CsvConnector v2.9 (OID:ea8bf51d-2133-4c42-a82e-df30020948d1)
+2026-04-14 00:06:49,045 [] [main] INFO (com.evolveum.midpoint.init.ModelInitialSetup): Model post initialization finished successfully.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Starting initial object import (if necessary).
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Directory /opt/midpoint/var/ exists. Using it.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Directory /opt/midpoint/var/post-initial-objects does not exist. Creating.
+2026-04-14 00:06:49,050 [] [main] INFO (com.evolveum.midpoint.init.PostInitialDataImport): Post-initial object import finished (0 objects imported, 0 scripts executed)
+2026-04-14 00:06:49,435 [] [main] INFO (org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver): Exposing 6 endpoints beneath base path '/actuator'
+2026-04-14 00:06:49,560 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/model/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/report']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/js/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/css/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/img/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/fonts/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,561 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/static/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/static-web/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/less/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/wicket/resource/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,562 [] [main] WARN (org.springframework.security.config.annotation.web.builders.WebSecurity): You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 00:06:49,631 [] [main] INFO (org.apache.coyote.http11.Http11NioProtocol): Starting ProtocolHandler ["http-nio-8080"]
+2026-04-14 00:06:49,653 [] [main] INFO (org.springframework.boot.web.embedded.tomcat.TomcatWebServer): Tomcat started on port 8080 (http) with context path '/midpoint'
+2026-04-14 00:06:49,666 [] [main] INFO (com.evolveum.midpoint.web.boot.MidPointSpringApplication):Started MidPointSpringApplication in 24.039 seconds (process running for 25.243)
+2026-04-14 00:06:49,679 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.ClusterManager): Registering the node as started
+2026-04-14 00:06:49,682 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.NodeRegistrar): Found Tomcat JMX object 'Tomcat:type=Connector,port=8080': scheme = 'http', port = '8080'
+2026-04-14 00:06:49,683 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.NodeRegistrar): Changing node URL from null to http://5e5e98622dc4:8080/midpoint
+2026-04-14 00:06:49,707 [] [main] INFO (com.evolveum.midpoint.task.quartzimpl.quartz.LocalScheduler): Starting the Quartz scheduler
+2026-04-14 00:06:49,707 [] [ClusterManagerThread] INFO (com.evolveum.midpoint.task.quartzimpl.cluster.ClusterManager): ClusterManager thread starting.
+2026-04-14 00:06:49,709 [] [main] INFO (org.quartz.core.QuartzScheduler): Scheduler midPointScheduler_$_DefaultNode started.
+2026-04-14 00:06:49,783 [] [http-nio-8080-exec-1] INFO (org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/midpoint]): Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-14 00:06:49,784 [] [http-nio-8080-exec-1] INFO (org.springframework.web.servlet.DispatcherServlet): Initializing Servlet 'dispatcherServlet'
+2026-04-14 00:06:49,789 [] [http-nio-8080-exec-1] INFO (org.springframework.web.servlet.DispatcherServlet): Completed initialization in 4 ms
+2026-04-14 00:06:50,167 [] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.repo.sqale.audit.SqaleAuditService): Audit cleanup, deleting records older than 2026-01-14T00:06:50.166Z.
+2026-04-14 00:06:50,168 [] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.repo.sqale.audit.SqaleAuditService): Audit cleanup based on age finished; deleted 0 entries in 0 seconds.
+2026-04-14 00:06:50,168 [REPOSITORY] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.model.impl.cleanup.CleanupPartialActivityRun): Audit records cleanup: Finished
+2026-04-14 00:06:50,246 [TASK_MANAGER] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.task.quartzimpl.tasks.TaskCleaner): Starting cleanup for closed tasks deleting up to 2026-03-14T00:06:50.246Z (duration 'P1M').
+2026-04-14 00:06:50,247 [TASK_MANAGER] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.task.quartzimpl.tasks.TaskCleaner): Task cleanup procedure finished. Successfully deleted 0 tasks; there were problems with deleting 0 tasks.
+2026-04-14 00:06:50,248 [REPOSITORY] [midPointScheduler_Worker-1] INFO (com.evolveum.midpoint.model.impl.cleanup.CleanupPartialActivityRun): Closed tasks: Finished
+paulo@iga-gf-02:/srv/iga-project$
+

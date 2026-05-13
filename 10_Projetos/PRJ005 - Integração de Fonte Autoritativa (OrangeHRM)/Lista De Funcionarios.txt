@@ -1,0 +1,101 @@
+FirstName,LastName,EmployeeID,Department,JobTitle,Salary,Email,SecurityGroup
+David,Vélez,FP001,Executive,CEO,48000,david.velez@fiqueok.com.br,GRP_EXEC_BOARD
+André,Chaves,FP002,Executive,Chairman,42000,andre.chaves@fiqueok.com.br,GRP_EXEC_FINANCE
+Luisa,Sotero,FP003,Executive,COO,39000,luisa.sotero@fiqueok.com.br,GRP_EXEC_OPERATIONS
+Daniela,Binatti,FP004,Executive,CTO,44000,daniela.binatti@fiqueok.com.br,GRP_EXEC_TECH
+Ricardo,Guerra,FP005,Executive,CIO,41000,ricardo.guerra@fiqueok.com.br,GRP_EXEC_TECH
+Laszlo,Bock,FP006,Executive,CHRO,38000,laszlo.bock@fiqueok.com.br,GRP_HR_EXEC
+Donner,Marcos,FP007,Executive,CSO,43000,donner.marcos@fiqueok.com.br,GRP_SEC_ADMINS
+Lucas,Carvalho,FP008,Technology - Dev,Senior Software Engineer,18000,lucas.carvalho@fiqueok.com.br,GRP_IT_DEV
+Juliana,Lima,FP009,Technology - Dev,Software Engineer,15000,juliana.lima@fiqueok.com.br,GRP_IT_DEV
+Gabriel,Martins,FP010,Technology - Dev,Junior Developer,9000,gabriel.martins@fiqueok.com.br,GRP_IT_DEV
+Patrícia,Silva,FP011,Technology - Dev,Backend Engineer,16500,patricia.silva@fiqueok.com.br,GRP_IT_DEV
+Felipe,Barbosa,FP012,Technology - Dev,Frontend Developer,14000,felipe.barbosa@fiqueok.com.br,GRP_IT_DEV
+Renata,Azevedo,FP013,Technology - Dev,Mobile Developer,15500,renata.azevedo@fiqueok.com.br,GRP_IT_DEV
+André,Costa,FP014,Technology - Dev,Full Stack Developer,17500,andre.costa@fiqueok.com.br,GRP_IT_DEV
+Tatiane,Nunes,FP015,Technology - DevOps,DevOps Engineer,18000,tatiane.nunes@fiqueok.com.br,GRP_IT_DEVOPS
+Eduardo,Ribeiro,FP016,Technology - DevOps,Cloud Engineer,17000,eduardo.ribeiro@fiqueok.com.br,GRP_IT_DEVOPS
+Leonardo,Moreira,FP017,Technology - DevOps,Site Reliability Engineer,19000,leonardo.moreira@fiqueok.com.br,GRP_IT_DEVOPS
+Aline,Teixeira,FP018,Technology - DevOps,Automation Specialist,16000,aline.teixeira@fiqueok.com.br,GRP_IT_DEVOPS
+Diego,Pinto,FP019,Technology - Security,Security Engineer,18500,diego.pinto@fiqueok.com.br,GRP_SEC_ENGINEERS
+Marcos,Gonçalves,FP020,Technology - Security,IAM Specialist,19500,marcos.goncalves@fiqueok.com.br,GRP_SEC_IAM
+Beatriz,Ramos,FP021,Technology - Security,Information Security Analyst,13000,beatriz.ramos@fiqueok.com.br,GRP_SEC_ANALYSTS
+Jonathan,Lopes,FP022,Technology - Security,Security Architect,22000,jonathan.lopes@fiqueok.com.br,GRP_SEC_ADMINS
+Viviane,Machado,FP023,Technology - Data,Data Engineer,17500,viviane.machado@fiqueok.com.br,GRP_DATA_ENGINEERS
+Gustavo,Castro,FP024,Technology - Data,Data Analyst,12000,gustavo.castro@fiqueok.com.br,GRP_DATA_ANALYSTS
+Larissa,Campos,FP025,Technology - Data,Data Scientist,19000,larissa.campos@fiqueok.com.br,GRP_DATA_SCIENCE
+Ricardo,Moraes,FP026,Technology - Data,BI Developer,14000,ricardo.moraes@fiqueok.com.br,GRP_DATA_BI
+Jéssica,Cardoso,FP027,Technology - Data,ETL Specialist,15500,jessica.cardoso@fiqueok.com.br,GRP_DATA_ETL
+Carlos,Rezende,FP028,Operations,Settlement Officer,9500,carlos.rezende@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Amanda,Freitas,FP029,Operations,Settlement Analyst,8500,amanda.freitas@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Thiago,Pereira,FP030,Operations,Chargeback Analyst,10000,thiago.pereira@fiqueok.com.br,GRP_OPS_CHARGEBACK
+Marcelo,Tavares,FP031,Operations,Settlement Coordinator,12000,marcelo.tavares@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Daniela,Rocha,FP032,Operations,Chargeback Coordinator,11500,daniela.rocha@fiqueok.com.br,GRP_OPS_CHARGEBACK
+Rogério,Neves,FP033,Operations,Payment Operations Analyst,9000,rogerio.neves@fiqueok.com.br,GRP_OPS_PAYMENT
+Vanessa,Dias,FP034,Operations,Reconciliation Specialist,10500,vanessa.dias@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Murilo,Barros,FP035,Operations,Settlement Assistant,7500,murilo.barros@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Daniel,Coelho,FP036,Operations,Chargeback Specialist,9500,daniel.coelho@fiqueok.com.br,GRP_OPS_CHARGEBACK
+Helena,Ferreira,FP037,Operations,Payment Execution Lead,13000,helena.ferreira@fiqueok.com.br,GRP_OPS_PAYMENT
+Carla,Araújo,FP038,Fraud & Compliance,Fraud Analyst,10000,carla.araujo@fiqueok.com.br,GRP_FRAUD_ANALYST
+Rodrigo,Monteiro,FP039,Fraud & Compliance,Senior Fraud Investigator,14000,rodrigo.monteiro@fiqueok.com.br,GRP_FRAUD_INVEST
+Priscila,Duarte,FP040,Fraud & Compliance,Compliance Analyst,12000,priscila.duarte@fiqueok.com.br,GRP_COMPLIANCE
+Sérgio,Amaral,FP041,Fraud & Compliance,KYC Specialist,11000,sergio.amaral@fiqueok.com.br,GRP_COMPLIANCE_KYC
+Letícia,Marques,FP042,Fraud & Compliance,AML Officer,13500,leticia.marques@fiqueok.com.br,GRP_COMPLIANCE_AML
+João,Meireles,FP043,Fraud & Compliance,Fraud Detection Specialist,12500,joao.meireles@fiqueok.com.br,GRP_FRAUD_DETECT
+Lívia,Sales,FP044,Fraud & Compliance,Fraud Operations Analyst,9000,livia.sales@fiqueok.com.br,GRP_FRAUD_ANALYST
+Henrique,Falcão,FP045,Fraud & Compliance,Risk and Control Officer,15500,henrique.falcao@fiqueok.com.br,GRP_RISK_CONTROLS
+Débora,Menezes,FP046,Fraud & Compliance,Compliance Coordinator,13000,debora.menezes@fiqueok.com.br,GRP_COMPLIANCE
+Rafaela,Viana,FP047,Fraud & Compliance,Cyber Risk Analyst,15000,rafaela.viana@fiqueok.com.br,GRP_SEC_ANALYSTS
+Pedro,Queiroz,FP048,Commercial & CS,Customer Success Lead,12000,pedro.queiroz@fiqueok.com.br,GRP_COMM_CS
+Ana,Paula,FP049,Commercial & CS,Customer Success Analyst,8500,ana.paula@fiqueok.com.br,GRP_COMM_CS
+Carlos,Eduardo,FP050,Commercial & CS,Inside Sales Executive,11500,carlos.eduardo@fiqueok.com.br,GRP_COMM_SALES
+Gabriela,Cruz,FP051,Commercial & CS,Sales Development Rep,9500,gabriela.cruz@fiqueok.com.br,GRP_COMM_SALES
+Luciana,Ferraz,FP052,Commercial & CS,Account Manager,12500,luciana.ferraz@fiqueok.com.br,GRP_COMM_ACCOUNTS
+Renato,Silveira,FP053,Commercial & CS,Pre-Sales Engineer,15000,renato.silveira@fiqueok.com.br,GRP_COMM_SALES
+Paulo,Henrique,FP054,Commercial & CS,Marketing Analyst,8500,paulo.henrique@fiqueok.com.br,GRP_COMM_MARKETING
+Michele,Carneiro,FP055,Commercial & CS,Retention Specialist,9500,michele.carneiro@fiqueok.com.br,GRP_COMM_CS
+Tatiana,Castilho,FP056,Commercial & CS,Communication Coordinator,11000,tatiana.castilho@fiqueok.com.br,GRP_COMM_MARKETING
+Vinícius,Fonseca,FP057,Commercial & CS,Sales Manager,16500,vinicius.fonseca@fiqueok.com.br,GRP_COMM_MANAGERS
+Sabrina,Mota,FP058,HR & Finance,HR Analyst,9000,sabrina.mota@fiqueok.com.br,GRP_HR
+Natália,Lacerda,FP059,HR & Finance,Finance Analyst,9500,natalia.lacerda@fiqueok.com.br,GRP_FINANCE
+Anderson,Peixoto,FP060,HR & Finance,Payroll Specialist,8500,anderson.peixoto@fiqueok.com.br,GRP_HR_PAYROLL
+Caroline,Mendes,FP061,HR & Finance,Accounting Coordinator,12000,caroline.mendes@fiqueok.com.br,GRP_FINANCE
+Joana,Batista,FP062,HR & Finance,People Business Partner,13000,joana.batista@fiqueok.com.br,GRP_HR_PBP
+Samuel,Rocha,FP063,Technology - Dev,Front-End Developer,12500,samuel.rocha@fiqueok.com.br,GRP_IT_DEV
+Roberta,Vidal,FP064,Technology - Dev,Backend Developer,14000,roberta.vidal@fiqueok.com.br,GRP_IT_DEV
+Igor,Américo,FP065,Technology - DevOps,Cloud Administrator,17000,igor.americo@fiqueok.com.br,GRP_IT_DEVOPS
+Danilo,Assis,FP066,Technology - Security,Security Analyst,13000,danilo.assis@fiqueok.com.br,GRP_SEC_ANALYSTS
+Fábio,Correia,FP067,Technology - Data,DataOps Engineer,16000,fabio.correia@fiqueok.com.br,GRP_DATA_ENGINEERS
+Karla,Vasconcelos,FP068,Operations,Settlement Associate,8500,karla.vasconcelos@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Eduarda,Brandão,FP069,Fraud & Compliance,Fraud Prevention Analyst,9500,eduarda.brandao@fiqueok.com.br,GRP_FRAUD_ANALYST
+Cássio,Borges,FP070,Commercial & CS,Account Executive,14500,cassio.borges@fiqueok.com.br,GRP_COMM_SALES
+Patrícia,Macedo,FP071,HR & Finance,Recruiter,9500,patricia.macedo@fiqueok.com.br,GRP_HR
+Felipe,Lourenço,FP072,Technology - Dev,Software Engineer,13500,felipe.lourenco@fiqueok.com.br,GRP_IT_DEV
+Amanda,Prado,FP073,Technology - DevOps,DevOps Specialist,17500,amanda.prado@fiqueok.com.br,GRP_IT_DEVOPS
+Gustavo,Franco,FP074,Technology - Security,Penetration Tester,19500,gustavo.franco@fiqueok.com.br,GRP_SEC_ADMINS
+Carla,Ribeiro,FP075,Technology - Data,Machine Learning Engineer,20000,carla.ribeiro@fiqueok.com.br,GRP_DATA_SCIENCE
+Leandro,Rezende,FP076,Operations,Chargeback Analyst,9500,leandro.rezende@fiqueok.com.br,GRP_OPS_CHARGEBACK
+Sofia,Bueno,FP077,Fraud & Compliance,Compliance Auditor,11500,sofia.bueno@fiqueok.com.br,GRP_COMPLIANCE
+Arthur,Henrique,FP078,Commercial & CS,Customer Experience Designer,13000,arthur.henrique@fiqueok.com.br,GRP_COMM_CS
+Beatriz,Moreira,FP079,HR & Finance,Compensation Analyst,10500,beatriz.moreira@fiqueok.com.br,GRP_HR
+Lucas,Toscano,FP080,Technology - Dev,Software Architect,20000,lucas.toscano@fiqueok.com.br,GRP_IT_DEV
+Emanuel,Nogueira,FP081,Technology - DevOps,Infrastructure Engineer,16000,emanuel.nogueira@fiqueok.com.br,GRP_IT_DEVOPS
+Cristina,Alvarenga,FP082,Technology - Security,Security Compliance Lead,21000,cristina.alvarenga@fiqueok.com.br,GRP_SEC_ADMINS
+Raul,Andrade,FP083,Technology - Data,BI Analyst,11000,raul.andrade@fiqueok.com.br,GRP_DATA_ANALYSTS
+Mariana,Quevedo,FP084,Operations,Operations Analyst,9500,mariana.quevedo@fiqueok.com.br,GRP_OPS_PAYMENT
+Thiago,Pazinato,FP085,Fraud & Compliance,Risk Data Analyst,12500,thiago.pazinato@fiqueok.com.br,GRP_RISK_CONTROLS
+Andreia,Abreu,FP086,Commercial & CS,Sales Operations Analyst,12000,andreia.abreu@fiqueok.com.br,GRP_COMM_SALES
+Murilo,Vasques,FP087,HR & Finance,Financial Controller,16000,murilo.vasques@fiqueok.com.br,GRP_FINANCE
+Helena,Santiago,FP088,Technology - Dev,QA Engineer,11500,helena.santiago@fiqueok.com.br,GRP_IT_DEV
+Julio,Oliveira,FP089,Technology - DevOps,Release Manager,15500,julio.oliveira@fiqueok.com.br,GRP_IT_DEVOPS
+Tatiana,Pozzebon,FP090,Technology - Security,SOC Analyst,12500,tatiana.pozzebon@fiqueok.com.br,GRP_SEC_ANALYSTS
+Rodrigo,Mendes,FP091,Technology - Data,Data Governance Specialist,16500,rodrigo.mendes@fiqueok.com.br,GRP_DATA_GOV
+Camila,Freire,FP092,Operations,Settlement Officer,10000,camila.freire@fiqueok.com.br,GRP_OPS_SETTLEMENT
+Paula,Bernardes,FP093,Fraud & Compliance,Compliance Assistant,8500,paula.bernardes@fiqueok.com.br,GRP_COMPLIANCE
+Marcos,Teixeira,FP094,Commercial & CS,Channel Partner Manager,15500,marcos.teixeira@fiqueok.com.br,GRP_COMM_MANAGERS
+Rafaela,Costa,FP095,HR & Finance,HR Coordinator,11000,rafaela.costa@fiqueok.com.br,GRP_HR
+Guilherme,Lira,FP096,Technology - Dev,Backend Developer,14000,guilherme.lira@fiqueok.com.br,GRP_IT_DEV
+Elaine,Cardin,FP097,Technology - DevOps,Cloud Architect,22000,elaine.cardin@fiqueok.com.br,GRP_IT_DEVOPS
+Ricardo,Ferraz,FP098,Technology - Data,Analytics Engineer,17500,ricardo.ferraz@fiqueok.com.br,GRP_DATA_ENGINEERS
+Tainá,Lopes,FP099,Operations,Chargeback Assistant,8000,taina.lopes@fiqueok.com.br,GRP_OPS_CHARGEBACK
+Fernanda,Rossetti,FP100,Fraud & Compliance,Laundering Prevention Specialist,14000,fernanda.rossetti@fiqueok.com.br,GRP_COMPLIANCE_AML

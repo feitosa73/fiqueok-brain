@@ -1,0 +1,370 @@
+PS C:\Users\fiqueok> sudo mkdir -p /srv/iga-project
+O Sudo está desabilitado neste computador. Para habilita-lo, vá para Developer Settings page no aplicativo Configurações
+PS C:\Users\fiqueok> sudo chown $USER:$USER /srv/iga-project
+No linha:1 caractere:12
++ sudo chown $USER:$USER /srv/iga-project
++            ~~~~~~
+Referência de variável inválida. ':' não era seguido de um caractere de nome de variável válido.
+Considere usar ${} para delimitar o nome.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidVariableReferenceWithDrive
+
+PS C:\Users\fiqueok> cd /srv/iga-project
+cd : Não é possível localizar o caminho 'C:\srv\iga-project' porque ele não existe.
+No linha:1 caractere:1
++ cd /srv/iga-project
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\srv\iga-project:String) [Set-Location], ItemNot
+   FoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok> ssh paulo@xxx.xxx.xxx.xxx
+paulo@xxx.xxx.xxx.xxx's password:
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.8.0-107-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Mon Apr 13 11:25:12 PM UTC 2026
+
+  System load:  0.0                Processes:             118
+  Usage of /:   36.8% of 16.88GB   Users logged in:       1
+  Memory usage: 6%                 IPv4 address for eth0: 192.168.111.153
+  Swap usage:   0%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+12 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Mon Apr 13 23:22:18 2026 from xxx.xxx.xxx.xxx
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$ PS C:\Users\fiqueok> sudo mkdir -p /srv/iga-project
+O Sudo está desabilitado neste computador. Para habilita-lo, vá para Developer Settings page no aplicativo Configurações
+PS C:\Users\fiqueok> sudo chown $USER:$USER /srv/iga-project
+No linha:1 caractere:12
++ sudo chown $USER:$USER /srv/iga-project
++            ~~~~~~
+Referência de variável inválida. ':' não era seguido de um caractere de nome de variável válido.
+Considere usar ${} para delimitar o nome.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidVariableReferenceWithDrive
+
+PS C:\Users\fiqueok> cd /srv/iga-project
+cd : Não é possível localizar o caminho 'C:\srv\iga-project' porque ele não existe.
+No linha:1 caractere:1
++ cd /srv/iga-project
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\srv\iga-project:String) [Set-Location], ItemNot
+   FoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.SetLocationCommand
+
+PS C:\Users\fiqueok>
+PS C:\Users\fiqueok>
+PS: command not found
+O: command not found
+PS: command not found
+No: command not found
++: command not found
++: command not found
+Referência: command not found
+-bash: ${}: bad substitution
+-bash: syntax error near unexpected token `('
++: command not found
+PS: command not found
+-bash: cd: too many arguments
+No: command not found
++: command not found
++: command not found
+-bash: syntax error near unexpected token `('
+FoundException: command not found
++: command not found
+-bash: syntax error near unexpected token `newline'
+-bash: syntax error near unexpected token `newline'
+paulo@iga-gf-02:~$ ^C
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$
+paulo@iga-gf-02:~$ sudo mkdir -p /srv/iga-project
+sudo chown $USER:$USER /srv/iga-project
+cd /srv/iga-project
+[sudo] password for paulo:
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ nano deply-midpoint.sh
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ cat deply-midpoint.sh
+#!/bin/bash
+# =================================================================
+# PRJ003 GMUD-011 - Deploy midPoint 4.9 Manual Control (Ubuntu 24.04)
+# Executor: Paulo Feitosa | Data: 21/01/2026
+# =================================================================
+
+set -e
+
+# CONFIGURAÇÃO
+PRJ_PATH="/srv/iga-project"
+COMPOSE_FILE="docker-compose.yml"
+SQL_URLS=(
+    "https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native-new/postgres.sql"
+    "https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native-new/postgres-audit.sql"
+    "https://raw.githubusercontent.com/Evolveum/midpoint/v4.9/config/sql/native-new/postgres-quartz.sql"
+)
+
+echo "🚀 PRJ003 GMUD-011 | midPoint 4.9 Greenfield Deploy"
+echo "📍 VM: $(hostname -I | awk '{print $1}')"
+echo "⏰ $(date)"
+echo "----------------------------------------"
+
+# PASSO 1: LIMPEZA NUCLEAR (Estado Virginal)
+echo "🧹 PASSO 1: LIMPEZA NUCLEAR"
+cd $PRJ_PATH || { echo "❌ Diretório $PRJ_PATH não existe"; exit 1; }
+sudo docker compose -f $COMPOSE_FILE down -v 2>/dev/null || true
+sudo rm -rf data *.sql config
+mkdir -p data/{postgres,midpoint,var}
+echo "✅ Ambiente limpo - estado virgem"
+
+# PASSO 2: DOCKER-COMPOSE (GMUD-011 Validado)
+cat > $COMPOSE_FILE << 'EOF'
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16
+    container_name: iga-postgres
+    environment:
+      POSTGRES_DB: midpoint
+      POSTGRES_USER: midpointuser
+      POSTGRES_PASSWORD: P0stgr3sS3cur32026!
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - iga-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U midpointuser -d midpoint"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  midpoint:
+    image: evolveum/midpoint:4.9
+    container_name: iga-midpoint
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/midpoint/var:/opt/midpoint/var
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      REPODATABASETYPE: postgresql
+      REPOJDBCURL: jdbc:postgresql://postgres:5432/midpoint?user=midpointuser&password=P0stgr3sS3cur32026!
+      JAVAOPTS: -Xms512m -Xmx1024m -Dmidpoint.repository.database=postgresql -Dfile.encoding=UTF-8
+      MPKEYSTOREPASSWORD: midpointkeystore2026
+      MPSET_midpoint_administrator_initialPassword: M1dP0!ntAdm!n2026
+    networks:
+      - iga-network
+
+networks:
+  iga-network:
+    driver: bridge
+EOF
+echo "✅ docker-compose.yml criado"
+
+# PASSO 3: POSTGRESQL
+echo "🐘 PASSO 2: POSTGRESQL 16"
+sudo docker compose up -d postgres
+echo "⏳ Aguardando healthcheck (30s)..."
+sleep 30
+
+if sudo docker exec iga-postgres pg_isready -U midpointuser -d midpoint 2>&1 | grep -q "accepting"; then
+    echo "✅ PostgreSQL 16 READY"
+else
+    echo "❌ POSTGRESQL FAILED"; sudo docker logs iga-postgres --tail 20; exit 1
+fi
+
+# PASSO 4: SCHEMA INJEÇÃO MANUAL (SQALE nativo)
+echo "📋 PASSO 3: SCHEMA midPoint 4.9 (SQALE)"
+for url in "${SQL_URLS[@]}"; do
+    file=$(basename "$url")
+    echo "📥 $file"
+    wget -q "$url" -O "$file"
+    sudo docker exec -i iga-postgres psql -U midpointuser -d midpoint < "$file"
+    rm "$file"
+done
+
+# Validação Schema (85+ tabelas)
+tables=$(sudo docker exec iga-postgres psql -U midpointuser -d midpoint -t -c \
+    "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public'" | tr -d ' ')
+[[ $tables -ge 85 ]] && echo "✅ Schema OK: $tables tabelas" || { echo "❌ Schema incompleto: $tables"; exit 1; }
+
+# PASSO 5: MIDPOINT BOOT
+echo "⚙️ PASSO 4: midPoint 4.9 BOOT"
+sudo docker compose up -d midpoint
+echo "⏳ Inicialização (90s)..."
+sleep 90
+
+# PASSO 6: VALIDAÇÃO CRÍTICA
+echo "🔍 PASSO 5: VALIDAÇÃO"
+logs=$(sudo docker logs iga-midpoint 2>&1 | tail -100)
+
+# Verificações obrigatórias GMUD-011
+if echo "$logs" | grep -q "Started MidPointSpringApplication"; then
+    echo "✅ [1/4] Spring Boot UP"
+else
+    echo "⚠️ Spring Boot ainda inicializando"
+fi
+
+if echo "$logs" | grep -q "Database schema is compliant"; then
+    echo "✅ [2/4] Schema VALIDADO"
+else
+    echo "❌ [2/4] Schema NÃO validado"
+    echo "=== LOGS PROBLEMÁTICOS ==="
+    echo "$logs" | tail -20
+    exit 1
+fi
+
+http_code=$(sudo docker exec iga-midpoint curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/midpoint 2>/dev/null || echo "000")
+[[ $http_code = "200" ]] && echo "✅ [3/4] HTTP 200 OK" || echo "⚠️ [3/4] HTTP $http_code"
+
+sudo docker ps --format "table {{.Names}}\t{{.Status}}" | grep iga
+
+# SUCESSO 🎉
+cat << EOF
+
+🎉✅ GMUD-011 EXECUTADA COM SUCESSO ✅🎉
+
+🌐 ACESSO:
+   URL: http://$(hostname -I | awk '{print $1}'):8080/midpoint
+
+👤 CREDENCIAIS:
+   Usuário: administrator
+   Senha:   M1dP0!ntAdm!n2026
+
+📊 MONITORAMENTO:
+   Logs: sudo docker logs -f iga-midpoint
+   Status: sudo docker ps
+
+✅ CRITÉRIOS ATINGIDOS GMUD-011:
+   [x] PostgreSQL 16 + Schema SQALE (85+ tabelas)
+   [x] midPoint 4.9 UP + "Database schema is compliant"
+   [x] HTTP 200 /midpoint
+   [x] Credenciais funcionais
+
+EOF
+
+echo "💾 Volumes persistentes em: $PRJ_PATH/data"
+echo "🔄 Para restart: sudo docker compose restart"
+echo "🛑 Para parar: sudo docker compose down"
+paulo@iga-gf-02:/srv/iga-project$ ls
+deply-midpoint.sh
+paulo@iga-gf-02:/srv/iga-project$ chmod +x deply-midpoint.sh
+paulo@iga-gf-02:/srv/iga-project$ ./deply-midpoint.sh
+🚀 PRJ003 GMUD-011 | midPoint 4.9 Greenfield Deploy
+📍 VM: 192.168.111.153
+⏰ Mon Apr 13 11:27:38 PM UTC 2026
+----------------------------------------
+🧹 PASSO 1: LIMPEZA NUCLEAR
+✅ Ambiente limpo - estado virgem
+✅ docker-compose.yml criado
+🐘 PASSO 2: POSTGRESQL 16
+WARN[0000] /srv/iga-project/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+[+] up 19/19
+ ✔ Image postgres:16               Pulled                                                     12.8s
+ ✔ Network iga-project_iga-network Created                                                     0.0s
+ ✔ Container iga-postgres          Started                                                     0.2s
+⏳ Aguardando healthcheck (30s)...
+✅ PostgreSQL 16 READY
+📋 PASSO 3: SCHEMA midPoint 4.9 (SQALE)
+📥 postgres.sql
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ sudo docker ps
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                    PORTS      NAMES
+a1ec3561a92a   postgres:16   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes (healthy)   5432/tcp   iga-postgres
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ cd /srv/iga-project
+sudo docker compose up -d midpoint
+WARN[0000] /srv/iga-project/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+[+] up 7/7
+ ✔ Image evolveum/midpoint:4.9 Pulled                                                         13.8s
+ ✔ Container iga-postgres      Healthy                                                         0.6s
+ ✔ Container iga-midpoint      Started                                                         0.7s
+paulo@iga-gf-02:/srv/iga-project$ sudo docker ps
+CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                    PORTS      NAMES
+a1ec3561a92a   postgres:16   "docker-entrypoint.s…"   14 minutes ago   Up 14 minutes (healthy)   5432/tcp   iga-postgres
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$ sudo docker ps -a          # Confirma container morto (Exited)
+sudo docker logs iga-midpoint --tail=50  # Motivo real da queda
+CONTAINER ID   IMAGE                   COMMAND                  CREATED              STATUS                  PORTS      NAMES
+01e6ed7c477e   evolveum/midpoint:4.9   "/opt/midpoint/bin/m…"   About a minute ago   Exited (1) About a minute ago              iga-midpoint
+a1ec3561a92a   postgres:16             "docker-entrypoint.s…"   15 minutes ago       Up 15 minutes(healthy)         5432/tcp   iga-postgres
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+        at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+        at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+        at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+        ... 76 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlRepositoryConfiguration' defined in class path resource [com/evolveum/midpoint/repo/sql/SqlRepositoryBeanConfig.class]: Failed to instantiate [com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threw exception with message: Unsupported database type: h2
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+        at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+        at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+        at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+        ... 90 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration]: Factory method 'sqlRepositoryConfiguration' threwexception with message: Unsupported database type: h2
+        at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+        at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+        ... 104 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Unsupported database type: h2
+        at com.evolveum.midpoint.repo.sql.Database.findDatabase(Database.java:54)
+        at com.evolveum.midpoint.repo.sql.SqlRepositoryConfiguration.<init>(SqlRepositoryConfiguration.java:290)
+        at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig.sqlRepositoryConfiguration(SqlRepositoryBeanConfig.java:75)
+        at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig$$SpringCGLIB$$0.CGLIB$sqlRepositoryConfiguration$1(<generated>)
+        at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+        at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+        at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348)
+        at com.evolveum.midpoint.repo.sql.SqlRepositoryBeanConfig$$SpringCGLIB$$0.sqlRepositoryConfiguration(<generated>)
+        at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+        at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+        ... 105 common frames omitted
+ERROR initializing midPoint: org.springframework.context.ApplicationContextException: Unable to start web server
+ROOT cause: java.lang.IllegalArgumentException: Unsupported database type: h2
+See midpoint.log for more details.
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+paulo@iga-gf-02:/srv/iga-project$
+
