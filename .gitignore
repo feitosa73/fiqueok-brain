@@ -1,0 +1,21 @@
+.obsidian/
+*.base
+*.log
+*.tmp
+*.env
+.env
+*.env.old
+**/data/
+**/postgres.sql
+**/Auditoria_PRJ003_Pre_Push.txt
+# Binários e Provedores de Infraestrutura (Terraform)
+*.exe
+.terraform/
+
+# Arquivos Compactados e Backups
+*.zip
+*.tar
+*.rar
+
+# Documentos pesados que excedem o limite do GitHub
+*.pdf
